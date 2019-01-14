@@ -10,8 +10,6 @@ runtime/*
 *.idea
 */.DS_Store
 */.idea
-*pkg
-*/pkg
 */bin
 *bin
 */test/*
