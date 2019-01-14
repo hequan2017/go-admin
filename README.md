@@ -35,7 +35,7 @@ TablePrefix = go_
 
 ### Run
 ```
-$ cd $GOPATH/src/go-gin-example
+$ cd $GOPATH/src/go-admin
 
 $ go run main.go 
 ```
