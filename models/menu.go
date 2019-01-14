@@ -4,8 +4,8 @@ import "github.com/jinzhu/gorm"
 
 type Menu struct {
 	Model
-	Path         string `json:"path"`
-	Method         string `json:"method"`
+	Path   string `json:"path"`
+	Method string `json:"method"`
 }
 
 func ExistMenuByID(id int) (bool, error) {
@@ -61,8 +61,8 @@ func EditMenu(id int, data interface{}) error {
 
 func AddMenu(data map[string]interface{}) error {
 	menu := Menu{
-		Path:         data["path"].(string),
-		Method:         data["method"].(string),
+		Path:   data["path"].(string),
+		Method: data["method"].(string),
 	}
 	if err := db.Create(&menu).Error; err != nil {
 		return err

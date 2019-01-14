@@ -18,7 +18,7 @@ func GetMenu(c *gin.Context) {
 	valid := validation.Validation{}
 	valid.Min(id, 1, "id").Message("ID必须大于0")
 
-	if ! valid.HasErrors() {
+	if !valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
 		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
 		return
@@ -28,17 +28,17 @@ func GetMenu(c *gin.Context) {
 	exists, err := menuService.ExistByID()
 
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_CHECK_EXIST_ARTICLE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
 		return
 	}
 	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST_ARTICLE, nil)
+		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST, nil)
 		return
 	}
 
 	article, err := menuService.Get()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
 		return
 	}
 
@@ -62,13 +62,13 @@ func GetMenus(c *gin.Context) {
 
 	total, err := menuService.Count()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_COUNT_ARTICLE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_COUNT_FAIL, nil)
 		return
 	}
 
 	articles, err := menuService.GetAll()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_GET_ARTICLES_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_GET_S_FAIL, nil)
 		return
 	}
 
@@ -90,17 +90,17 @@ func AddMenu(c *gin.Context) {
 	valid.MaxSize(path, 100, "path").Message("名称最长为100字符")
 	valid.MaxSize(path, 100, "method").Message("名称最长为100字符")
 
-	if ! valid.HasErrors() {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_ARTICLE_FAIL, nil)
+	if !valid.HasErrors() {
+		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
 
 	menuService := menu_service.Menus{
-		Path: path,
+		Path:   path,
 		Method: method,
 	}
 	if err := menuService.Add(); err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_ARTICLE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
 
@@ -122,28 +122,27 @@ func EditMenu(c *gin.Context) {
 	valid.MaxSize(path, 100, "method").Message("名称最长为100字符")
 	valid.Min(id, 1, "id").Message("ID必须大于0")
 
-
-	if ! valid.HasErrors() {
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_ARTICLE_FAIL, nil)
+	if !valid.HasErrors() {
+		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
 	menuService := menu_service.Menus{
-		Path: path,
+		Path:   path,
 		Method: method,
 	}
 	exists, err := menuService.ExistByID()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_CHECK_EXIST_ARTICLE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_FAIL, nil)
 		return
 	}
 	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST_ARTICLE, nil)
+		appG.Response(http.StatusOK, e.ERROR_EXIST_FAIL, nil)
 		return
 	}
 
 	err = menuService.Edit()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_ARTICLE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
 		return
 	}
 
@@ -165,17 +164,17 @@ func DeleteMenu(c *gin.Context) {
 	menuService := menu_service.Menus{ID: id}
 	exists, err := menuService.ExistByID()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_CHECK_EXIST_ARTICLE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_FAIL, nil)
 		return
 	}
 	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST_ARTICLE, nil)
+		appG.Response(http.StatusOK, e.ERROR_EXIST_FAIL, nil)
 		return
 	}
 
 	err = menuService.Delete()
 	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_ARTICLE_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
 		return
 	}
 
