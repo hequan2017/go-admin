@@ -15,7 +15,7 @@ $ go get github.com/hequan2017/go-admin
 
 ### Ready
 
-Create a **blog database** and import [SQL](https://github.com/hequan2017/go-admin/blob/master/docs/sql/go.sql)
+Create a **go database** and import [SQL](https://github.com/hequan2017/go-admin/blob/master/docs/sql/go.sql)
 
 ### Conf
 
