@@ -1,6 +1,6 @@
 # Go Admin
 
-An example of gin contains many useful features
+一个go api 简单例子 ,包含jwt,rbac等 直接拿过来就可以用！
 
 ## Installation
 ```

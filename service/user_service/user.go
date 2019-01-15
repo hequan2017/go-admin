@@ -36,12 +36,9 @@ func (a *User) Add() error {
 
 func (a *User) Edit() error {
 	return models.EditUser(a.ID, map[string]interface{}{
-		"username":    a.Username,
 		"password":    a.Password,
-		"created_by":  a.CreatedBy,
-		"modified_by": a.ModifiedBy,
+		"role_id": a.Role,
 	},
-		a.Role,
 	)
 }
 

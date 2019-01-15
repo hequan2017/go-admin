@@ -42,8 +42,8 @@ CREATE TABLE `go_menu` (
 
 CREATE TABLE `go_role_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) unsigned DEFAULT NULL COMMENT '用户ID',
-  `menu_id` int(11) unsigned DEFAULT NULL COMMENT '角色ID',
+  `role_id` int(11) unsigned DEFAULT NULL COMMENT '角色ID',
+  `menu_id` int(11) unsigned DEFAULT NULL COMMENT '菜单ID',
   `deleted_on` int(11) unsigned DEFAULT  '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';

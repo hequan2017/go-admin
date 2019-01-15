@@ -5,7 +5,7 @@ import (
 )
 
 type User struct {
-	ID       int    `gorm:"primary_key" json:"id"`
+	Model
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Role     []Role `json:"role" gorm:"many2many:user_role;"`
@@ -68,12 +68,18 @@ func GetUser(id int) (*User, error) {
 	return &user, nil
 }
 
-func EditUser(id int, data interface{}, role_id int) error {
+func EditUser(id int, data map[string]interface{}) error {
 	var role []Role
-	db.Where("id in (?)", role_id).Find(&role)
-	if err := db.Model(&User{}).Where("id = ? AND deleted_on = ? ", id, 0).Updates(data).Association("Role").Replace(role).Error; err != nil {
+	var user User
+	db.Where("id in (?)", data["role_id"].(int)).Find(&role)
+
+
+	if err := db.Where("id = ? AND deleted_on = ? ", id, 0).Find(&user).Error; err != nil {
 		return err
 	}
+	db.Model(&user).Association("Role").Replace(role)
+	db.Model(&user).Update(data)
+
 	return nil
 }
 
@@ -91,7 +97,10 @@ func AddUser(data map[string]interface{}) error {
 }
 
 func DeleteUser(id int) error {
-	if err := db.Where("id = ?", id).Delete(User{}).Error; err != nil {
+	var user User
+	db.Where("id = ?", id).Find(&user)
+	db.Model(&user).Association("Role").Delete()
+	if err := db.Where("id = ?", id).Delete(&user).Error; err != nil {
 		return err
 	}
 

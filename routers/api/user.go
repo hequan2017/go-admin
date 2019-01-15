@@ -156,3 +156,75 @@ func GetUsers(c *gin.Context) {
 
 	appG.Response(http.StatusOK, e.SUCCESS, data)
 }
+
+
+func EditUser(c *gin.Context) {
+	var (
+		appG = app.Gin{C: c}
+	)
+	id := com.StrTo(c.Param("id")).MustInt()
+	password := c.Query("password")
+	role_id := com.StrTo(c.Query("role_id")).MustInt()
+
+	valid := validation.Validation{}
+	valid.MaxSize(password, 100, "method").Message("名称最长为100字符")
+
+	if valid.HasErrors() {
+		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
+		return
+	}
+	userService := user_service.User{
+		ID:id,
+		Password: password,
+		Role:role_id,
+	}
+	exists, err := userService.ExistByID()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_FAIL, nil)
+		return
+	}
+	if !exists {
+		appG.Response(http.StatusOK, e.ERROR_EXIST_FAIL, nil)
+		return
+	}
+
+	err = userService.Edit()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
+		return
+	}
+
+	appG.Response(http.StatusOK, e.SUCCESS, nil)
+}
+
+func DeleteUser(c *gin.Context) {
+	appG := app.Gin{C: c}
+	valid := validation.Validation{}
+	id := com.StrTo(c.Param("id")).MustInt()
+	valid.Min(id, 1, "id").Message("ID必须大于0")
+
+	if valid.HasErrors() {
+		app.MarkErrors(valid.Errors)
+		appG.Response(http.StatusOK, e.INVALID_PARAMS, nil)
+		return
+	}
+
+	userService := user_service.User{ID: id}
+	exists, err := userService.ExistByID()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_FAIL, nil)
+		return
+	}
+	if !exists {
+		appG.Response(http.StatusOK, e.ERROR_EXIST_FAIL, nil)
+		return
+	}
+
+	err = userService.Delete()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
+		return
+	}
+
+	appG.Response(http.StatusOK, e.SUCCESS, nil)
+}
