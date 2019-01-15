@@ -18,7 +18,7 @@ func GetMenu(c *gin.Context) {
 	valid := validation.Validation{}
 	valid.Min(id, 1, "id").Message("ID必须大于0")
 
-	if !valid.HasErrors() {
+	if valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
 		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
 		return
@@ -87,10 +87,11 @@ func AddMenu(c *gin.Context) {
 	method := c.Query("method")
 
 	valid := validation.Validation{}
-	valid.MaxSize(path, 100, "path").Message("名称最长为100字符")
-	valid.MaxSize(path, 100, "method").Message("名称最长为100字符")
+	valid.MaxSize(path, 100, "path").Message("最长为100字符")
+	valid.MaxSize(method, 100, "method").Message("最长为100字符")
 
-	if !valid.HasErrors() {
+	if valid.HasErrors() {
+		app.MarkErrors(valid.Errors)
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
@@ -122,7 +123,8 @@ func EditMenu(c *gin.Context) {
 	valid.MaxSize(path, 100, "method").Message("名称最长为100字符")
 	valid.Min(id, 1, "id").Message("ID必须大于0")
 
-	if !valid.HasErrors() {
+	if valid.HasErrors() {
+		app.MarkErrors(valid.Errors)
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}

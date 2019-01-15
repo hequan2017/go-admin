@@ -1,12 +1,13 @@
 package menu_service
 
 import (
+	"fmt"
 	"github.com/hequan2017/go-admin/models"
 )
 
 type Menus struct {
-	ID   int
-	Path string
+	ID     int
+	Path   string
 	Method string
 
 	CreatedBy  string
@@ -18,10 +19,10 @@ type Menus struct {
 
 func (a *Menus) Add() error {
 	menu := map[string]interface{}{
-		"path":       a.Path,
-		"created_by": a.CreatedBy,
+		"path":   a.Path,
+		"method": a.Method,
 	}
-
+	fmt.Println("11111111111")
 	if err := models.AddMenu(menu); err != nil {
 		return err
 	}
@@ -31,9 +32,8 @@ func (a *Menus) Add() error {
 
 func (a *Menus) Edit() error {
 	return models.EditMenu(a.ID, map[string]interface{}{
-		"path":       a.Path,
-		"created_by":  a.CreatedBy,
-		"modified_by": a.ModifiedBy,
+		"path":   a.Path,
+		"method": a.Method,
 	})
 }
 

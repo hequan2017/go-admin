@@ -28,6 +28,12 @@ func InitRouter() *gin.Engine {
 		apiv1.PUT("/menus/:id", v1.EditMenu)
 		apiv1.DELETE("/menus/:id", v1.DeleteMenu)
 
+		apiv1.GET("/roles", v1.GetRoles)
+		apiv1.GET("/roles/:id", v1.GetRole)
+		apiv1.POST("/roles", v1.AddRole)
+		apiv1.PUT("/roles/:id", v1.EditRole)
+		apiv1.DELETE("/roles/:id", v1.DeleteRole)
+
 		apiv1.GET("/users", api.GetUsers)
 		apiv1.GET("/users/:id", api.GetUser)
 		apiv1.POST("/users", api.AddUser)

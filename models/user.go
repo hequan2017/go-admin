@@ -41,7 +41,7 @@ func ExistUserByID(id int) (bool, error) {
 
 func GetUserTotal(maps interface{}) (int, error) {
 	var count int
-	if err := db.Model(&Menu{}).Where(maps).Count(&count).Error; err != nil {
+	if err := db.Model(&User{}).Where(maps).Count(&count).Error; err != nil {
 		return 0, err
 	}
 
@@ -72,7 +72,6 @@ func EditUser(id int, data map[string]interface{}) error {
 	var role []Role
 	var user User
 	db.Where("id in (?)", data["role_id"].(int)).Find(&role)
-
 
 	if err := db.Where("id = ? AND deleted_on = ? ", id, 0).Find(&user).Error; err != nil {
 		return err
