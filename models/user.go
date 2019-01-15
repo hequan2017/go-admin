@@ -113,3 +113,13 @@ func CleanAllUser() error {
 
 	return nil
 }
+
+func GetUsersAll() ([]*User, error) {
+	var user []*User
+	err := db.Preload("Role").Find(&user).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+
+	return user, nil
+}

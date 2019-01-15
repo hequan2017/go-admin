@@ -1,6 +1,8 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 type Role struct {
 	Model
@@ -33,7 +35,7 @@ func GetRoleTotal(maps interface{}) (int, error) {
 
 func GetRoles(pageNum int, pageSize int, maps interface{}) ([]*Role, error) {
 	var role []*Role
-	err := db.Preload("Role").Where(maps).Offset(pageNum).Limit(pageSize).Find(&role).Error
+	err := db.Preload("Menu").Where(maps).Offset(pageNum).Limit(pageSize).Find(&role).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}
@@ -43,7 +45,7 @@ func GetRoles(pageNum int, pageSize int, maps interface{}) ([]*Role, error) {
 
 func GetRole(id int) (*Role, error) {
 	var role Role
-	err := db.Preload("Role").Where("id = ? AND deleted_on = ? ", id, 0).First(&role).Error
+	err := db.Preload("Menu").Where("id = ? AND deleted_on = ? ", id, 0).First(&role).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}
@@ -94,4 +96,14 @@ func CleanAllRole() error {
 	}
 
 	return nil
+}
+
+func GetRolesAll() ([]*Role, error) {
+	var role []*Role
+	err := db.Preload("Menu").Find(&role).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+
+	return role, nil
 }

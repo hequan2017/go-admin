@@ -57,7 +57,6 @@ func EditMenu(id int, data interface{}) error {
 	if err := db.Model(&Menu{}).Where("id = ? AND deleted_on = ? ", id, 0).Updates(data).Error; err != nil {
 		return err
 	}
-
 	return nil
 }
 

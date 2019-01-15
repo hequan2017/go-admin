@@ -24,7 +24,7 @@ func GetMenu(c *gin.Context) {
 		return
 	}
 
-	menuService := menu_service.Menus{ID: id}
+	menuService := menu_service.Menu{ID: id}
 	exists, err := menuService.ExistByID()
 
 	if err != nil {
@@ -55,7 +55,7 @@ func GetMenus(c *gin.Context) {
 		return
 	}
 
-	menuService := menu_service.Menus{
+	menuService := menu_service.Menu{
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}
@@ -96,7 +96,7 @@ func AddMenu(c *gin.Context) {
 		return
 	}
 
-	menuService := menu_service.Menus{
+	menuService := menu_service.Menu{
 		Path:   path,
 		Method: method,
 	}
@@ -128,7 +128,7 @@ func EditMenu(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
-	menuService := menu_service.Menus{
+	menuService := menu_service.Menu{
 		Path:   path,
 		Method: method,
 	}
@@ -163,7 +163,7 @@ func DeleteMenu(c *gin.Context) {
 		return
 	}
 
-	menuService := menu_service.Menus{ID: id}
+	menuService := menu_service.Menu{ID: id}
 	exists, err := menuService.ExistByID()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_FAIL, nil)

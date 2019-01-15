@@ -3,7 +3,7 @@ package v1
 import (
 	"github.com/Unknwon/com"
 	"github.com/hequan2017/go-admin/pkg/setting"
-	"github.com/hequan2017/go-admin/service/Role_service"
+	"github.com/hequan2017/go-admin/service/role_service"
 	"net/http"
 
 	"github.com/astaxie/beego/validation"

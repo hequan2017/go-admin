@@ -1,11 +1,11 @@
 package menu_service
 
 import (
-	"fmt"
+	"github.com/casbin/casbin"
 	"github.com/hequan2017/go-admin/models"
 )
 
-type Menus struct {
+type Menu struct {
 	ID     int
 	Path   string
 	Method string
@@ -15,14 +15,16 @@ type Menus struct {
 
 	PageNum  int
 	PageSize int
+
+	Menu     *models.Menu     `inject:""`
+	Enforcer *casbin.Enforcer `inject:""`
 }
 
-func (a *Menus) Add() error {
+func (a *Menu) Add() error {
 	menu := map[string]interface{}{
 		"path":   a.Path,
 		"method": a.Method,
 	}
-	fmt.Println("11111111111")
 	if err := models.AddMenu(menu); err != nil {
 		return err
 	}
@@ -30,14 +32,14 @@ func (a *Menus) Add() error {
 	return nil
 }
 
-func (a *Menus) Edit() error {
+func (a *Menu) Edit() error {
 	return models.EditMenu(a.ID, map[string]interface{}{
 		"path":   a.Path,
 		"method": a.Method,
 	})
 }
 
-func (a *Menus) Get() (*models.Menu, error) {
+func (a *Menu) Get() (*models.Menu, error) {
 
 	menu, err := models.GetMenu(a.ID)
 	if err != nil {
@@ -47,28 +49,28 @@ func (a *Menus) Get() (*models.Menu, error) {
 	return menu, nil
 }
 
-func (a *Menus) GetAll() ([]*models.Menu, error) {
-	menus, err := models.GetMenus(a.PageNum, a.PageSize, a.getMaps())
+func (a *Menu) GetAll() ([]*models.Menu, error) {
+	Menu, err := models.GetMenus(a.PageNum, a.PageSize, a.getMaps())
 	if err != nil {
 		return nil, err
 	}
 
-	return menus, nil
+	return Menu, nil
 }
 
-func (a *Menus) Delete() error {
+func (a *Menu) Delete() error {
 	return models.DeleteMenu(a.ID)
 }
 
-func (a *Menus) ExistByID() (bool, error) {
+func (a *Menu) ExistByID() (bool, error) {
 	return models.ExistMenuByID(a.ID)
 }
 
-func (a *Menus) Count() (int, error) {
+func (a *Menu) Count() (int, error) {
 	return models.GetMenuTotal(a.getMaps())
 }
 
-func (a *Menus) getMaps() map[string]interface{} {
+func (a *Menu) getMaps() map[string]interface{} {
 	maps := make(map[string]interface{})
 	maps["deleted_on"] = 0
 	return maps
