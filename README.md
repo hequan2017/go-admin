@@ -34,7 +34,11 @@ hequan  test
 
 ## Installation
 ```
-$ go get github.com/hequan2017/go-admin
+
+yum install go -y 
+go get github.com/hequan2017/go-admin
+export GOPROXY=https://goproxy.io
+
 ```
 
 ## How to run
@@ -68,9 +72,8 @@ TablePrefix = go_
 
 ### Run
 ```
-$ cd $GOPATH/src/go-admin
-
-$ go run main.go 
+cd $GOPATH/src/go-admin
+go run main.go 
 ```
 
 Project information and existing API
