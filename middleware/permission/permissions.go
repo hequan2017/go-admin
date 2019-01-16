@@ -8,6 +8,8 @@ import (
 
 func CasbinMiddleware(engine *casbin.Enforcer) gin.HandlerFunc {
 	return func(c *gin.Context) {
+
+
 		if b, err := engine.EnforceSafe("hequan", c.Request.URL.Path, c.Request.Method); err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code": "权限 判断错误",

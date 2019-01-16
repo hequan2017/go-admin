@@ -1,6 +1,34 @@
 # Go Admin
 
-一个go api 简单例子 ,包含jwt,rbac等 直接拿过来就可以用！
+一个go api 后端例子,包含JWT,RBAC等(逐步完善中...)
+
+## 主要说明
+
+### 表
+* user      username  password   
+* role      name 
+* menu      path   method
+
+
+###　权限验证说明
+>  利用的casbin库, 将  user  role  menu 进行自动关联
+
+```
+项目启动时,会自动加载权限. 如有更改,会删除对应的权限,重新加载.
+
+用户 关联 角色   角色关联菜单 , 只需要添加对应的数据,就会自动判断
+
+权限关系为:
+角色(role.name,menu.path,menu.method)  
+用户(user.username,role.name)
+
+例如:
+test  /api/v1/users  GET
+hequan  test
+
+当hequan  GET  /api/v1/users 地址的时候，会去检查权限，因为他属于test组，同时组有对应权限，所以本次请求会通过。
+
+```
 
 ## Installation
 ```
@@ -8,6 +36,9 @@ $ go get github.com/hequan2017/go-admin
 ```
 
 ## How to run
+
+### 特别注意
+>  github.com\hequan2017\go-admin\middleware\inject\inject.go   22 行, 现在是windows开发,如果想在linux运行，需要修改一下为linux格式    path := dir + "\\conf\\rbac_model.conf" 
 
 ### Required
 
@@ -43,13 +74,16 @@ $ go run main.go
 Project information and existing API
 
 ```
+2019/01/16 10:01:23 [info] replacing callback `gorm:update_time_stamp` from E:/allin/src/github.com/hequan2017/go-admin/models/models.go:40
+2019/01/16 10:01:23 [info] replacing callback `gorm:update_time_stamp` from E:/allin/src/github.com/hequan2017/go-admin/models/models.go:41
+2019/01/16 10:01:23 [info] replacing callback `gorm:delete` from E:/allin/src/github.com/hequan2017/go-admin/models/models.go:42
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
 
 Listening port is 8000
-Actual pid is 4393
+
 
 
 ## Features
@@ -61,3 +95,14 @@ Actual pid is 4393
 - Gin
 - Graceful restart or stop (fvbock/endless)
 - App configurable
+```
+
+## 开发者
+* 何全
+
+## 特别感谢
+```
+本项目主要参考了:
+https://github.com/EDDYCJY/go-gin-example  包含更多的例子，上传文件图片等。本项目进行了增改。
+https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
+```

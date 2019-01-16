@@ -3,6 +3,7 @@ package menu_service
 import (
 	"github.com/casbin/casbin"
 	"github.com/hequan2017/go-admin/models"
+	"github.com/hequan2017/go-admin/service/role_service"
 )
 
 type Menu struct {
@@ -33,10 +34,23 @@ func (a *Menu) Add() error {
 }
 
 func (a *Menu) Edit() error {
-	return models.EditMenu(a.ID, map[string]interface{}{
+	err := models.EditMenu(a.ID, map[string]interface{}{
 		"path":   a.Path,
 		"method": a.Method,
 	})
+	if err != nil {
+		return err
+	}
+	roleList := models.EditMenuGetRoles(a.ID)
+	roleService := Role_service.Role{}
+	for _, v := range roleList {
+		err := roleService.LoadPolicy(v)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (a *Menu) Get() (*models.Menu, error) {
@@ -59,7 +73,19 @@ func (a *Menu) GetAll() ([]*models.Menu, error) {
 }
 
 func (a *Menu) Delete() error {
-	return models.DeleteMenu(a.ID)
+	err := models.DeleteMenu(a.ID)
+	if err != nil {
+		return err
+	}
+	roleList := models.EditMenuGetRoles(a.ID)
+	roleService := Role_service.Role{}
+	for _, v := range roleList {
+		err := roleService.LoadPolicy(v)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (a *Menu) ExistByID() (bool, error) {
