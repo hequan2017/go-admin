@@ -32,6 +32,13 @@ hequan  test
 
 用户 admin 有所有的权限
 ```
+## demo
+```html
+先获取token
+http://47.104.140.38:8002/auth?username=hequan&password=123456
+然后把token 放到下面
+http://47.104.140.38:8002/api/v1/users?token=xxxxxxxxxxxxxxx
+```
 
 ## How to run
 
@@ -52,6 +59,11 @@ Create a **go database** and import [SQL](https://github.com/hequan2017/go-admin
 You should modify `conf/app.ini`
 
 ```
+
+
+
+
+
 [database]
 Type = mysql
 User = root
@@ -74,14 +86,13 @@ go run  main.go
 ### Run
 ```
 Project information and existing API
-```
+
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-
 Listening port is 8000
-
+```
 
 ## Features
 ```

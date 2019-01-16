@@ -1,7 +1,9 @@
 package util
 
 import (
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"reflect"
 	"time"
 
 	"github.com/hequan2017/go-admin/pkg/setting"
@@ -24,13 +26,12 @@ func GenerateToken(username, password string) (string, error) {
 		EncodeMD5(password),
 		jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),
-			//Issuer:    "",
+			Issuer:    "https://github.com/hequan2017/go-admin/",
 		},
 	}
 
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	token, err := tokenClaims.SignedString(jwtSecret)
-
 	return token, err
 }
 
@@ -47,3 +48,21 @@ func ParseToken(token string) (*Claims, error) {
 
 	return nil, err
 }
+
+
+
+
+func GetIdFromClaims(key string, claims jwt.Claims) string {
+	v := reflect.ValueOf(claims)
+	if v.Kind() == reflect.Map {
+		for _, k := range v.MapKeys() {
+			value := v.MapIndex(k)
+
+			if fmt.Sprintf("%s", k.Interface()) == key {
+				return fmt.Sprintf("%v", value.Interface())
+			}
+		}
+	}
+	return ""
+}
+

@@ -1,29 +1,20 @@
 package permission
 
 import (
-	"encoding/base64"
-	"encoding/json"
-	"fmt"
 	"github.com/casbin/casbin"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/hequan2017/go-admin/models"
-	"github.com/hequan2017/go-admin/pkg/logging"
+	jwtGet "github.com/hequan2017/go-admin/pkg/util"
 	"net/http"
-	"strings"
 )
 
 func CasbinMiddleware(engine *casbin.Enforcer) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.Query("token")
-		var user  models.User
-		token_header_payload_signature := strings.Split(token, ".")
-		token_decode, err := base64.URLEncoding.DecodeString(token_header_payload_signature[1])
-		if err != nil {
-			logging.Info(err)
-		}
-		_ = json.Unmarshal([]byte(string(token_decode)), &user)
-		fmt.Println(user.Username)
-		if b, err := engine.EnforceSafe(user.Username, c.Request.URL.Path, c.Request.Method); err != nil {
+		t, _ := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
+			return  nil,nil
+		})
+		if b, err := engine.EnforceSafe(jwtGet.GetIdFromClaims("username",t.Claims), c.Request.URL.Path, c.Request.Method); err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code": "权限 判断错误",
 				"msg":  "权限 判断错误",

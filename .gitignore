@@ -15,4 +15,3 @@ runtime/*
 */test/*
 */test
 */vendor
-main.go
