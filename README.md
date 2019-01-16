@@ -9,8 +9,7 @@
 * role      name 
 * menu      path   method
 
-
-###　权限验证说明
+### 权限验证说明
 >  利用的casbin库, 将  user  role  menu 进行自动关联
 
 ```
