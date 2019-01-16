@@ -27,6 +27,9 @@ hequan  test
 
 当hequan  GET  /api/v1/users 地址的时候，会去检查权限，因为他属于test组，同时组有对应权限，所以本次请求会通过。
 
+因为现在是测试 在模拟请求的时候 需要加上   /api/v1/users?token=xxxxxxxxxxx  
+
+用户 admin 有所有的权限
 ```
 
 ## Installation
@@ -73,16 +76,12 @@ $ go run main.go
 Project information and existing API
 
 ```
-2019/01/16 10:01:23 [info] replacing callback `gorm:update_time_stamp` from E:/allin/src/github.com/hequan2017/go-admin/models/models.go:40
-2019/01/16 10:01:23 [info] replacing callback `gorm:update_time_stamp` from E:/allin/src/github.com/hequan2017/go-admin/models/models.go:41
-2019/01/16 10:01:23 [info] replacing callback `gorm:delete` from E:/allin/src/github.com/hequan2017/go-admin/models/models.go:42
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
 
 Listening port is 8000
-
 
 
 ## Features
