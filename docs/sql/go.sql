@@ -8,8 +8,8 @@ CREATE TABLE `go_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8  COMMENT='用户管理';
 
-INSERT INTO `go_user` (`id`, `username`, `password`) VALUES ('1', 'admin', '123456');
-INSERT INTO `go_user` (`id`, `username`, `password`) VALUES ('2', 'hequan', '123456');
+INSERT INTO `go_user` (`id`, `username`, `password`) VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO `go_user` (`id`, `username`, `password`) VALUES ('2', 'hequan', 'e10adc3949ba59abbe56e057f20f883e');
 
 CREATE TABLE `go_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

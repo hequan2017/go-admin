@@ -52,6 +52,31 @@ func GetRole(id int) (*Role, error) {
 
 	return &role, nil
 }
+func CheckRoleName(name string ) (bool, error) {
+	var role Role
+	err := db.Where("name = ? AND deleted_on = ? ", name, 0).First(&role).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return false, err
+	}
+	if role.ID > 0 {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+func CheckRoleNameId(name string,id int ) (bool, error) {
+	var role Role
+	err := db.Where("name = ? AND id = ? AND deleted_on = ? ", name,id, 0).First(&role).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return false, err
+	}
+	if role.ID > 0 {
+		return true, nil
+	}
+
+	return false, nil
+}
 
 func EditRole(id int, data map[string]interface{}) error {
 	var role []Role

@@ -68,6 +68,33 @@ func GetUser(id int) (*User, error) {
 	return &user, nil
 }
 
+func CheckUserUsername(username string) (bool, error) {
+	var user User
+	err := db.Where("username = ? AND deleted_on = ? ", username, 0).First(&user).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return false, err
+	}
+	if user.ID > 0 {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+func  CheckUserUsernameId(username string,id int) (bool, error) {
+	var user User
+	err := db.Where("username = ? AND id = ? AND deleted_on = ? ", username,id, 0).First(&user).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return false, err
+	}
+	if user.ID > 0 {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+
 func EditUser(id int, data map[string]interface{}) error {
 	var role []Role
 	var user User

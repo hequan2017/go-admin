@@ -100,10 +100,11 @@ func AddUser(c *gin.Context) {
 	role_id := com.StrTo(c.Query("role_id")).MustInt()
 
 	valid := validation.Validation{}
-	valid.MaxSize(username, 100, "path").Message("名称最长为100字符")
-	valid.MaxSize(password, 100, "method").Message("名称最长为100字符")
+	valid.MaxSize(username, 100, "username").Message("最长为100字符")
+	valid.MaxSize(password, 100, "password").Message("最长为100字符")
 
-	if !valid.HasErrors() {
+	if valid.HasErrors() {
+		app.MarkErrors(valid.Errors)
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
@@ -113,7 +114,6 @@ func AddUser(c *gin.Context) {
 		Password: password,
 		Role:     role_id,
 	}
-
 	if err := userService.Add(); err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
@@ -162,11 +162,13 @@ func EditUser(c *gin.Context) {
 		appG = app.Gin{C: c}
 	)
 	id := com.StrTo(c.Param("id")).MustInt()
+	username := c.Query("username")
 	password := c.Query("password")
 	role_id := com.StrTo(c.Query("role_id")).MustInt()
 
 	valid := validation.Validation{}
-	valid.MaxSize(password, 100, "method").Message("名称最长为100字符")
+	valid.MaxSize(username, 100, "username").Message("最长为100字符")
+	valid.MaxSize(password, 100, "password").Message("最长为100字符")
 
 	if valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
@@ -175,6 +177,7 @@ func EditUser(c *gin.Context) {
 	}
 	userService := user_service.User{
 		ID:       id,
+		Username:username,
 		Password: password,
 		Role:     role_id,
 	}

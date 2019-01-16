@@ -1,8 +1,10 @@
 package user_service
 
 import (
+	"errors"
 	"github.com/casbin/casbin"
 	"github.com/hequan2017/go-admin/models"
+	"github.com/hequan2017/go-admin/pkg/util"
 )
 
 type User struct {
@@ -21,31 +23,55 @@ type User struct {
 }
 
 func (a *User) Check() (bool, error) {
-	return models.CheckUser(a.Username, a.Password)
+	return models.CheckUser(a.Username, util.EncodeMD5(a.Password))
 }
 
 func (a *User) Add() error {
 	menu := map[string]interface{}{
 		"username": a.Username,
-		"password": a.Password,
+		"password": util.EncodeMD5(a.Password),
 		"role_id":  a.Role,
 	}
+	username, _ := models.CheckUserUsername(a.Username)
+
+	if username {
+		return errors.New("username 名字重复,请更改！")
+	}
+
 	if err := models.AddUser(menu); err != nil {
 		return err
 	}
 
-	return a.LoadPolicy(a.ID)
+	if a.Role != 0 {
+		if err := a.LoadPolicy(a.ID); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (a *User) Edit() error {
-	err := models.EditUser(a.ID, map[string]interface{}{
+	data := map[string]interface{}{
+		"username": a.Username,
 		"password": a.Password,
 		"role_id":  a.Role,
-	})
+	}
+
+	username, _ := models.CheckUserUsernameId(a.Username, a.ID)
+
+	if username {
+		return errors.New("username 名字重复,请更改！")
+	}
+	err := models.EditUser(a.ID, data)
 	if err != nil {
 		return err
 	}
-	return a.LoadPolicy(a.ID)
+	if a.Role != 0 {
+		if err := a.LoadPolicy(a.ID); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (a *User) Get() (*models.User, error) {

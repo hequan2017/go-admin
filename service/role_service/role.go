@@ -1,6 +1,7 @@
 package Role_service
 
 import (
+	"errors"
 	"github.com/casbin/casbin"
 	"github.com/hequan2017/go-admin/models"
 )
@@ -24,22 +25,43 @@ func (a *Role) Add() error {
 		"name":    a.Name,
 		"menu_id": a.Menu,
 	}
+	name, _ := models.CheckRoleName(a.Name)
+
+	if name {
+		return errors.New("name 名字重复,请更改！")
+	}
+
 	if err := models.AddRole(role); err != nil {
 		return err
 	}
-
-	return a.LoadPolicy(a.ID)
+	if a.Menu != 0 {
+		if err := a.LoadPolicy(a.ID); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (a *Role) Edit() error {
-	err := models.EditRole(a.ID, map[string]interface{}{
+	data := map[string]interface{}{
 		"name":    a.Name,
 		"menu_id": a.Menu,
-	})
+	}
+	name, _ := models.CheckRoleNameId(a.Name, a.ID)
+
+	if name {
+		return errors.New("name 名字重复,请更改！")
+	}
+	err := models.EditRole(a.ID, data)
 	if err != nil {
 		return err
 	}
-	return a.LoadPolicy(a.ID)
+	if a.Menu != 0 {
+		if err := a.LoadPolicy(a.ID); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (a *Role) Get() (*models.Role, error) {
