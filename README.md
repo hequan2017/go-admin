@@ -1,6 +1,6 @@
 # Go Admin
 
-一个go api 后端例子,包含JWT,RBAC等(逐步完善中...)
+一个go api 后端例子,包含JWT,RBAC等!(逐步完善中...)
 
 ## 主要说明
 
@@ -8,6 +8,7 @@
 * user      username  password   
 * role      name 
 * menu      path   method
+
 
 ### 权限验证说明
 >  利用的casbin库, 将  user  role  menu 进行自动关联
@@ -32,19 +33,11 @@ hequan  test
 用户 admin 有所有的权限
 ```
 
-## Installation
-```
-
-yum install go -y 
-go get github.com/hequan2017/go-admin
-export GOPROXY=https://goproxy.io
-
-```
-
 ## How to run
 
 ### 特别注意
->  github.com\hequan2017\go-admin\middleware\inject\inject.go   22 行, 现在是windows开发,如果想在linux运行，需要修改一下为linux格式    path := dir + "\\conf\\rbac_model.conf" 
+
+>  github.com\hequan2017\go-admin\middleware\inject\inject.go   22 行, 现在是windows开发,如果想在linux运行，需要修改一下为linux格式    path := dir + "\\\conf\\\rbac_model.conf" 
 
 ### Required
 
@@ -66,18 +59,21 @@ Password =
 Host = 127.0.0.1:3306
 Name = go
 TablePrefix = go_
+```
 
-...
+## Installation
+```
+
+yum install go -y 
+export GOPROXY=https://goproxy.io
+git clone  http://github.com/hequan2017/go-admin
+go build main.go
+go run  main.go
 ```
 
 ### Run
 ```
-cd $GOPATH/src/go-admin
-go run main.go 
-```
-
 Project information and existing API
-
 ```
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
@@ -88,7 +84,7 @@ Listening port is 8000
 
 
 ## Features
-
+```
 - RESTful API
 - Gorm
 - logging
@@ -100,6 +96,8 @@ Listening port is 8000
 
 ## 开发者
 * 何全
+
+
 
 ## 特别感谢
 ```
