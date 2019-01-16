@@ -12,7 +12,7 @@ func CasbinMiddleware(engine *casbin.Enforcer) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.Query("token")
 		t, _ := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
-			return  nil,nil
+			return  jwtGet.JwtSecret,nil
 		})
 		if b, err := engine.EnforceSafe(jwtGet.GetIdFromClaims("username",t.Claims), c.Request.URL.Path, c.Request.Method); err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{
