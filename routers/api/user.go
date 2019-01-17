@@ -82,13 +82,13 @@ func GetUser(c *gin.Context) {
 		return
 	}
 
-	article, err := userService.Get()
+	user, err := userService.Get()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
 		return
 	}
-
-	appG.Response(http.StatusOK, e.SUCCESS, article)
+	user.Password = ""
+	appG.Response(http.StatusOK, e.SUCCESS, user)
 }
 
 func AddUser(c *gin.Context) {
@@ -136,7 +136,7 @@ func GetUsers(c *gin.Context) {
 	}
 
 	userService := user_service.User{
-		Username:username,
+		Username: username,
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}
@@ -147,14 +147,17 @@ func GetUsers(c *gin.Context) {
 		return
 	}
 
-	articles, err := userService.GetAll()
+	user, err := userService.GetAll()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_GET_S_FAIL, nil)
 		return
 	}
+	for _,v :=range user{
+		v.Password = ""
+	}
 
 	data := make(map[string]interface{})
-	data["lists"] = articles
+	data["lists"] = user
 	data["total"] = total
 
 	appG.Response(http.StatusOK, e.SUCCESS, data)
