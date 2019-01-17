@@ -67,7 +67,7 @@ func CheckRoleName(name string ) (bool, error) {
 
 func CheckRoleNameId(name string,id int ) (bool, error) {
 	var role Role
-	err := db.Where("name = ? AND id = ? AND deleted_on = ? ", name,id, 0).First(&role).Error
+	err := db.Where("name = ? AND id != ? AND deleted_on = ? ", name,id, 0).First(&role).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return false, err
 	}

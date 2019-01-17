@@ -5,9 +5,12 @@
 ## 主要说明
 
 ### 表
-* user      username  password   
-* role      name 
-* menu      path   method
+* user     
+    * username  password   
+* role      
+    * name 
+* menu     
+    * name path   method
 
 
 ### 权限验证说明

@@ -17,7 +17,7 @@ import (
 // @termsOfService https://github.com/hequan2017/go-admin
 
 // @license.name MIT
-// @license.url https://github.com/hequan2017/go-admin/blob/master/LICENSE
+// @license.url https://github.com/hequan2017/go-admin/master/LICENSE
 func main() {
 	setting.Setup()
 	models.Setup()

@@ -6,6 +6,7 @@ import (
 
 type Menu struct {
 	Model
+	Name  string `json:"name"`
 	Path   string `json:"path"`
 	Method string `json:"method"`
 }
@@ -61,6 +62,7 @@ func EditMenu(id int, data interface{}) error {
 
 func AddMenu(data map[string]interface{}) error {
 	menu := Menu{
+		Name:   data["name"].(string),
 		Path:   data["path"].(string),
 		Method: data["method"].(string),
 	}

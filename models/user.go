@@ -83,7 +83,7 @@ func CheckUserUsername(username string) (bool, error) {
 
 func  CheckUserUsernameId(username string,id int) (bool, error) {
 	var user User
-	err := db.Where("username = ? AND id = ? AND deleted_on = ? ", username,id, 0).First(&user).Error
+	err := db.Where("username = ? AND id != ? AND deleted_on = ? ", username,id, 0).First(&user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return false, err
 	}

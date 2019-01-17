@@ -83,10 +83,12 @@ func AddMenu(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
 	)
+	name := c.Query("name")
 	path := c.Query("path")
 	method := c.Query("method")
 
 	valid := validation.Validation{}
+	valid.MaxSize(name, 100, "name").Message("最长为100字符")
 	valid.MaxSize(path, 100, "path").Message("最长为100字符")
 	valid.MaxSize(method, 100, "method").Message("最长为100字符")
 
@@ -97,6 +99,7 @@ func AddMenu(c *gin.Context) {
 	}
 
 	menuService := menu_service.Menu{
+		Name:   name,
 		Path:   path,
 		Method: method,
 	}
@@ -115,12 +118,14 @@ func EditMenu(c *gin.Context) {
 	)
 
 	id := com.StrTo(c.Param("id")).MustInt()
+	name := c.Query("name")
 	path := c.Query("path")
 	method := c.Query("method")
 
 	valid := validation.Validation{}
-	valid.MaxSize(path, 100, "path").Message("名称最长为100字符")
-	valid.MaxSize(path, 100, "method").Message("名称最长为100字符")
+	valid.MaxSize(name, 100, "name").Message("最长为100字符")
+	valid.MaxSize(path, 100, "path").Message("最长为100字符")
+	valid.MaxSize(method, 100, "method").Message("最长为100字符")
 	valid.Min(id, 1, "id").Message("ID必须大于0")
 
 	if valid.HasErrors() {
@@ -129,6 +134,7 @@ func EditMenu(c *gin.Context) {
 		return
 	}
 	menuService := menu_service.Menu{
+		Name:   name,
 		Path:   path,
 		Method: method,
 	}

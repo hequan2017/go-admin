@@ -8,6 +8,7 @@ import (
 
 type Menu struct {
 	ID     int
+	Name  string
 	Path   string
 	Method string
 
