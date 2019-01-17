@@ -75,12 +75,23 @@ func (a *Role) Get() (*models.Role, error) {
 }
 
 func (a *Role) GetAll() ([]*models.Role, error) {
-	Role, err := models.GetRoles(a.PageNum, a.PageSize, a.getMaps())
-	if err != nil {
-		return nil, err
-	}
+	if a.Name != "" {
+		maps := make(map[string]interface{})
+		maps["deleted_on"] = 0
+		maps["name"]=a.Name
+		Role, err := models.GetRoles(a.PageNum, a.PageSize,maps)
+		if err != nil {
+			return nil, err
+		}
 
-	return Role, nil
+		return Role, nil
+	}else{
+		Role, err := models.GetRoles(a.PageNum, a.PageSize, a.getMaps())
+		if err != nil {
+			return nil, err
+		}
+		return Role, nil
+	}
 }
 
 func (a *Role) Delete() error {

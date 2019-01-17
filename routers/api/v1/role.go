@@ -84,6 +84,7 @@ func AddRole(c *gin.Context) {
 
 func GetRoles(c *gin.Context) {
 	appG := app.Gin{C: c}
+	name := c.Query("name")
 	valid := validation.Validation{}
 
 	if valid.HasErrors() {
@@ -93,6 +94,7 @@ func GetRoles(c *gin.Context) {
 	}
 
 	RoleService := Role_service.Role{
+		Name:  name,
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}

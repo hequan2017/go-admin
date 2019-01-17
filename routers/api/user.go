@@ -125,6 +125,8 @@ func AddUser(c *gin.Context) {
 
 func GetUsers(c *gin.Context) {
 	appG := app.Gin{C: c}
+	username := c.Query("username")
+
 	valid := validation.Validation{}
 
 	if valid.HasErrors() {
@@ -134,6 +136,7 @@ func GetUsers(c *gin.Context) {
 	}
 
 	userService := user_service.User{
+		Username:username,
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}

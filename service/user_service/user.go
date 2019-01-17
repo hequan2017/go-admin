@@ -85,11 +85,22 @@ func (a *User) Get() (*models.User, error) {
 }
 
 func (a *User) GetAll() ([]*models.User, error) {
-	user, err := models.GetUsers(a.PageNum, a.PageSize, a.getMaps())
-	if err != nil {
-		return nil, err
+	if a.Username != "" {
+		maps := make(map[string]interface{})
+		maps["deleted_on"] = 0
+		maps["username"] = a.Username
+		user, err := models.GetUsers(a.PageNum, a.PageSize, maps,)
+		if err != nil {
+			return nil, err
+		}
+		return user, nil
+	}else{
+		user, err := models.GetUsers(a.PageNum, a.PageSize, a.getMaps())
+		if err != nil {
+			return nil, err
+		}
+		return user, nil
 	}
-	return user, nil
 }
 
 func (a *User) Delete() error {
