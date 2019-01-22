@@ -1,6 +1,6 @@
 # Go Admin
 
-一个go api 后端例子,包含JWT,RBAC等!(逐步完善中...)
+一个go api 后端例子,包含JWT,RBAC(Casbin)等! (逐步完善中...)
 
 ## 主要说明
 
@@ -19,21 +19,22 @@
 ```
 项目启动时,会自动加载权限. 如有更改,会删除对应的权限,重新加载.
 
-用户 关联 角色   角色关联菜单 , 只需要添加对应的数据,就会自动判断
+用户关联角色  |  角色关联菜单  
 
 权限关系为:
 角色(role.name,menu.path,menu.method)  
 用户(user.username,role.name)
 
 例如:
-test  /api/v1/users  GET
-hequan  test
+test      /api/v1/users       GET
+hequan     test
 
 当hequan  GET  /api/v1/users 地址的时候，会去检查权限，因为他属于test组，同时组有对应权限，所以本次请求会通过。
 
-因为现在是测试 在模拟请求的时候 需要加上   /api/v1/users?token=xxxxxxxxxxx  
+因为现在是测试  在模拟请求的时候 需要加上   /api/v1/users?token=xxxxxxxxxxx  
 
-用户 admin 有所有的权限
+用户 admin 有所有的权限,不进行权限匹配
+
 ```
 ## demo
 ```html
