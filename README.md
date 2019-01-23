@@ -55,7 +55,9 @@ http://47.104.140.38:8002/api/v1/users?token=xxxxxxxxxxxxxxx
 
 ### Ready
 
-Create a **go database** and import [SQL](https://github.com/hequan2017/go-admin/docs/sql/go.sql)
+Create a **go database** and import [SQL](https://github.com/hequan2017/go-admin/blob/master/docs/sql/go.sql)
+
+导入sql,创建表
 
 ### Conf
 
