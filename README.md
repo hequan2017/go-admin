@@ -75,9 +75,11 @@ TablePrefix = go_
 ```
 
 yum install go -y 
-export GOPROXY=https://goproxy.io
-git clone  http://github.com/hequan2017/go-admin
 
+
+export GOPROXY=https://goproxy.io
+git get  http://github.com/hequan2017/go-admin
+cd $GOPATH/src/github.com/hequan2017/go-admin
 go build main.go
 go run  main.go
 ```
