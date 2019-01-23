@@ -48,7 +48,6 @@ http://47.104.140.38:8002/api/v1/users?token=xxxxxxxxxxxxxxx
 
 ### 特别注意
 
->  github.com\hequan2017\go-admin\middleware\inject\inject.go   22 行, 现在是windows开发,如果想在linux运行，需要修改一下为linux格式    path := dir + "\\\conf\\\rbac_model.conf" 
 
 ### Required
 
@@ -78,6 +77,7 @@ TablePrefix = go_
 yum install go -y 
 export GOPROXY=https://goproxy.io
 git clone  http://github.com/hequan2017/go-admin
+
 go build main.go
 go run  main.go
 ```

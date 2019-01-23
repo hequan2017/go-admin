@@ -15,4 +15,4 @@ runtime/*
 */test/*
 */test
 */vendor
-*/logs/*
+logs/*

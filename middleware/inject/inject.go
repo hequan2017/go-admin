@@ -5,6 +5,7 @@ import (
 	"github.com/facebookgo/inject"
 	"github.com/hequan2017/go-admin/service/bll"
 	"os"
+	"runtime"
 )
 
 // Object 注入对象
@@ -19,7 +20,14 @@ func Init() *Object {
 
 	// 注入casbin
 	dir, _ := os.Getwd()
-	path := dir + "\\conf\\rbac_model.conf"
+	osType := runtime.GOOS
+	var path string
+	if osType == "windows"{
+		path = dir + "\\conf\\rbac_model.conf"
+	}else if osType == "linux"{
+		path = dir + "/conf/rbac_model.conf"
+	}
+
 	enforcer := casbin.NewEnforcer(path, false)
 	_ = g.Provide(&inject.Object{Value: enforcer})
 
