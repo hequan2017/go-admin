@@ -8,6 +8,9 @@ import (
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/routers/api"
 	"github.com/hequan2017/go-admin/routers/api/v1"
+	"github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
+	_ "github.com/hequan2017/go-admin/docs"
 )
 
 func InitRouter() *gin.Engine {
@@ -26,6 +29,8 @@ func InitRouter() *gin.Engine {
 	}
 
 	r.GET("/auth", api.GetAuth)
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())

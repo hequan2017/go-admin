@@ -103,10 +103,16 @@ Listening port is 8000
 - Gorm
 - logging
 - Jwt-go
+- Swagger
 - Gin
 - Graceful restart or stop (fvbock/endless)
 - App configurable
 ```
+###  API  注释
+
+> http://127.0.0.1:8000/swagger/index.html
+
+
 
 ## 开发者
 * 何全

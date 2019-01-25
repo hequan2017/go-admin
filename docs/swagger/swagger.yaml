@@ -1,0 +1,32 @@
+info:
+  contact: {}
+  description: An example of gin
+  license:
+    name: MIT
+    url: https://github.com/hequan2017/go-admin/master/LICENSE
+  termsOfService: https://github.com/hequan2017/go-admin
+  title: Golang Gin API
+  version: "1.0"
+paths:
+  /auth:
+    get:
+      parameters:
+      - description: Username
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: Password
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{ "code": 200, "data": { "token": "xxx" }, "msg": "ok" }'
+          schema:
+            type: string
+      summary: 获取登录token 信息
+swagger: "2.0"
