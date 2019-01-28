@@ -125,3 +125,8 @@ Listening port is 8000
 https://github.com/EDDYCJY/go-gin-example  包含更多的例子，上传文件图片等。本项目进行了增改。
 https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
 ```
+
+## 其他
+```shell
+swag init
+```

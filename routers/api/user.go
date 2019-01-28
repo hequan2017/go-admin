@@ -2,12 +2,11 @@ package api
 
 import (
 	"github.com/Unknwon/com"
+	"github.com/astaxie/beego/validation"
+	"github.com/gin-gonic/gin"
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/service/user_service"
 	"net/http"
-
-	"github.com/astaxie/beego/validation"
-	"github.com/gin-gonic/gin"
 
 	"github.com/hequan2017/go-admin/pkg/app"
 	"github.com/hequan2017/go-admin/pkg/e"
@@ -18,6 +17,7 @@ type auth struct {
 	Username string `valid:"Required; MaxSize(50)"`
 	Password string `valid:"Required; MaxSize(50)"`
 }
+
 
 
 // @Summary   获取登录token 信息
@@ -59,6 +59,7 @@ func GetAuth(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH_TOKEN, nil)
 		return
 	}
+
 
 	appG.Response(http.StatusOK, e.SUCCESS, map[string]string{
 		"token": token,
@@ -104,7 +105,7 @@ func AddUser(c *gin.Context) {
 	)
 	username := c.Query("username")
 	password := c.Query("password")
-	role_id := com.StrTo(c.Query("role_id")).MustInt()
+	roleId := com.StrTo(c.Query("role_id")).MustInt()
 
 	valid := validation.Validation{}
 	valid.MaxSize(username, 100, "username").Message("最长为100字符")
@@ -119,7 +120,7 @@ func AddUser(c *gin.Context) {
 	userService := user_service.User{
 		Username: username,
 		Password: password,
-		Role:     role_id,
+		Role:     roleId,
 	}
 	if err := userService.Add(); err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
@@ -177,7 +178,7 @@ func EditUser(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 	username := c.Query("username")
 	password := c.Query("password")
-	role_id := com.StrTo(c.Query("role_id")).MustInt()
+	roleId := com.StrTo(c.Query("role_id")).MustInt()
 
 	valid := validation.Validation{}
 	valid.MaxSize(username, 100, "username").Message("最长为100字符")
@@ -190,9 +191,9 @@ func EditUser(c *gin.Context) {
 	}
 	userService := user_service.User{
 		ID:       id,
-		Username:username,
+		Username: username,
 		Password: password,
-		Role:     role_id,
+		Role:     roleId,
 	}
 	exists, err := userService.ExistByID()
 	if err != nil {

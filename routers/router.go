@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/hequan2017/go-admin/docs"
 	"github.com/hequan2017/go-admin/middleware/inject"
 	"github.com/hequan2017/go-admin/middleware/jwt"
 	"github.com/hequan2017/go-admin/middleware/permission"
@@ -10,7 +11,6 @@ import (
 	"github.com/hequan2017/go-admin/routers/api/v1"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	_ "github.com/hequan2017/go-admin/docs"
 )
 
 func InitRouter() *gin.Engine {
@@ -25,12 +25,11 @@ func InitRouter() *gin.Engine {
 
 	err := loadCasbinPolicyData(obj)
 	if err != nil {
-		panic("加载casbin策略数据发生错误：" + err.Error())
+		panic("加载casbin策略数据发生错误: " + err.Error())
 	}
 
 	r.GET("/auth", api.GetAuth)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
 
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
@@ -71,6 +70,5 @@ func loadCasbinPolicyData(obj *inject.Object) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }

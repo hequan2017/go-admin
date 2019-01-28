@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
-
 	"github.com/hequan2017/go-admin/models"
 	"github.com/hequan2017/go-admin/pkg/logging"
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/routers"
+	"log"
+	"net/http"
 )
 
 // @title Golang Gin API
@@ -40,6 +39,8 @@ func main() {
 	log.Printf("[info] start http server listening %s", endPoint)
 
 	_ = server.ListenAndServe()
+
+
 
 	// If you want Graceful Restart, you need a Unix system and download github.com/fvbock/endless
 	//endless.DefaultReadTimeOut = readTimeout

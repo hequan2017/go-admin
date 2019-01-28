@@ -124,7 +124,7 @@ func EditRole(c *gin.Context) {
 	)
 	id := com.StrTo(c.Param("id")).MustInt()
 	name := c.Query("name")
-	menu_id := com.StrTo(c.Query("menu_id")).MustInt()
+	menuId := com.StrTo(c.Query("menu_id")).MustInt()
 
 	valid := validation.Validation{}
 	valid.MaxSize(name, 100, "path").Message("名称最长为100字符")
@@ -137,7 +137,7 @@ func EditRole(c *gin.Context) {
 	RoleService := Role_service.Role{
 		ID:   id,
 		Name: name,
-		Menu: menu_id,
+		Menu: menuId,
 	}
 	exists, err := RoleService.ExistByID()
 	if err != nil {
