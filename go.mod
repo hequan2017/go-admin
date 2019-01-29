@@ -5,6 +5,7 @@ require (
 	github.com/Unknwon/com v0.0.0-20181010210213-41959bdd855f
 	github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239 // indirect
 	github.com/astaxie/beego v1.11.1
+	github.com/bytedance/go-tagexpr v1.1.0 // indirect
 	github.com/casbin/casbin v1.8.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/facebookgo/inject v0.0.0-20180706035515-f23751cae28b

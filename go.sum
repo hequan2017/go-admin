@@ -19,6 +19,8 @@ github.com/beego/goyaml2 v0.0.0-20130207012346-5545475820dd/go.mod h1:1b+Y/CofkY
 github.com/beego/x2j v0.0.0-20131220205130-a0352aadc542/go.mod h1:kSeGC/p1AbBiEp5kat81+DSQrZenVBZXklMLaELspWU=
 github.com/belogik/goes v0.0.0-20151229125003-e54d722c3aff/go.mod h1:PhH1ZhyCzHKt4uAasyx+ljRCgoezetRNf59CUtwUkqY=
 github.com/bradfitz/gomemcache v0.0.0-20180710155616-bc664df96737/go.mod h1:PmM6Mmwb0LSuEubjR8N7PtNe1KxZLtOUHtbeikc5h60=
+github.com/bytedance/go-tagexpr v1.1.0 h1:tHuuff/ZAFQuqwwusGjkDJQpyVQFCvJPm7ClQ14FubY=
+github.com/bytedance/go-tagexpr v1.1.0/go.mod h1:A6Ae39qNPWJGJD54qubBx9pthsZxoCUSxD0vXSUMAWg=
 github.com/casbin/casbin v1.7.0/go.mod h1:c67qKN6Oum3UF5Q1+BByfFxkwKvhwW57ITjqwtzR1KE=
 github.com/casbin/casbin v1.8.0 h1:eEDIzfiSg6aR5lqeQQ+YUhVLccsxykq1zcpWFOI4Kxo=
 github.com/casbin/casbin v1.8.0/go.mod h1:z8uPsfBJGUsnkagrt3G8QvjgTKFMBJ32UP8HpZllfog=
