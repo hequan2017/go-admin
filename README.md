@@ -1,6 +1,6 @@
 # Go Admin
 
-一个go api 后端例子,包含JWT,RBAC(Casbin)等! (逐步完善中...)
+一个go api 后端例子,包含JWT,RBAC(Casbin),增删改查 等! (逐步完善中...)
 
 ## 主要说明
 
@@ -57,7 +57,7 @@ http://47.104.140.38:8002/api/v1/users?token=xxxxxxxxxxxxxxx
 
 Create a **go database** and import [SQL](https://github.com/hequan2017/go-admin/blob/master/docs/sql/go.sql)
 
-导入sql,创建表
+创建一个库 go,然后导入sql,创建表！
 
 ### Conf
 
@@ -97,6 +97,12 @@ Project information and existing API
 Listening port is 8000
 ```
 
+###  API  注释
+
+> http://127.0.0.1:8000/swagger/index.html
+
+
+
 ## Features
 ```
 - RESTful API
@@ -108,9 +114,7 @@ Listening port is 8000
 - Graceful restart or stop (fvbock/endless)
 - App configurable
 ```
-###  API  注释
 
-> http://127.0.0.1:8000/swagger/index.html
 
 
 
@@ -128,5 +132,6 @@ https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
 
 ## 其他
 ```shell
+##更新注释
 swag init
 ```

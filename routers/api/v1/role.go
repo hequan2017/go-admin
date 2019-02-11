@@ -3,6 +3,7 @@ package v1
 import (
 	"github.com/Unknwon/com"
 	"github.com/hequan2017/go-admin/pkg/setting"
+	"github.com/hequan2017/go-admin/pkg/util"
 	"github.com/hequan2017/go-admin/service/role_service"
 	"net/http"
 
@@ -11,7 +12,6 @@ import (
 
 	"github.com/hequan2017/go-admin/pkg/app"
 	"github.com/hequan2017/go-admin/pkg/e"
-	"github.com/hequan2017/go-admin/pkg/util"
 )
 
 type auth struct {
@@ -19,6 +19,12 @@ type auth struct {
 	Password string `valid:"Required; MaxSize(50)"`
 }
 
+// @Summary   获取单个角色
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/roles/:id  [GET]
 func GetRole(c *gin.Context) {
 	appG := app.Gin{C: c}
 	id := com.StrTo(c.Param("id")).MustInt()
@@ -52,6 +58,54 @@ func GetRole(c *gin.Context) {
 	appG.Response(http.StatusOK, e.SUCCESS, article)
 }
 
+// @Summary   获取所有角色
+// @Produce  json
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/roles  [GET]
+func GetRoles(c *gin.Context) {
+	appG := app.Gin{C: c}
+	name := c.Query("name")
+	valid := validation.Validation{}
+
+	if valid.HasErrors() {
+		app.MarkErrors(valid.Errors)
+		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
+		return
+	}
+
+	RoleService := Role_service.Role{
+		Name:     name,
+		PageNum:  util.GetPage(c),
+		PageSize: setting.AppSetting.PageSize,
+	}
+
+	total, err := RoleService.Count()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_COUNT_FAIL, nil)
+		return
+	}
+
+	articles, err := RoleService.GetAll()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_GET_S_FAIL, nil)
+		return
+	}
+
+	data := make(map[string]interface{})
+	data["lists"] = articles
+	data["total"] = total
+
+	appG.Response(http.StatusOK, e.SUCCESS, data)
+}
+
+// @Summary   增加角色
+// @Produce  json
+// @Param  token  query  string true "token"
+// @Param  name  query  string true "name"
+// @Param  menu_id  query  string true "menu_id"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/roles  [POST]
 func AddRole(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
@@ -82,42 +136,14 @@ func AddRole(c *gin.Context) {
 
 }
 
-func GetRoles(c *gin.Context) {
-	appG := app.Gin{C: c}
-	name := c.Query("name")
-	valid := validation.Validation{}
-
-	if valid.HasErrors() {
-		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
-		return
-	}
-
-	RoleService := Role_service.Role{
-		Name:  name,
-		PageNum:  util.GetPage(c),
-		PageSize: setting.AppSetting.PageSize,
-	}
-
-	total, err := RoleService.Count()
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_COUNT_FAIL, nil)
-		return
-	}
-
-	articles, err := RoleService.GetAll()
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_GET_S_FAIL, nil)
-		return
-	}
-
-	data := make(map[string]interface{})
-	data["lists"] = articles
-	data["total"] = total
-
-	appG.Response(http.StatusOK, e.SUCCESS, data)
-}
-
+// @Summary   更新角色
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Param  name  query  string true "name"
+// @Param  menu_id  query  string true "menu_id"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/roles/:id  [PUT]
 func EditRole(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
@@ -158,6 +184,12 @@ func EditRole(c *gin.Context) {
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
 
+// @Summary   删除角色
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/roles/:id  [DELETE]
 func DeleteRole(c *gin.Context) {
 	appG := app.Gin{C: c}
 	valid := validation.Validation{}

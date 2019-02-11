@@ -18,14 +18,12 @@ type auth struct {
 	Password string `valid:"Required; MaxSize(50)"`
 }
 
-
-
 // @Summary   获取登录token 信息
 // @Produce  json
-// @Param  username  query  string true "Username"
-// @Param  password  query  string true "Password"
+// @Param  username  query  string true "username"
+// @Param  password  query  string true "password"
 // @Success 200 {string} json "{ "code": 200, "data": { "token": "xxx" }, "msg": "ok" }"
-// @Router /auth  [get]
+// @Router /auth  [GET]
 func GetAuth(c *gin.Context) {
 	appG := app.Gin{C: c}
 	valid := validation.Validation{}
@@ -60,12 +58,17 @@ func GetAuth(c *gin.Context) {
 		return
 	}
 
-
 	appG.Response(http.StatusOK, e.SUCCESS, map[string]string{
 		"token": token,
 	})
 }
 
+// @Summary   获取单个用户信息
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/users/:id  [GET]
 func GetUser(c *gin.Context) {
 	appG := app.Gin{C: c}
 	id := com.StrTo(c.Param("id")).MustInt()
@@ -99,6 +102,59 @@ func GetUser(c *gin.Context) {
 	appG.Response(http.StatusOK, e.SUCCESS, user)
 }
 
+// @Summary   获取所有用户
+// @Produce  json
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/users  [GET]
+func GetUsers(c *gin.Context) {
+	appG := app.Gin{C: c}
+	username := c.Query("username")
+
+	valid := validation.Validation{}
+
+	if valid.HasErrors() {
+		app.MarkErrors(valid.Errors)
+		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
+		return
+	}
+
+	userService := user_service.User{
+		Username: username,
+		PageNum:  util.GetPage(c),
+		PageSize: setting.AppSetting.PageSize,
+	}
+
+	total, err := userService.Count()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_COUNT_FAIL, nil)
+		return
+	}
+
+	user, err := userService.GetAll()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_GET_S_FAIL, nil)
+		return
+	}
+	for _, v := range user {
+		v.Password = ""
+	}
+
+	data := make(map[string]interface{})
+	data["lists"] = user
+	data["total"] = total
+
+	appG.Response(http.StatusOK, e.SUCCESS, data)
+}
+
+// @Summary   增加用户
+// @Produce  json
+// @Param  token  query  string true "token"
+// @Param  username  query  string true "username"
+// @Param  password  query  string true "password"
+// @Param  role_id  query  string true "role_id"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/users  [POST]
 func AddUser(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
@@ -131,46 +187,15 @@ func AddUser(c *gin.Context) {
 
 }
 
-func GetUsers(c *gin.Context) {
-	appG := app.Gin{C: c}
-	username := c.Query("username")
-
-	valid := validation.Validation{}
-
-	if valid.HasErrors() {
-		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
-		return
-	}
-
-	userService := user_service.User{
-		Username: username,
-		PageNum:  util.GetPage(c),
-		PageSize: setting.AppSetting.PageSize,
-	}
-
-	total, err := userService.Count()
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_COUNT_FAIL, nil)
-		return
-	}
-
-	user, err := userService.GetAll()
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_GET_S_FAIL, nil)
-		return
-	}
-	for _,v :=range user{
-		v.Password = ""
-	}
-
-	data := make(map[string]interface{})
-	data["lists"] = user
-	data["total"] = total
-
-	appG.Response(http.StatusOK, e.SUCCESS, data)
-}
-
+// @Summary   更新用户
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Param  username  query  string true "username"
+// @Param  password  query  string true "password"
+// @Param  role_id  query  string true "role_id"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/users/:id  [PUT]
 func EditUser(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
@@ -214,6 +239,12 @@ func EditUser(c *gin.Context) {
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
 
+// @Summary   删除用户
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/users/:id  [DELETE]
 func DeleteUser(c *gin.Context) {
 	appG := app.Gin{C: c}
 	valid := validation.Validation{}

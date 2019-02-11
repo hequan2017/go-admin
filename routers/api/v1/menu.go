@@ -12,6 +12,12 @@ import (
 	"net/http"
 )
 
+// @Summary   获取单个菜单
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/menus/:id  [GET]
 func GetMenu(c *gin.Context) {
 	appG := app.Gin{C: c}
 	id := com.StrTo(c.Param("id")).MustInt()
@@ -45,6 +51,11 @@ func GetMenu(c *gin.Context) {
 	appG.Response(http.StatusOK, e.SUCCESS, article)
 }
 
+// @Summary   获取所有菜单
+// @Produce  json
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/menus  [GET]
 func GetMenus(c *gin.Context) {
 	appG := app.Gin{C: c}
 	valid := validation.Validation{}
@@ -79,6 +90,14 @@ func GetMenus(c *gin.Context) {
 	appG.Response(http.StatusOK, e.SUCCESS, data)
 }
 
+// @Summary   增加菜单
+// @Produce  json
+// @Param  token  query  string true "token"
+// @Param  name  query  string true "name"
+// @Param  path  query  string true "path"
+// @Param  method  query  string true "method"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/menus  [POST]
 func AddMenu(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
@@ -112,6 +131,15 @@ func AddMenu(c *gin.Context) {
 
 }
 
+// @Summary   更新菜单
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Param  name  query  string true "name"
+// @Param  path  query  string true "path"
+// @Param  method  query  string true "method"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/menus/:id  [PUT]
 func EditMenu(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
@@ -157,6 +185,12 @@ func EditMenu(c *gin.Context) {
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
 
+// @Summary   删除菜单
+// @Produce  json
+// @Param  id  query  string true "id"
+// @Param  token  query  string true "token"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /api/v1/menus/:id  [DELETE]
 func DeleteMenu(c *gin.Context) {
 	appG := app.Gin{C: c}
 	valid := validation.Validation{}
