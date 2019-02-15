@@ -12,6 +12,17 @@
 * menu     
     * name path   method
 
+### 目录结构
+* conf：用于存储配置文件
+* docs： 文档(SQL和API注释)
+* logs： 日志
+* middleware：应用中间件
+* models：应用数据库模型
+* pkg：第三方包
+* routers： 路由逻辑处理
+* service： 逻辑处理
+* test: 单元测试
+
 
 ### 权限验证说明
 >  利用的casbin库, 将  user  role  menu 进行自动关联
@@ -19,7 +30,8 @@
 ```
 项目启动时,会自动加载权限. 如有更改,会删除对应的权限,重新加载.
 
-用户关联角色  |  角色关联菜单  
+用户关联角色  
+角色关联菜单  
 
 权限关系为:
 角色(role.name,menu.path,menu.method)  
@@ -35,14 +47,11 @@ hequan     test
 
 用户 admin 有所有的权限,不进行权限匹配
 
-```
-## demo
+登录接口 /auth  不进行验证
 
+```
 
 ## How to run
-
-### 特别注意
-
 
 ### Required
 
@@ -79,6 +88,7 @@ go get github.com/hequan2017/go-admin
 cd $GOPATH/src/github.com/hequan2017/go-admin
 go build main.go
 go run  main.go
+
 ```
 
 ### Run
@@ -90,6 +100,9 @@ Project information and existing API
  - using code:	gin.SetMode(gin.ReleaseMode)
 
 Listening port is 8000
+
+默认 账户 密码 都为  123456
+
 ```
 
 ###  API  注释
@@ -114,14 +127,8 @@ http://127.0.0.1:8000/api/v1/users?token=xxxxxxxxxxxxxxx
 - Graceful restart or stop (fvbock/endless)
 - App configurable
 ```
-
-
-
-
 ## 开发者
 * 何全
-
-
 
 ## 特别感谢
 ```
@@ -129,7 +136,6 @@ http://127.0.0.1:8000/api/v1/users?token=xxxxxxxxxxxxxxx
 https://github.com/EDDYCJY/go-gin-example  包含更多的例子，上传文件图片等。本项目进行了增改。
 https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
 ```
-
 ## 其他
 ```shell
 ##更新注释

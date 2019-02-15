@@ -8,7 +8,7 @@ import (
 
 type Menu struct {
 	ID     int
-	Name  string
+	Name   string
 	Path   string
 	Method string
 
@@ -24,6 +24,7 @@ type Menu struct {
 
 func (a *Menu) Add() error {
 	menu := map[string]interface{}{
+		"name":   a.Name,
 		"path":   a.Path,
 		"method": a.Method,
 	}
@@ -36,6 +37,7 @@ func (a *Menu) Add() error {
 
 func (a *Menu) Edit() error {
 	err := models.EditMenu(a.ID, map[string]interface{}{
+		"name":   a.Name,
 		"path":   a.Path,
 		"method": a.Method,
 	})

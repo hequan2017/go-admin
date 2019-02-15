@@ -10,24 +10,27 @@ import (
 
 func CasbinMiddleware(engine *casbin.Enforcer) gin.HandlerFunc {
 	return func(c *gin.Context) {
+
 		token := c.Query("token")
 		t, _ := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
-			return  jwtGet.JwtSecret,nil
+			return jwtGet.JwtSecret, nil
 		})
-		if b, err := engine.EnforceSafe(jwtGet.GetIdFromClaims("username",t.Claims), c.Request.URL.Path, c.Request.Method); err != nil {
+
+		if b, err := engine.EnforceSafe(jwtGet.GetIdFromClaims("username", t.Claims), c.Request.URL.Path, c.Request.Method); err != nil {
+
 			c.JSON(http.StatusUnauthorized, gin.H{
-				"code": "权限 判断错误",
-				"msg":  "权限 判断错误",
-				"data": "权限 判断错误",
+				"code": http.StatusOK,
+				"data": err,
+				"msg":  "ok",
 			})
 			c.Abort()
 			return
 		} else if !b {
 
 			c.JSON(http.StatusUnauthorized, gin.H{
-				"code": "没有权限",
-				"msg":  "没有权限",
-				"data": "没有权限",
+				"code": http.StatusForbidden,
+				"data": "登录用户 没有权限",
+				"msg":  "ok",
 			})
 			c.Abort()
 			return
