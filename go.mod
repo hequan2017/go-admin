@@ -12,16 +12,13 @@ require (
 	github.com/go-ini/ini v1.41.0
 	github.com/go-openapi/jsonreference v0.18.0 // indirect
 	github.com/go-openapi/spec v0.18.0 // indirect
-	github.com/gogf/gf v1.5.0 // indirect
 	github.com/golang/protobuf v1.2.0 // indirect
 	github.com/jinzhu/gorm v1.9.2
 	github.com/jinzhu/inflection v0.0.0-20180308033659-04140366298a // indirect
-	github.com/kr/pty v1.1.3 // indirect
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/swaggo/gin-swagger v1.0.0
 	github.com/swaggo/swag v1.4.0
-	github.com/ugorji/go/codec v0.0.0-20190128213124-ee1426cffec0 // indirect
-	golang.org/x/sys v0.0.0-20190209173611-3b5209105503 // indirect
-	golang.org/x/tools v0.0.0-20190130173957-1c3581914d33 // indirect
+	github.com/ugorji/go/codec v0.0.0-20190204201341-e444a5086c43 // indirect
+	golang.org/x/tools v0.0.0-20190208222737-3744606dbb67 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
 )
