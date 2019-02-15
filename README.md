@@ -37,12 +37,7 @@ hequan     test
 
 ```
 ## demo
-```html
-先获取token
-http://47.104.140.38:8002/auth?username=hequan&password=123456
-然后把token 放到下面
-http://47.104.140.38:8002/api/v1/users?token=xxxxxxxxxxxxxxx
-```
+
 
 ## How to run
 
@@ -101,7 +96,12 @@ Listening port is 8000
 
 > http://127.0.0.1:8000/swagger/index.html
 
-
+```html
+先获取token
+http://127.0.0.1:8000/auth?username=hequan&password=123456
+然后把token 放到下面
+http://127.0.0.1:8000/api/v1/users?token=xxxxxxxxxxxxxxx
+```
 
 ## Features
 ```
