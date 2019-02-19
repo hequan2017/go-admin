@@ -16,7 +16,7 @@ import (
 // @termsOfService https://github.com/hequan2017/go-admin
 
 // @license.name MIT
-// @license.url https://github.com/hequan2017/go-admin/master/LICENSE
+// @license.url https://github.com/hequan2017/go-admin/LICENSE
 func main() {
 	setting.Setup()
 	models.Setup()
@@ -39,8 +39,6 @@ func main() {
 	log.Printf("[info] start http server listening %s", endPoint)
 
 	_ = server.ListenAndServe()
-
-
 
 	// If you want Graceful Restart, you need a Unix system and download github.com/fvbock/endless
 	//endless.DefaultReadTimeOut = readTimeout

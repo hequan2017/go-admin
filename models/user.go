@@ -80,9 +80,9 @@ func CheckUserUsername(username string) (bool, error) {
 	return false, nil
 }
 
-func  CheckUserUsernameId(username string,id int) (bool, error) {
+func CheckUserUsernameId(username string, id int) (bool, error) {
 	var user User
-	err := db.Where("username = ? AND id != ? AND deleted_on = ? ", username,id, 0).First(&user).Error
+	err := db.Where("username = ? AND id != ? AND deleted_on = ? ", username, id, 0).First(&user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return false, err
 	}
@@ -92,7 +92,6 @@ func  CheckUserUsernameId(username string,id int) (bool, error) {
 
 	return false, nil
 }
-
 
 func EditUser(id int, data map[string]interface{}) error {
 	var role []Role
@@ -108,7 +107,7 @@ func EditUser(id int, data map[string]interface{}) error {
 	return nil
 }
 
-func AddUser(data map[string]interface{}) error {
+func AddUser(data map[string]interface{}) (id int, err error) {
 	user := User{
 		Username: data["username"].(string),
 		Password: data["password"].(string),
@@ -116,9 +115,9 @@ func AddUser(data map[string]interface{}) error {
 	var role []Role
 	db.Where("id in (?)", data["role_id"].(int)).Find(&role)
 	if err := db.Create(&user).Association("Role").Append(role).Error; err != nil {
-		return err
+		return 0, err
 	}
-	return nil
+	return user.ID, nil
 }
 
 func DeleteUser(id int) error {
@@ -142,7 +141,7 @@ func CleanAllUser() error {
 
 func GetUsersAll() ([]*User, error) {
 	var user []*User
-	err := db.Where("deleted_on = ? ",0).Preload("Role").Find(&user).Error
+	err := db.Where("deleted_on = ? ", 0).Preload("Role").Find(&user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}

@@ -59,7 +59,7 @@ hequan     test
 	"password": "123456"
 }
 
-访问/api/v1/users   
+访问  /api/v1/users   
 请求头设置  Authorization: Token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ```

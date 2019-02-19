@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
@@ -36,6 +35,10 @@ func Auth(c *gin.Context) {
 	appG := app.Gin{C: c}
 	var reqInfo auth
 	err := c.BindJSON(&reqInfo)
+	//dataByte, _ := ioutil.ReadAll(c.Request.Body)
+	//fsion := gofasion.NewFasion(string(dataByte))
+	//fmt.Println(fsion.Get("username").ValueStr())
+
 	if err != nil {
 		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
 		return
@@ -188,13 +191,18 @@ func AddUser(c *gin.Context) {
 		Password: reqInfo.Password,
 		Role:     reqInfo.Role,
 	}
-	if err := userService.Add(); err != nil {
+	if id, err := userService.Add(); err == nil {
+		a := inject.GetInstance()
+		err = a.Common.UserAPI.LoadPolicy(id)
+		if err != nil {
+			appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
+			return
+		}
+		appG.Response(http.StatusOK, e.SUCCESS, nil)
+	} else {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
-
-	appG.Response(http.StatusOK, e.SUCCESS, nil)
-
 }
 
 // @Summary   更新用户
@@ -253,6 +261,14 @@ func EditUser(c *gin.Context) {
 		return
 	}
 
+	a := inject.GetInstance()
+	err = a.Common.UserAPI.LoadPolicy(id)
+
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
+		return
+	}
+
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
 
@@ -287,13 +303,16 @@ func DeleteUser(c *gin.Context) {
 		appG.Response(http.StatusOK, e.ERROR_EXIST_FAIL, nil)
 		return
 	}
+	user, err := userService.Get()
 
 	err = userService.Delete()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
 		return
 	}
+
 	a := inject.GetInstance()
-	fmt.Println(a.Enforcer.DeleteUser("admin"))
+	a.Enforcer.DeleteUser(user.Username)
+
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }

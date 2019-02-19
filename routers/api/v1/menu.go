@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"github.com/Anderson-Lu/gofasion/gofasion"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
@@ -9,13 +10,15 @@ import (
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/pkg/util"
 	"github.com/hequan2017/go-admin/service/menu_service"
+	"io/ioutil"
 	"net/http"
 )
 
 // @Summary   获取单个菜单
+// @Tags menu
+// @Accept json
 // @Produce  json
 // @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/menus/:id  [GET]
 func GetMenu(c *gin.Context) {
@@ -52,8 +55,9 @@ func GetMenu(c *gin.Context) {
 }
 
 // @Summary   获取所有菜单
+// @Tags menu
+// @Accept json
 // @Produce  json
-// @Param  token  query  string true "token"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/menus  [GET]
 func GetMenus(c *gin.Context) {
@@ -91,19 +95,22 @@ func GetMenus(c *gin.Context) {
 }
 
 // @Summary   增加菜单
+// @Tags menu
+// @Accept json
 // @Produce  json
 // @Param  name  query  string true "name"
 // @Param  path  query  string true "path"
-// @Param  method  query  string true "method"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/menus  [POST]
 func AddMenu(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
 	)
-	name := c.Query("name")
-	path := c.Query("path")
-	method := c.Query("method")
+	dataByte, _ := ioutil.ReadAll(c.Request.Body)
+	fsion := gofasion.NewFasion(string(dataByte))
+	name := fsion.Get("name").ValueStr()
+	path := fsion.Get("path").ValueStr()
+	method := fsion.Get("method").ValueStr()
 
 	valid := validation.Validation{}
 	valid.MaxSize(name, 100, "name").Message("最长为100字符")
@@ -131,6 +138,8 @@ func AddMenu(c *gin.Context) {
 }
 
 // @Summary   更新菜单
+// @Tags menu
+// @Accept json
 // @Produce  json
 // @Param  id  query  string true "id"
 // @Param  name  query  string true "name"
@@ -144,9 +153,11 @@ func EditMenu(c *gin.Context) {
 	)
 
 	id := com.StrTo(c.Param("id")).MustInt()
-	name := c.Query("name")
-	path := c.Query("path")
-	method := c.Query("method")
+	dataByte, _ := ioutil.ReadAll(c.Request.Body)
+	fsion := gofasion.NewFasion(string(dataByte))
+	name := fsion.Get("name").ValueStr()
+	path := fsion.Get("path").ValueStr()
+	method := fsion.Get("method").ValueStr()
 
 	valid := validation.Validation{}
 	valid.MaxSize(name, 100, "name").Message("最长为100字符")
@@ -184,6 +195,8 @@ func EditMenu(c *gin.Context) {
 }
 
 // @Summary   删除菜单
+// @Tags menu
+// @Accept json
 // @Produce  json
 // @Param  id  query  string true "id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"

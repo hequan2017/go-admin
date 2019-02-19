@@ -52,7 +52,7 @@ func GetRole(id int) (*Role, error) {
 
 	return &role, nil
 }
-func CheckRoleName(name string ) (bool, error) {
+func CheckRoleName(name string) (bool, error) {
 	var role Role
 	err := db.Where("name = ? AND deleted_on = ? ", name, 0).First(&role).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
@@ -65,9 +65,9 @@ func CheckRoleName(name string ) (bool, error) {
 	return false, nil
 }
 
-func CheckRoleNameId(name string,id int ) (bool, error) {
+func CheckRoleNameId(name string, id int) (bool, error) {
 	var role Role
-	err := db.Where("name = ? AND id != ? AND deleted_on = ? ", name,id, 0).First(&role).Error
+	err := db.Where("name = ? AND id != ? AND deleted_on = ? ", name, id, 0).First(&role).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return false, err
 	}
@@ -92,16 +92,16 @@ func EditRole(id int, data map[string]interface{}) error {
 	return nil
 }
 
-func AddRole(data map[string]interface{}) error {
+func AddRole(data map[string]interface{}) (id int, err error) {
 	role := Role{
 		Name: data["name"].(string),
 	}
 	var menu []Menu
 	db.Where("id in (?)", data["menu_id"].(int)).Find(&menu)
 	if err := db.Create(&role).Association("Menu").Append(menu).Error; err != nil {
-		return err
+		return 0, err
 	}
-	return nil
+	return role.ID, nil
 }
 
 func DeleteRole(id int) error {

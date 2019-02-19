@@ -20,7 +20,7 @@ type Role struct {
 	Enforcer *casbin.Enforcer `inject:""`
 }
 
-func (a *Role) Add() error {
+func (a *Role) Add() (id int, err error) {
 	role := map[string]interface{}{
 		"name":    a.Name,
 		"menu_id": a.Menu,
@@ -28,18 +28,15 @@ func (a *Role) Add() error {
 	name, _ := models.CheckRoleName(a.Name)
 
 	if name {
-		return errors.New("name 名字重复,请更改！")
+		return 0, errors.New("name 名字重复,请更改！")
 	}
 
-	if err := models.AddRole(role); err != nil {
-		return err
+	if id, err := models.AddRole(role); err == nil {
+		return id, nil
+	} else {
+		return 0, err
 	}
-	if a.Menu != 0 {
-		if err := a.LoadPolicy(a.ID); err != nil {
-			return err
-		}
-	}
-	return nil
+
 }
 
 func (a *Role) Edit() error {
@@ -78,14 +75,14 @@ func (a *Role) GetAll() ([]*models.Role, error) {
 	if a.Name != "" {
 		maps := make(map[string]interface{})
 		maps["deleted_on"] = 0
-		maps["name"]=a.Name
-		Role, err := models.GetRoles(a.PageNum, a.PageSize,maps)
+		maps["name"] = a.Name
+		Role, err := models.GetRoles(a.PageNum, a.PageSize, maps)
 		if err != nil {
 			return nil, err
 		}
 
 		return Role, nil
-	}else{
+	} else {
 		Role, err := models.GetRoles(a.PageNum, a.PageSize, a.getMaps())
 		if err != nil {
 			return nil, err

@@ -27,7 +27,7 @@ func (a *User) Check() (bool, error) {
 	return models.CheckUser(a.Username, util.EncodeMD5(a.Password))
 }
 
-func (a *User) Add() error {
+func (a *User) Add() (id int, err error) {
 	menu := map[string]interface{}{
 		"username": a.Username,
 		"password": util.EncodeMD5(a.Password),
@@ -36,19 +36,14 @@ func (a *User) Add() error {
 	username, _ := models.CheckUserUsername(a.Username)
 
 	if username {
-		return errors.New("username 名字重复,请更改！")
+		return 0, errors.New("username 名字重复,请更改！")
 	}
 
-	if err := models.AddUser(menu); err != nil {
-		return err
+	if id, err := models.AddUser(menu); err == nil {
+		return id, err
+	} else {
+		return 0, err
 	}
-
-	if a.Role != 0 {
-		if err := a.LoadPolicy(a.ID); err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 func (a *User) Edit() error {
@@ -67,11 +62,7 @@ func (a *User) Edit() error {
 	if err != nil {
 		return err
 	}
-	if a.Role != 0 {
-		if err := a.LoadPolicy(a.ID); err != nil {
-			return err
-		}
-	}
+
 	return nil
 }
 
@@ -90,12 +81,12 @@ func (a *User) GetAll() ([]*models.User, error) {
 		maps := make(map[string]interface{})
 		maps["deleted_on"] = 0
 		maps["username"] = a.Username
-		user, err := models.GetUsers(a.PageNum, a.PageSize, maps,)
+		user, err := models.GetUsers(a.PageNum, a.PageSize, maps)
 		if err != nil {
 			return nil, err
 		}
 		return user, nil
-	}else{
+	} else {
 		user, err := models.GetUsers(a.PageNum, a.PageSize, a.getMaps())
 		if err != nil {
 			return nil, err
@@ -140,8 +131,7 @@ func (a *User) LoadAllPolicy() error {
 			}
 		}
 	}
-	fmt.Println("角色权限关系",a.Enforcer.GetGroupingPolicy())
-	fmt.Println("菜单权限关系",a.Enforcer.GetAllRoles())
+	fmt.Println("角色权限关系", a.Enforcer.GetGroupingPolicy())
 	return nil
 }
 
@@ -152,7 +142,7 @@ func (a *User) LoadPolicy(id int) error {
 	if err != nil {
 		return err
 	}
-	a.Enforcer.DeleteUser("admin")
+
 	a.Enforcer.DeleteRolesForUser(user.Username)
 
 	for _, ro := range user.Role {

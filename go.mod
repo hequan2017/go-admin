@@ -1,6 +1,7 @@
 module github.com/hequan2017/go-admin
 
 require (
+	github.com/Anderson-Lu/gofasion v0.0.0-20190212110938-fb53d4c7b846
 	github.com/Unknwon/com v0.0.0-20181010210213-41959bdd855f
 	github.com/astaxie/beego v1.11.1
 	github.com/casbin/casbin v1.8.1

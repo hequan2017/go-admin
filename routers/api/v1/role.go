@@ -1,10 +1,13 @@
 package v1
 
 import (
+	"github.com/Anderson-Lu/gofasion/gofasion"
 	"github.com/Unknwon/com"
+	"github.com/hequan2017/go-admin/middleware/inject"
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/pkg/util"
 	"github.com/hequan2017/go-admin/service/role_service"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/astaxie/beego/validation"
@@ -14,12 +17,9 @@ import (
 	"github.com/hequan2017/go-admin/pkg/e"
 )
 
-type auth struct {
-	Rolename string `valid:"Required; MaxSize(50)"`
-	Password string `valid:"Required; MaxSize(50)"`
-}
-
 // @Summary   获取单个角色
+// @Tags role
+// @Accept json
 // @Produce  json
 // @Param  id  query  string true "id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
@@ -58,6 +58,8 @@ func GetRole(c *gin.Context) {
 }
 
 // @Summary   获取所有角色
+// @Tags role
+// @Accept json
 // @Produce  json
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/roles  [GET]
@@ -98,6 +100,8 @@ func GetRoles(c *gin.Context) {
 }
 
 // @Summary   增加角色
+// @Tags role
+// @Accept json
 // @Produce  json
 // @Param  name  query  string true "name"
 // @Param  menu_id  query  string true "menu_id"
@@ -107,8 +111,10 @@ func AddRole(c *gin.Context) {
 	var (
 		appG = app.Gin{C: c}
 	)
-	name := c.Query("name")
-	menu_id := com.StrTo(c.Query("menu_id")).MustInt()
+	dataByte, _ := ioutil.ReadAll(c.Request.Body)
+	fsion := gofasion.NewFasion(string(dataByte))
+	name := fsion.Get("username").ValueStr()
+	menuId := com.StrTo(fsion.Get("menu_id").ValueInt()).MustInt()
 
 	valid := validation.Validation{}
 	valid.MaxSize(name, 100, "path").Message("名称最长为100字符")
@@ -121,19 +127,27 @@ func AddRole(c *gin.Context) {
 
 	RoleService := Role_service.Role{
 		Name: name,
-		Menu: menu_id,
+		Menu: menuId,
 	}
 
-	if err := RoleService.Add(); err != nil {
+	if id, err := RoleService.Add(); err != nil {
+		a := inject.GetInstance()
+		err = a.Common.RoleAPI.LoadPolicy(id)
+		if err != nil {
+			appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
+			return
+		}
+		appG.Response(http.StatusOK, e.SUCCESS, nil)
+	} else {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
 
-	appG.Response(http.StatusOK, e.SUCCESS, nil)
-
 }
 
 // @Summary   更新角色
+// @Tags role
+// @Accept json
 // @Produce  json
 // @Param  id  query  string true "id"
 // @Param  name  query  string true "name"
@@ -145,8 +159,10 @@ func EditRole(c *gin.Context) {
 		appG = app.Gin{C: c}
 	)
 	id := com.StrTo(c.Param("id")).MustInt()
-	name := c.Query("name")
-	menuId := com.StrTo(c.Query("menu_id")).MustInt()
+	dataByte, _ := ioutil.ReadAll(c.Request.Body)
+	fsion := gofasion.NewFasion(string(dataByte))
+	name := fsion.Get("username").ValueStr()
+	menuId := com.StrTo(fsion.Get("menu_id").ValueInt()).MustInt()
 
 	valid := validation.Validation{}
 	valid.MaxSize(name, 100, "path").Message("名称最长为100字符")
@@ -172,6 +188,14 @@ func EditRole(c *gin.Context) {
 	}
 
 	err = RoleService.Edit()
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
+		return
+	}
+
+	a := inject.GetInstance()
+	err = a.Common.RoleAPI.LoadPolicy(id)
+
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
 		return
@@ -207,12 +231,14 @@ func DeleteRole(c *gin.Context) {
 		appG.Response(http.StatusOK, e.ERROR_EXIST_FAIL, nil)
 		return
 	}
-
+	role, err := RoleService.Get()
 	err = RoleService.Delete()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
 		return
 	}
+	a := inject.GetInstance()
+	a.Enforcer.DeleteUser(role.Name)
 
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
