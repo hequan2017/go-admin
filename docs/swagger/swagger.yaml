@@ -26,11 +26,6 @@ paths:
       summary: 获取所有菜单
     post:
       parameters:
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
       - description: name
         in: query
         name: name
@@ -60,11 +55,6 @@ paths:
       - description: id
         in: query
         name: id
-        required: true
-        type: string
-      - description: token
-        in: query
-        name: token
         required: true
         type: string
       produces:
@@ -102,11 +92,6 @@ paths:
         name: id
         required: true
         type: string
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
       - description: name
         in: query
         name: name
@@ -132,12 +117,6 @@ paths:
       summary: 更新菜单
   /api/v1/roles:
     get:
-      parameters:
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -148,11 +127,6 @@ paths:
       summary: 获取所有角色
     post:
       parameters:
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
       - description: name
         in: query
         name: name
@@ -179,11 +153,6 @@ paths:
         name: id
         required: true
         type: string
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -199,11 +168,6 @@ paths:
         name: id
         required: true
         type: string
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -217,11 +181,6 @@ paths:
       - description: id
         in: query
         name: id
-        required: true
-        type: string
-      - description: token
-        in: query
-        name: token
         required: true
         type: string
       - description: name
@@ -244,12 +203,8 @@ paths:
       summary: 更新角色
   /api/v1/users:
     get:
-      parameters:
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
+      consumes:
+      - application/json
       produces:
       - application/json
       responses:
@@ -258,13 +213,12 @@ paths:
           schema:
             type: string
       summary: 获取所有用户
+      tags:
+      - users
     post:
+      consumes:
+      - application/json
       parameters:
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
       - description: username
         in: query
         name: username
@@ -275,11 +229,7 @@ paths:
         name: password
         required: true
         type: string
-      - description: role_id
-        in: query
-        name: role_id
-        required: true
-        type: string
+      - {}
       produces:
       - application/json
       responses:
@@ -288,19 +238,18 @@ paths:
           schema:
             type: string
       summary: 增加用户
+      tags:
+      - users
   /api/v1/users/:
     delete:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
         name: id
         required: true
-        type: string
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
+        type: integer
       produces:
       - application/json
       responses:
@@ -309,18 +258,17 @@ paths:
           schema:
             type: string
       summary: 删除用户
+      tags:
+      - users
     get:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
         name: id
         required: true
-        type: string
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
+        type: integer
       produces:
       - application/json
       responses:
@@ -329,16 +277,15 @@ paths:
           schema:
             type: string
       summary: 获取单个用户信息
+      tags:
+      - users
     put:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
         name: id
-        required: true
-        type: string
-      - description: token
-        in: query
-        name: token
         required: true
         type: string
       - description: username
@@ -355,7 +302,7 @@ paths:
         in: query
         name: role_id
         required: true
-        type: string
+        type: integer
       produces:
       - application/json
       responses:
@@ -364,16 +311,20 @@ paths:
           schema:
             type: string
       summary: 更新用户
+      tags:
+      - users
   /auth:
-    get:
+    post:
+      consumes:
+      - application/json
       parameters:
       - description: username
-        in: query
+        in: path
         name: username
         required: true
         type: string
       - description: password
-        in: query
+        in: path
         name: password
         required: true
         type: string
@@ -384,5 +335,15 @@ paths:
           description: '{ "code": 200, "data": { "token": "xxx" }, "msg": "ok" }'
           schema:
             type: string
+        "400":
+          description: '{"code":400,  "data":null,"msg":"请求参数错误"}'
+          schema:
+            type: string
+        "404":
+          description: '{ "code": 404, "data":null,"msg":"请求参数错误"}'
+          schema:
+            type: string
       summary: 获取登录token 信息
+      tags:
+      - auth
 swagger: "2.0"

@@ -44,13 +44,6 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
                         "description": "name",
                         "name": "name",
                         "in": "query",
@@ -127,13 +120,6 @@
                     },
                     {
                         "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
                         "description": "name",
                         "name": "name",
                         "in": "query",
@@ -175,13 +161,6 @@
                         "name": "id",
                         "in": "query",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -200,15 +179,6 @@
                     "application/json"
                 ],
                 "summary": "获取所有角色",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "{ \"code\": 200, \"data\": {}, \"msg\": \"ok\" }",
@@ -224,13 +194,6 @@
                 ],
                 "summary": "增加角色",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
-                    },
                     {
                         "type": "string",
                         "description": "name",
@@ -269,13 +232,6 @@
                         "name": "id",
                         "in": "query",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -297,13 +253,6 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
                         "in": "query",
                         "required": true
                     },
@@ -343,13 +292,6 @@
                         "name": "id",
                         "in": "query",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -364,19 +306,16 @@
         },
         "/api/v1/users": {
             "get": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "获取所有用户",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
-                    }
+                "tags": [
+                    "users"
                 ],
+                "summary": "获取所有用户",
                 "responses": {
                     "200": {
                         "description": "{ \"code\": 200, \"data\": {}, \"msg\": \"ok\" }",
@@ -387,18 +326,17 @@
                 }
             },
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "users"
+                ],
                 "summary": "增加用户",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
-                    },
                     {
                         "type": "string",
                         "description": "username",
@@ -413,13 +351,7 @@
                         "in": "query",
                         "required": true
                     },
-                    {
-                        "type": "string",
-                        "description": "role_id",
-                        "name": "role_id",
-                        "in": "query",
-                        "required": true
-                    }
+                    {}
                 ],
                 "responses": {
                     "200": {
@@ -433,22 +365,21 @@
         },
         "/api/v1/users/": {
             "get": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "users"
                 ],
                 "summary": "获取单个用户信息",
                 "parameters": [
                     {
-                        "type": "string",
+                        "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
                         "in": "query",
                         "required": true
                     }
@@ -463,8 +394,14 @@
                 }
             },
             "put": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "users"
                 ],
                 "summary": "更新用户",
                 "parameters": [
@@ -472,13 +409,6 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
                         "in": "query",
                         "required": true
                     },
@@ -497,7 +427,7 @@
                         "required": true
                     },
                     {
-                        "type": "string",
+                        "type": "integer",
                         "description": "role_id",
                         "name": "role_id",
                         "in": "query",
@@ -514,22 +444,21 @@
                 }
             },
             "delete": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "users"
                 ],
                 "summary": "删除用户",
                 "parameters": [
                     {
-                        "type": "string",
+                        "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
                         "in": "query",
                         "required": true
                     }
@@ -545,9 +474,15 @@
             }
         },
         "/auth": {
-            "get": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "auth"
                 ],
                 "summary": "获取登录token 信息",
                 "parameters": [
@@ -555,20 +490,32 @@
                         "type": "string",
                         "description": "username",
                         "name": "username",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "password",
                         "name": "password",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "{ \"code\": 200, \"data\": { \"token\": \"xxx\" }, \"msg\": \"ok\" }",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"code\":400,  \"data\":null,\"msg\":\"请求参数错误\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "{ \"code\": 404, \"data\":null,\"msg\":\"请求参数错误\"}",
                         "schema": {
                             "type": "string"
                         }

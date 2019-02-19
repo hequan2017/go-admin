@@ -14,34 +14,45 @@ import (
 )
 
 type auth struct {
-	Username string `valid:"Required; MaxSize(50)"`
-	Password string `valid:"Required; MaxSize(50)"`
+	Id       int    `json:"id"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Role     int    `json:"role_id"`
 }
 
 // @Summary   获取登录token 信息
+// @Tags auth
+// @Accept json
 // @Produce  json
-// @Param  username  query  string true "username"
-// @Param  password  query  string true "password"
+// @Param  username  path   string true "username"
+// @Param  password  path   string true "password"
 // @Success 200 {string} json "{ "code": 200, "data": { "token": "xxx" }, "msg": "ok" }"
-// @Router /auth  [GET]
-func GetAuth(c *gin.Context) {
+// @Failure 400 {string} json "{"code":400,  "data":null,"msg":"请求参数错误"}"
+// @Failure 404 {string} json "{ "code": 404, "data":null,"msg":"请求参数错误"}"
+// @Router /auth  [POST]
+func Auth(c *gin.Context) {
+
 	appG := app.Gin{C: c}
-	valid := validation.Validation{}
-
-	username := c.Query("username")
-	password := c.Query("password")
-
-	a := auth{Username: username, Password: password}
-	ok, _ := valid.Valid(&a)
-
-	if !ok {
-		app.MarkErrors(valid.Errors)
+	var reqInfo auth
+	err := c.BindJSON(&reqInfo)
+	if err != nil {
 		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
 		return
 	}
 
-	authService := user_service.User{Username: username, Password: password}
+	valid := validation.Validation{}
+	valid.MaxSize(reqInfo.Username, 100, "username").Message("最长为100字符")
+	valid.MaxSize(reqInfo.Password, 100, "password").Message("最长为100字符")
+
+	if valid.HasErrors() {
+		app.MarkErrors(valid.Errors)
+		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, valid.Errors)
+		return
+	}
+
+	authService := user_service.User{Username: reqInfo.Username, Password: reqInfo.Password}
 	isExist, err := authService.Check()
+
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH_CHECK_TOKEN_FAIL, nil)
 		return
@@ -52,7 +63,7 @@ func GetAuth(c *gin.Context) {
 		return
 	}
 
-	token, err := util.GenerateToken(username, password)
+	token, err := util.GenerateToken(reqInfo.Username, reqInfo.Password)
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH_TOKEN, nil)
 		return
@@ -64,20 +75,22 @@ func GetAuth(c *gin.Context) {
 }
 
 // @Summary   获取单个用户信息
+// @Tags  users
+// @Accept json
 // @Produce  json
-// @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
+// @Param  id  query  int true "id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users/:id  [GET]
 func GetUser(c *gin.Context) {
 	appG := app.Gin{C: c}
+
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
 	valid.Min(id, 1, "id").Message("ID必须大于0")
 
 	if valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
+		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, valid.Errors)
 		return
 	}
 
@@ -103,24 +116,17 @@ func GetUser(c *gin.Context) {
 }
 
 // @Summary   获取所有用户
+// @Tags  users
+// @Accept json
 // @Produce  json
-// @Param  token  query  string true "token"
+// @Param  username  url   string  false  "username"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users  [GET]
 func GetUsers(c *gin.Context) {
 	appG := app.Gin{C: c}
-	username := c.Query("username")
-
-	valid := validation.Validation{}
-
-	if valid.HasErrors() {
-		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
-		return
-	}
 
 	userService := user_service.User{
-		Username: username,
+		Username: c.Query("username"),
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}
@@ -148,35 +154,38 @@ func GetUsers(c *gin.Context) {
 }
 
 // @Summary   增加用户
+// @Tags  users
+// @Accept json
 // @Produce  json
-// @Param  token  query  string true "token"
 // @Param  username  query  string true "username"
 // @Param  password  query  string true "password"
-// @Param  role_id  query  string true "role_id"
+// @Param  role_id  int  int true "role_id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users  [POST]
 func AddUser(c *gin.Context) {
-	var (
-		appG = app.Gin{C: c}
-	)
-	username := c.Query("username")
-	password := c.Query("password")
-	roleId := com.StrTo(c.Query("role_id")).MustInt()
+
+	appG := app.Gin{C: c}
+	var reqInfo auth
+	err := c.BindJSON(&reqInfo)
+	if err != nil {
+		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
+		return
+	}
 
 	valid := validation.Validation{}
-	valid.MaxSize(username, 100, "username").Message("最长为100字符")
-	valid.MaxSize(password, 100, "password").Message("最长为100字符")
+	valid.MaxSize(reqInfo.Username, 100, "username").Message("最长为100字符")
+	valid.MaxSize(reqInfo.Password, 100, "password").Message("最长为100字符")
 
 	if valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, valid.Errors)
 		return
 	}
 
 	userService := user_service.User{
-		Username: username,
-		Password: password,
-		Role:     roleId,
+		Username: reqInfo.Username,
+		Password: reqInfo.Password,
+		Role:     reqInfo.Role,
 	}
 	if err := userService.Add(); err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
@@ -188,39 +197,45 @@ func AddUser(c *gin.Context) {
 }
 
 // @Summary   更新用户
+// @Tags  users
+// @Accept json
 // @Produce  json
-// @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
 // @Param  username  query  string true "username"
 // @Param  password  query  string true "password"
-// @Param  role_id  query  string true "role_id"
+// @Param  role_id  query  int true "role_id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users/:id  [PUT]
 func EditUser(c *gin.Context) {
-	var (
-		appG = app.Gin{C: c}
-	)
-	id := com.StrTo(c.Param("id")).MustInt()
-	username := c.Query("username")
-	password := c.Query("password")
-	roleId := com.StrTo(c.Query("role_id")).MustInt()
 
+	appG := app.Gin{C: c}
+	var reqInfo auth
+	err := c.BindJSON(&reqInfo)
+
+	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
-	valid.MaxSize(username, 100, "username").Message("最长为100字符")
-	valid.MaxSize(password, 100, "password").Message("最长为100字符")
+	valid.Min(id, 1, "id").Message("ID必须大于0")
+	valid.MaxSize(reqInfo.Username, 100, "username").Message("最长为100字符")
+	valid.MaxSize(reqInfo.Password, 100, "password").Message("最长为100字符")
+
+	if err != nil {
+		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
+		return
+	}
 
 	if valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
+		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, valid.Errors)
 		return
 	}
+
 	userService := user_service.User{
 		ID:       id,
-		Username: username,
-		Password: password,
-		Role:     roleId,
+		Username: reqInfo.Username,
+		Password: reqInfo.Password,
+		Role:     reqInfo.Role,
 	}
 	exists, err := userService.ExistByID()
+
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_EXIST_FAIL, nil)
 		return
@@ -231,6 +246,7 @@ func EditUser(c *gin.Context) {
 	}
 
 	err = userService.Edit()
+
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
 		return
@@ -240,15 +256,17 @@ func EditUser(c *gin.Context) {
 }
 
 // @Summary   删除用户
+// @Tags  users
+// @Accept json
 // @Produce  json
-// @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
+// @Param  id  query  int true "id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users/:id  [DELETE]
 func DeleteUser(c *gin.Context) {
 	appG := app.Gin{C: c}
-	valid := validation.Validation{}
 	id := com.StrTo(c.Param("id")).MustInt()
+	valid := validation.Validation{}
+
 	valid.Min(id, 1, "id").Message("ID必须大于0")
 
 	if valid.HasErrors() {

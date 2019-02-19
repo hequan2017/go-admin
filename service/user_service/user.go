@@ -2,6 +2,7 @@ package user_service
 
 import (
 	"errors"
+	"fmt"
 	"github.com/casbin/casbin"
 	"github.com/hequan2017/go-admin/models"
 	"github.com/hequan2017/go-admin/pkg/util"
@@ -108,7 +109,6 @@ func (a *User) Delete() error {
 	if err != nil {
 		return err
 	}
-	a.Enforcer.DeleteUser(a.Username)
 	return nil
 }
 
@@ -133,11 +133,15 @@ func (a *User) LoadAllPolicy() error {
 		return err
 	}
 	for _, user := range users {
-		err = a.LoadPolicy(user.ID)
-		if err != nil {
-			return err
+		fmt.Println(user.Username)
+		if len(user.Role) != 0 {
+			err = a.LoadPolicy(user.ID)
+			if err != nil {
+				return err
+			}
 		}
 	}
+	fmt.Println("角色权限关系",a.Enforcer.GetGroupingPolicy())
 	return nil
 }
 

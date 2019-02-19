@@ -6,13 +6,15 @@ import (
 	"github.com/gin-gonic/gin"
 	jwtGet "github.com/hequan2017/go-admin/pkg/util"
 	"net/http"
+	"strings"
 )
 
 func CasbinMiddleware(engine *casbin.Enforcer) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		token := c.Query("token")
-		t, _ := jwt.Parse(token, func(*jwt.Token) (interface{}, error) {
+		Authorization := c.GetHeader("Authorization")
+		token := strings.Split(Authorization, " ")
+		t, _ := jwt.Parse(token[1], func(*jwt.Token) (interface{}, error) {
 			return jwtGet.JwtSecret, nil
 		})
 

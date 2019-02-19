@@ -43,11 +43,24 @@ hequan     test
 
 当hequan  GET  /api/v1/users 地址的时候，会去检查权限，因为他属于test组，同时组有对应权限，所以本次请求会通过。
 
-因为现在是测试  在模拟请求的时候 需要加上   /api/v1/users?token=xxxxxxxxxxx  
-
 用户 admin 有所有的权限,不进行权限匹配
 
 登录接口 /auth  不进行验证
+```
+
+### 请求
+
+> 请求和接收 都是 传递 json 格式 数据
+```
+例如:
+访问 /auth    获取token
+{
+	"username": "admin",
+	"password": "123456"
+}
+
+访问/api/v1/users   
+请求头设置  Authorization: Token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ```
 
@@ -109,12 +122,6 @@ Listening port is 8000
 
 > http://127.0.0.1:8000/swagger/index.html
 
-```html
-先获取token
-http://127.0.0.1:8000/auth?username=hequan&password=123456
-然后把token 放到下面
-http://127.0.0.1:8000/api/v1/users?token=xxxxxxxxxxxxxxx
-```
 
 ## Features
 ```

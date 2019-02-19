@@ -92,7 +92,6 @@ func GetMenus(c *gin.Context) {
 
 // @Summary   增加菜单
 // @Produce  json
-// @Param  token  query  string true "token"
 // @Param  name  query  string true "name"
 // @Param  path  query  string true "path"
 // @Param  method  query  string true "method"
@@ -134,7 +133,6 @@ func AddMenu(c *gin.Context) {
 // @Summary   更新菜单
 // @Produce  json
 // @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
 // @Param  name  query  string true "name"
 // @Param  path  query  string true "path"
 // @Param  method  query  string true "method"
@@ -188,7 +186,6 @@ func EditMenu(c *gin.Context) {
 // @Summary   删除菜单
 // @Produce  json
 // @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/menus/:id  [DELETE]
 func DeleteMenu(c *gin.Context) {

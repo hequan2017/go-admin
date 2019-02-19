@@ -31,7 +31,6 @@ func ExistUserByID(id int) (bool, error) {
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return false, err
 	}
-
 	if user.ID > 0 {
 		return true, nil
 	}
@@ -143,7 +142,7 @@ func CleanAllUser() error {
 
 func GetUsersAll() ([]*User, error) {
 	var user []*User
-	err := db.Preload("Role").Find(&user).Error
+	err := db.Where("deleted_on = ? ",0).Preload("Role").Find(&user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}

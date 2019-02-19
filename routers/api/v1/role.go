@@ -22,7 +22,6 @@ type auth struct {
 // @Summary   获取单个角色
 // @Produce  json
 // @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/roles/:id  [GET]
 func GetRole(c *gin.Context) {
@@ -60,7 +59,6 @@ func GetRole(c *gin.Context) {
 
 // @Summary   获取所有角色
 // @Produce  json
-// @Param  token  query  string true "token"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/roles  [GET]
 func GetRoles(c *gin.Context) {
@@ -101,7 +99,6 @@ func GetRoles(c *gin.Context) {
 
 // @Summary   增加角色
 // @Produce  json
-// @Param  token  query  string true "token"
 // @Param  name  query  string true "name"
 // @Param  menu_id  query  string true "menu_id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
@@ -139,7 +136,6 @@ func AddRole(c *gin.Context) {
 // @Summary   更新角色
 // @Produce  json
 // @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
 // @Param  name  query  string true "name"
 // @Param  menu_id  query  string true "menu_id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
@@ -187,7 +183,6 @@ func EditRole(c *gin.Context) {
 // @Summary   删除角色
 // @Produce  json
 // @Param  id  query  string true "id"
-// @Param  token  query  string true "token"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/roles/:id  [DELETE]
 func DeleteRole(c *gin.Context) {
