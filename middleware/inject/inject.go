@@ -21,9 +21,9 @@ func Init() *Object {
 	// 注入casbin
 	osType := runtime.GOOS
 	var path string
-	if osType == "windows"{
+	if osType == "windows" {
 		path = "conf\\rbac_model.conf"
-	}else if osType == "linux"{
+	} else if osType == "linux" {
 		path = "conf/rbac_model.conf"
 	}
 	enforcer := casbin.NewEnforcer(path, false)
@@ -41,7 +41,6 @@ func Init() *Object {
 		Common:   Common,
 	}
 }
-
 
 var instance *Object
 

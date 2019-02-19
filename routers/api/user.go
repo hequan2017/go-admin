@@ -1,16 +1,17 @@
 package api
 
 import (
+	"fmt"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
-	"github.com/hequan2017/go-admin/pkg/setting"
-	"github.com/hequan2017/go-admin/service/user_service"
-	"net/http"
-
+	"github.com/hequan2017/go-admin/middleware/inject"
 	"github.com/hequan2017/go-admin/pkg/app"
 	"github.com/hequan2017/go-admin/pkg/e"
+	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/pkg/util"
+	"github.com/hequan2017/go-admin/service/user_service"
+	"net/http"
 )
 
 type auth struct {
@@ -265,7 +266,6 @@ func EditUser(c *gin.Context) {
 func DeleteUser(c *gin.Context) {
 	appG := app.Gin{C: c}
 
-
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
 
@@ -293,6 +293,7 @@ func DeleteUser(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
 		return
 	}
-
+	a := inject.GetInstance()
+	fmt.Println(a.Enforcer.DeleteUser("admin"))
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }
