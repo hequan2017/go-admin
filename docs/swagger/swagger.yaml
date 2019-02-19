@@ -3,19 +3,15 @@ info:
   description: An example of gin
   license:
     name: MIT
-    url: https://github.com/hequan2017/go-admin/master/LICENSE
+    url: https://github.com/hequan2017/go-admin/blob/master/LICENSE
   termsOfService: https://github.com/hequan2017/go-admin
   title: Golang Gin API
-  version: "1.0"
+  version: 1.0.2
 paths:
   /api/v1/menus:
     get:
-      parameters:
-      - description: token
-        in: query
-        name: token
-        required: true
-        type: string
+      consumes:
+      - application/json
       produces:
       - application/json
       responses:
@@ -24,7 +20,11 @@ paths:
           schema:
             type: string
       summary: 获取所有菜单
+      tags:
+      - menu
     post:
+      consumes:
+      - application/json
       parameters:
       - description: name
         in: query
@@ -36,11 +36,6 @@ paths:
         name: path
         required: true
         type: string
-      - description: method
-        in: query
-        name: method
-        required: true
-        type: string
       produces:
       - application/json
       responses:
@@ -49,8 +44,12 @@ paths:
           schema:
             type: string
       summary: 增加菜单
+      tags:
+      - menu
   /api/v1/menus/:
     delete:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
@@ -65,16 +64,15 @@ paths:
           schema:
             type: string
       summary: 删除菜单
+      tags:
+      - menu
     get:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
         name: id
-        required: true
-        type: string
-      - description: token
-        in: query
-        name: token
         required: true
         type: string
       produces:
@@ -85,7 +83,11 @@ paths:
           schema:
             type: string
       summary: 获取单个菜单
+      tags:
+      - menu
     put:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
@@ -115,8 +117,12 @@ paths:
           schema:
             type: string
       summary: 更新菜单
+      tags:
+      - menu
   /api/v1/roles:
     get:
+      consumes:
+      - application/json
       produces:
       - application/json
       responses:
@@ -125,7 +131,11 @@ paths:
           schema:
             type: string
       summary: 获取所有角色
+      tags:
+      - role
     post:
+      consumes:
+      - application/json
       parameters:
       - description: name
         in: query
@@ -145,8 +155,12 @@ paths:
           schema:
             type: string
       summary: 增加角色
+      tags:
+      - role
   /api/v1/roles/:
     delete:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
@@ -161,7 +175,11 @@ paths:
           schema:
             type: string
       summary: 删除角色
+      tags:
+      - role
     get:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
@@ -176,7 +194,11 @@ paths:
           schema:
             type: string
       summary: 获取单个角色
+      tags:
+      - role
     put:
+      consumes:
+      - application/json
       parameters:
       - description: id
         in: query
@@ -201,10 +223,14 @@ paths:
           schema:
             type: string
       summary: 更新角色
+      tags:
+      - role
   /api/v1/users:
     get:
       consumes:
       - application/json
+      parameters:
+      - {}
       produces:
       - application/json
       responses:
@@ -283,11 +309,6 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: id
-        in: query
-        name: id
-        required: true
-        type: string
       - description: username
         in: query
         name: username

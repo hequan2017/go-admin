@@ -3,7 +3,7 @@
 一个go api 后端例子,包含JWT,RBAC(Casbin),增删改查 等! (逐步完善中...)
 
 ## 主要说明
-
+* v 1.0.2
 ### 表
 * user     
     * username  password   

@@ -7,26 +7,23 @@
         "contact": {},
         "license": {
             "name": "MIT",
-            "url": "https://github.com/hequan2017/go-admin/master/LICENSE"
+            "url": "https://github.com/hequan2017/go-admin/blob/master/LICENSE"
         },
-        "version": "1.0"
+        "version": "1.0.2"
     },
     "paths": {
         "/api/v1/menus": {
             "get": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "获取所有菜单",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
-                        "in": "query",
-                        "required": true
-                    }
+                "tags": [
+                    "menu"
                 ],
+                "summary": "获取所有菜单",
                 "responses": {
                     "200": {
                         "description": "{ \"code\": 200, \"data\": {}, \"msg\": \"ok\" }",
@@ -37,8 +34,14 @@
                 }
             },
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "menu"
                 ],
                 "summary": "增加菜单",
                 "parameters": [
@@ -55,13 +58,6 @@
                         "name": "path",
                         "in": "query",
                         "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "method",
-                        "name": "method",
-                        "in": "query",
-                        "required": true
                     }
                 ],
                 "responses": {
@@ -76,8 +72,14 @@
         },
         "/api/v1/menus/": {
             "get": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "menu"
                 ],
                 "summary": "获取单个菜单",
                 "parameters": [
@@ -85,13 +87,6 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "token",
-                        "name": "token",
                         "in": "query",
                         "required": true
                     }
@@ -106,8 +101,14 @@
                 }
             },
             "put": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "menu"
                 ],
                 "summary": "更新菜单",
                 "parameters": [
@@ -150,8 +151,14 @@
                 }
             },
             "delete": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "menu"
                 ],
                 "summary": "删除菜单",
                 "parameters": [
@@ -175,8 +182,14 @@
         },
         "/api/v1/roles": {
             "get": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "role"
                 ],
                 "summary": "获取所有角色",
                 "responses": {
@@ -189,8 +202,14 @@
                 }
             },
             "post": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "role"
                 ],
                 "summary": "增加角色",
                 "parameters": [
@@ -221,8 +240,14 @@
         },
         "/api/v1/roles/": {
             "get": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "role"
                 ],
                 "summary": "获取单个角色",
                 "parameters": [
@@ -244,8 +269,14 @@
                 }
             },
             "put": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "role"
                 ],
                 "summary": "更新角色",
                 "parameters": [
@@ -281,8 +312,14 @@
                 }
             },
             "delete": {
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "role"
                 ],
                 "summary": "删除角色",
                 "parameters": [
@@ -316,6 +353,9 @@
                     "users"
                 ],
                 "summary": "获取所有用户",
+                "parameters": [
+                    {}
+                ],
                 "responses": {
                     "200": {
                         "description": "{ \"code\": 200, \"data\": {}, \"msg\": \"ok\" }",
@@ -405,13 +445,6 @@
                 ],
                 "summary": "更新用户",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "id",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
-                    },
                     {
                         "type": "string",
                         "description": "username",

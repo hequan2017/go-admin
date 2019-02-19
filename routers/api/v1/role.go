@@ -205,6 +205,8 @@ func EditRole(c *gin.Context) {
 }
 
 // @Summary   删除角色
+// @Tags role
+// @Accept json
 // @Produce  json
 // @Param  id  query  string true "id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
