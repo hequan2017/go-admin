@@ -5,6 +5,7 @@ import (
 	"github.com/facebookgo/inject"
 	"github.com/hequan2017/go-admin/service/bll"
 	"runtime"
+	"sync"
 )
 
 // Object 注入对象
@@ -39,4 +40,30 @@ func Init() *Object {
 		Enforcer: enforcer,
 		Common:   Common,
 	}
+}
+
+
+var instance *Object
+
+func GetInstance() *Object {
+	var once sync.Once
+	once.Do(func() {
+		instance = Init()
+	})
+	return instance
+}
+
+// 加载casbin策略数据，包括角色权限数据、用户角色数据
+func LoadCasbinPolicyData(obj *Object) error {
+	c := obj.Common
+
+	err := c.RoleAPI.LoadAllPolicy()
+	if err != nil {
+		return err
+	}
+	err = c.UserAPI.LoadAllPolicy()
+	if err != nil {
+		return err
+	}
+	return nil
 }

@@ -2,7 +2,6 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
-
 	"github.com/hequan2017/go-admin/pkg/e"
 )
 

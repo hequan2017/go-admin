@@ -264,6 +264,8 @@ func EditUser(c *gin.Context) {
 // @Router /api/v1/users/:id  [DELETE]
 func DeleteUser(c *gin.Context) {
 	appG := app.Gin{C: c}
+
+
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
 

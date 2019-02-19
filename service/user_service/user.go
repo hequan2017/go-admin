@@ -133,7 +133,6 @@ func (a *User) LoadAllPolicy() error {
 		return err
 	}
 	for _, user := range users {
-		fmt.Println(user.Username)
 		if len(user.Role) != 0 {
 			err = a.LoadPolicy(user.ID)
 			if err != nil {
@@ -142,6 +141,7 @@ func (a *User) LoadAllPolicy() error {
 		}
 	}
 	fmt.Println("角色权限关系",a.Enforcer.GetGroupingPolicy())
+	fmt.Println("菜单权限关系",a.Enforcer.GetAllRoles())
 	return nil
 }
 
@@ -152,9 +152,12 @@ func (a *User) LoadPolicy(id int) error {
 	if err != nil {
 		return err
 	}
+	a.Enforcer.DeleteUser("admin")
 	a.Enforcer.DeleteRolesForUser(user.Username)
+
 	for _, ro := range user.Role {
 		a.Enforcer.AddRoleForUser(user.Username, ro.Name)
 	}
+
 	return nil
 }

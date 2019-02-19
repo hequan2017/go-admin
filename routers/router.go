@@ -5,8 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/hequan2017/go-admin/docs"
 	"github.com/hequan2017/go-admin/middleware/inject"
-	"github.com/hequan2017/go-admin/middleware/jwt"
-	"github.com/hequan2017/go-admin/middleware/permission"
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/routers/api"
 	"github.com/hequan2017/go-admin/routers/api/v1"
@@ -17,7 +15,6 @@ import (
 )
 
 func InitRouter() *gin.Engine {
-	obj := inject.Init()
 
 	r := gin.New()
 
@@ -27,7 +24,10 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 	gin.SetMode(setting.ServerSetting.RunMode)
 
-	err := loadCasbinPolicyData(obj)
+	obj := inject.GetInstance()
+	err := inject.LoadCasbinPolicyData(obj)
+
+
 	if err != nil {
 		panic("加载casbin策略数据发生错误: " + err.Error())
 	}
@@ -36,8 +36,9 @@ func InitRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	apiv1 := r.Group("/api/v1")
-	apiv1.Use(jwt.JWT())
-	apiv1.Use(permission.CasbinMiddleware(obj.Enforcer))
+
+	//apiv1.Use(jwt.JWT())
+	//apiv1.Use(permission.CasbinMiddleware(obj.Enforcer))
 	{
 
 		apiv1.GET("/menus", v1.GetMenus)
@@ -62,20 +63,7 @@ func InitRouter() *gin.Engine {
 	return r
 }
 
-// 加载casbin策略数据，包括角色权限数据、用户角色数据
-func loadCasbinPolicyData(obj *inject.Object) error {
-	c := obj.Common
 
-	err := c.RoleAPI.LoadAllPolicy()
-	if err != nil {
-		return err
-	}
-	err = c.UserAPI.LoadAllPolicy()
-	if err != nil {
-		return err
-	}
-	return nil
-}
 
 // 跨域
 func Cors() gin.HandlerFunc {
