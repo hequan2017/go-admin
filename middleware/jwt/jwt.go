@@ -20,7 +20,7 @@ func JWT() gin.HandlerFunc {
 		Authorization := c.GetHeader("Authorization")
 		token := strings.Split(Authorization, " ")
 
-		if token[1] == "" {
+		if Authorization == "" {
 			code = e.INVALID_PARAMS
 		} else {
 			_, err := util.ParseToken(token[1])

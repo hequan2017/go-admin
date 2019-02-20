@@ -43,9 +43,9 @@ func Init() *Object {
 }
 
 var instance *Object
+var once sync.Once
 
 func GetInstance() *Object {
-	var once sync.Once
 	once.Do(func() {
 		instance = Init()
 	})

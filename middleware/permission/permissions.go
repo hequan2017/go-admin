@@ -1,6 +1,7 @@
 package permission
 
 import (
+	"fmt"
 	"github.com/casbin/casbin"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -17,7 +18,7 @@ func CasbinMiddleware(engine *casbin.Enforcer) gin.HandlerFunc {
 		t, _ := jwt.Parse(token[1], func(*jwt.Token) (interface{}, error) {
 			return jwtGet.JwtSecret, nil
 		})
-
+		fmt.Println(jwtGet.GetIdFromClaims("username", t.Claims), c.Request.URL.Path, c.Request.Method)
 		if b, err := engine.EnforceSafe(jwtGet.GetIdFromClaims("username", t.Claims), c.Request.URL.Path, c.Request.Method); err != nil {
 
 			c.JSON(http.StatusUnauthorized, gin.H{

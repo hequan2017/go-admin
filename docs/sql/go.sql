@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2019-02-15 15:27:14
+Date: 2019-02-20 14:03:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -78,12 +78,26 @@ CREATE TABLE `go_role_menu` (
   `menu_id` int(11) unsigned DEFAULT NULL COMMENT '菜单ID',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
 
 -- ----------------------------
 -- Records of go_role_menu
 -- ----------------------------
 INSERT INTO `go_role_menu` VALUES ('1', '1', '1', '0');
+INSERT INTO `go_role_menu` VALUES ('2', '1', '2', '0');
+INSERT INTO `go_role_menu` VALUES ('3', '1', '3', '0');
+INSERT INTO `go_role_menu` VALUES ('4', '1', '4', '0');
+INSERT INTO `go_role_menu` VALUES ('5', '1', '5', '0');
+INSERT INTO `go_role_menu` VALUES ('6', '1', '6', '0');
+INSERT INTO `go_role_menu` VALUES ('7', '1', '7', '0');
+INSERT INTO `go_role_menu` VALUES ('8', '1', '8', '0');
+INSERT INTO `go_role_menu` VALUES ('9', '1', '9', '0');
+INSERT INTO `go_role_menu` VALUES ('10', '1', '10', '0');
+INSERT INTO `go_role_menu` VALUES ('11', '1', '11', '0');
+INSERT INTO `go_role_menu` VALUES ('12', '1', '12', '0');
+INSERT INTO `go_role_menu` VALUES ('13', '1', '13', '0');
+INSERT INTO `go_role_menu` VALUES ('14', '1', '14', '0');
+INSERT INTO `go_role_menu` VALUES ('15', '1', '15', '0');
 
 -- ----------------------------
 -- Table structure for go_user
@@ -97,13 +111,13 @@ CREATE TABLE `go_user` (
   `modified_on` int(11) unsigned DEFAULT NULL COMMENT '更新时间',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户管理';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户管理';
 
 -- ----------------------------
 -- Records of go_user
 -- ----------------------------
 INSERT INTO `go_user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', null, null, '0');
-INSERT INTO `go_user` VALUES ('2', 'hequan', 'e10adc3949ba59abbe56e057f20f883e', null, null, '0');
+INSERT INTO `go_user` VALUES ('2', 'hequan', 'e10adc3949ba59abbe56e057f20f883e', '1550642309', '1550642309', '0');
 
 -- ----------------------------
 -- Table structure for go_user_role
@@ -115,7 +129,7 @@ CREATE TABLE `go_user_role` (
   `role_id` int(11) unsigned DEFAULT NULL COMMENT '角色ID',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
 
 -- ----------------------------
 -- Records of go_user_role
