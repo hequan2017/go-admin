@@ -100,7 +100,11 @@ export GOPROXY=https://goproxy.io
 go get github.com/hequan2017/go-admin
 cd $GOPATH/src/github.com/hequan2017/go-admin
 go build main.go
-go run  main.go
+go run  main.go 
+
+## 热编译,开发时使用
+
+gowatch 
 
 ```
 

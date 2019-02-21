@@ -284,7 +284,6 @@ func DeleteUser(c *gin.Context) {
 
 	id := com.StrTo(c.Param("id")).MustInt()
 	valid := validation.Validation{}
-
 	valid.Min(id, 1, "id").Message("ID必须大于0")
 
 	if valid.HasErrors() {
@@ -310,7 +309,6 @@ func DeleteUser(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
 		return
 	}
-
 	a := inject.GetInstance()
 	a.Enforcer.DeleteUser(user.Username)
 

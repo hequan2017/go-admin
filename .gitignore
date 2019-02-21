@@ -16,3 +16,5 @@ runtime/*
 */test
 */vendor
 logs/*
+go-admin*
+go-admin.exe
