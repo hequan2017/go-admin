@@ -1,9 +1,10 @@
 # Go Admin
 
-一个go api 后端例子,包含JWT,RBAC(Casbin),增删改查 等! (逐步完善中...)
+一个go api 后端例子,包含JWT,RBAC(Casbin),增删改查, 一键生成 Restful API接口(不依赖orm)。
 
 ## 主要说明
-* v 1.0.2
+* v 1.1
+
 ### 表
 * user     
     * username  password   
@@ -143,6 +144,7 @@ http://127.0.0.1:8000/api/restful/go_menu
 - Gin
 - Graceful restart or stop (fvbock/endless)
 - App configurable
+- 一键生成 Restful API接口
 ```
 ## 开发者
 * 何全
