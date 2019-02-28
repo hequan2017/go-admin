@@ -1,29 +1,25 @@
 module github.com/hequan2017/go-admin
 
+go 1.12
+
 require (
-	github.com/Anderson-Lu/gofasion v0.0.0-20190212110938-fb53d4c7b846
-	github.com/Unknwon/com v0.0.0-20181010210213-41959bdd855f
+	gitee.com/hequan2020/gogo v0.0.0-20190228074623-72941c85b85b // indirect
+	github.com/Anderson-Lu/gofasion v0.0.0-20190227113711-eaab36385eea
+	github.com/Unknwon/com v0.0.0-20190214221849-2d12a219ccaf
 	github.com/astaxie/beego v1.11.1
 	github.com/casbin/casbin v1.8.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/facebookgo/inject v0.0.0-20180706035515-f23751cae28b
 	github.com/facebookgo/structtag v0.0.0-20150214074306-217e25fb9691 // indirect
-	github.com/gin-contrib/sse v0.0.0-20190125020943-a7658810eb74 // indirect
+	github.com/fatih/color v1.7.0 // indirect
 	github.com/gin-gonic/gin v1.3.0
-	github.com/go-ini/ini v1.41.0
-	github.com/go-openapi/jsonreference v0.18.0 // indirect
-	github.com/go-openapi/spec v0.18.0 // indirect
-	github.com/golang/protobuf v1.2.0 // indirect
-	github.com/howeyc/fsnotify v0.9.0 // indirect
+	github.com/go-ini/ini v1.42.0
 	github.com/jinzhu/gorm v1.9.2
 	github.com/jinzhu/inflection v0.0.0-20180308033659-04140366298a // indirect
-	github.com/mattn/go-isatty v0.0.4 // indirect
-	github.com/silenceper/gowatch v0.0.0-20180313021937-88b15250cbe4 // indirect
-	github.com/silenceper/log v0.0.0-20171204144354-e5ac7fa8a76a // indirect
-	github.com/swaggo/gin-swagger v1.0.0
-	github.com/swaggo/swag v1.4.0
-	github.com/ugorji/go/codec v0.0.0-20190204201341-e444a5086c43 // indirect
-	golang.org/x/tools v0.0.0-20190208222737-3744606dbb67 // indirect
-	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
-	gopkg.in/yaml.v1 v1.0.0-20140924161607-9f9df34309c0 // indirect
+	github.com/mailru/easyjson v0.0.0-20190221075403-6243d8e04c3f // indirect
+	github.com/mattn/go-colorable v0.1.1 // indirect
+	github.com/mattn/go-isatty v0.0.6 // indirect
+	github.com/phachon/go-logger v0.0.0-20180912060440-89ff8a2898f6 // indirect
+	github.com/swaggo/gin-swagger v1.1.0
+	github.com/swaggo/swag v1.4.1
 )

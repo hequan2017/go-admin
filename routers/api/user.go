@@ -82,7 +82,7 @@ func Auth(c *gin.Context) {
 // @Tags  users
 // @Accept json
 // @Produce  json
-// @Param  id  query  int true "id"
+// @Param  id  path   int true "id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users/:id  [GET]
 func GetUser(c *gin.Context) {
@@ -161,9 +161,9 @@ func GetUsers(c *gin.Context) {
 // @Tags  users
 // @Accept json
 // @Produce  json
-// @Param  username  query  string true "username"
-// @Param  password  query  string true "password"
-// @Param  role_id  int  int true "role_id"
+// @Param  username  body   string true "username"
+// @Param  password  body   string true "password"
+// @Param  role_id  path   int false "role_id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users  [POST]
 func AddUser(c *gin.Context) {
@@ -209,9 +209,9 @@ func AddUser(c *gin.Context) {
 // @Tags  users
 // @Accept json
 // @Produce  json
-// @Param  username  query  string true "username"
-// @Param  password  query  string true "password"
-// @Param  role_id  query  int true "role_id"
+// @Param  username  json   string true "username"
+// @Param  password  json   string true "password"
+// @Param  role_id  query  int false "role_id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users/:id  [PUT]
 func EditUser(c *gin.Context) {
@@ -276,7 +276,7 @@ func EditUser(c *gin.Context) {
 // @Tags  users
 // @Accept json
 // @Produce  json
-// @Param  id  query  int true "id"
+// @Param  id  path  int true "id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/users/:id  [DELETE]
 func DeleteUser(c *gin.Context) {

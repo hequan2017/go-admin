@@ -52,7 +52,7 @@ paths:
       - application/json
       parameters:
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: string
@@ -71,7 +71,7 @@ paths:
       - application/json
       parameters:
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: string
@@ -90,7 +90,7 @@ paths:
       - application/json
       parameters:
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: string
@@ -163,7 +163,7 @@ paths:
       - application/json
       parameters:
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: string
@@ -182,7 +182,7 @@ paths:
       - application/json
       parameters:
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: string
@@ -201,7 +201,7 @@ paths:
       - application/json
       parameters:
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: string
@@ -246,16 +246,21 @@ paths:
       - application/json
       parameters:
       - description: username
-        in: query
+        in: body
         name: username
         required: true
-        type: string
+        schema:
+          type: object
       - description: password
-        in: query
+        in: body
         name: password
         required: true
-        type: string
-      - {}
+        schema:
+          type: object
+      - description: role_id
+        in: path
+        name: role_id
+        type: integer
       produces:
       - application/json
       responses:
@@ -272,7 +277,7 @@ paths:
       - application/json
       parameters:
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: integer
@@ -291,7 +296,7 @@ paths:
       - application/json
       parameters:
       - description: id
-        in: query
+        in: path
         name: id
         required: true
         type: integer
@@ -309,20 +314,11 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: username
-        in: query
-        name: username
-        required: true
-        type: string
-      - description: password
-        in: query
-        name: password
-        required: true
-        type: string
+      - {}
+      - {}
       - description: role_id
         in: query
         name: role_id
-        required: true
         type: integer
       produces:
       - application/json

@@ -1,0 +1,9 @@
+2019-02-28 15:41:55.165 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string
+2019-02-28 15:48:38.205 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string
+2019-02-28 15:48:40.851 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string
+2019-02-28 15:50:00.255 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string
+2019-02-28 15:50:01.253 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string
+2019-02-28 15:53:00.349 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string
+2019-02-28 15:53:01.95 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string
+2019-02-28 15:54:21.261 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string
+2019-02-28 15:54:22.196 [Error] sql: Scan error on column index 18, name "PublicIpAddresses": unsupported Scan, storing driver.Value type <nil> into type *string

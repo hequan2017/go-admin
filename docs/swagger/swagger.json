@@ -87,7 +87,7 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -116,7 +116,7 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     },
                     {
@@ -166,7 +166,7 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -255,7 +255,7 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -284,7 +284,7 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     },
                     {
@@ -327,7 +327,7 @@
                         "type": "string",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -378,20 +378,29 @@
                 "summary": "增加用户",
                 "parameters": [
                     {
-                        "type": "string",
                         "description": "username",
                         "name": "username",
-                        "in": "query",
-                        "required": true
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
                     },
                     {
-                        "type": "string",
                         "description": "password",
                         "name": "password",
-                        "in": "query",
-                        "required": true
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
                     },
-                    {}
+                    {
+                        "type": "integer",
+                        "description": "role_id",
+                        "name": "role_id",
+                        "in": "path"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -420,7 +429,7 @@
                         "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
@@ -445,26 +454,13 @@
                 ],
                 "summary": "更新用户",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "username",
-                        "name": "username",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "password",
-                        "name": "password",
-                        "in": "query",
-                        "required": true
-                    },
+                    {},
+                    {},
                     {
                         "type": "integer",
                         "description": "role_id",
                         "name": "role_id",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -492,7 +488,7 @@
                         "type": "integer",
                         "description": "id",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
