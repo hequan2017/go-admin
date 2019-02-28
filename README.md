@@ -104,7 +104,7 @@ go run  main.go
 
 ## 热编译,开发时使用
 
-gowatch 
+gowatch   
 
 ```
 
@@ -120,6 +120,12 @@ Listening port is 8000
 
 默认 账户 密码 都为  123456
 
+```
+
+* 不用orm依赖,直接输入表名字就可以 增删改查 
+
+```
+http://127.0.0.1:8000/api/restful/go_menu
 ```
 
 ###  API  注释
@@ -146,7 +152,10 @@ Listening port is 8000
 本项目主要参考了:
 https://github.com/EDDYCJY/go-gin-example  包含更多的例子，上传文件图片等。本项目进行了增改。
 https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
+https://gitee.com/konyshe  一行代码搞定RESTFul的轻量web框架。
 ```
+
+
 ## 其他
 ```shell
 ##更新注释
