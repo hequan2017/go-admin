@@ -5,7 +5,6 @@ import (
 	"github.com/facebookgo/inject"
 	"github.com/hequan2017/go-admin/service/bll"
 	"runtime"
-	"sync"
 )
 
 // Object 注入对象
@@ -14,8 +13,10 @@ type Object struct {
 	Enforcer *casbin.Enforcer
 }
 
+var Obj *Object
+
 // Init 初始化依赖注入
-func Init() *Object {
+func Init() {
 	g := new(inject.Graph)
 
 	// 注入casbin
@@ -36,25 +37,26 @@ func Init() *Object {
 		panic("初始化依赖注入发生错误：" + err.Error())
 	}
 
-	return &Object{
+	Obj = &Object{
 		Enforcer: enforcer,
 		Common:   Common,
 	}
+	return
 }
 
-var instance *Object
-var once sync.Once
-
-func GetInstance() *Object {
-	once.Do(func() {
-		instance = Init()
-	})
-	return instance
-}
+//var instance *Object
+//var once sync.Once
+//
+//func GetInstance() *Object {
+//	once.Do(func() {
+//		instance = Init()
+//	})
+//	return instance
+//}
 
 // 加载casbin策略数据，包括角色权限数据、用户角色数据
-func LoadCasbinPolicyData(obj *Object) error {
-	c := obj.Common
+func LoadCasbinPolicyData() error {
+	c := Obj.Common
 
 	err := c.RoleAPI.LoadAllPolicy()
 	if err != nil {

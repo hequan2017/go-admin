@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/hequan2017/go-admin/docs"
-	"github.com/hequan2017/go-admin/middleware/inject"
 	"github.com/hequan2017/go-admin/middleware/jwt"
 	"github.com/hequan2017/go-admin/middleware/permission"
 	"github.com/hequan2017/go-admin/pkg/setting"
@@ -21,55 +20,49 @@ func InitRouter() *gin.Engine {
 
 	r := gin.New()
 
-	r.Use(gin.Logger())
-	r.Use(Cors())
+	r.Use(gin.Logger()) // 日志
+	r.Use(Cors())       // 跨域请求
 
 	r.Use(gin.Recovery())
 	gin.SetMode(setting.ServerSetting.RunMode)
 
-	obj := inject.GetInstance()
-	err := inject.LoadCasbinPolicyData(obj)
+	r.POST("/auth", api.Auth)                                            // 获取登录token
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler)) // API 注释
 
-	if err != nil {
-		panic("加载casbin策略数据发生错误: " + err.Error())
-	}
+	apiV1 := r.Group("/api/v1")
 
-	r.POST("/auth", api.Auth)
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	apiv1 := r.Group("/api/v1")
-
-	apiv1.Use(jwt.JWT())                                 // token
-	apiv1.Use(permission.CasbinMiddleware(obj.Enforcer)) // 权限验证
-	{
-
-		apiv1.GET("/menus", v1.GetMenus)
-		apiv1.GET("/menus/:id", v1.GetMenu)
-		apiv1.POST("/menus", v1.AddMenu)
-		apiv1.PUT("/menus/:id", v1.EditMenu)
-		apiv1.DELETE("/menus/:id", v1.DeleteMenu)
-
-		apiv1.GET("/roles", v1.GetRoles)
-		apiv1.GET("/roles/:id", v1.GetRole)
-		apiv1.POST("/roles", v1.AddRole)
-		apiv1.PUT("/roles/:id", v1.EditRole)
-		apiv1.DELETE("/roles/:id", v1.DeleteRole)
-
-		apiv1.GET("/users", api.GetUsers)
-		apiv1.GET("/users/:id", api.GetUser)
-		apiv1.POST("/users", api.AddUser)
-		apiv1.PUT("/users/:id", api.EditUser)
-		apiv1.DELETE("/users/:id", api.DeleteUser)
-	}
-
-	apiv2 := r.Group("/api") // restful  接口 tablename 是 表名字, 详情请看  https://gitee.com/hequan2020/gogo
+	apiV1.Use(jwt.JWT())                     // token 验证
+	apiV1.Use(permission.CasbinMiddleware()) // 权限  验证
 
 	{
-		apiv2.GET("/restful/:tablename", restful.GetAll)
-		apiv2.GET("/restful/:tablename/:id", restful.GetId)
-		apiv2.POST("/restful/:tablename", restful.Post)
-		apiv2.PUT("/restful/:tablename/:id", restful.Put)
-		apiv2.DELETE("/restful/:tablename/:id", restful.Delete)
+
+		apiV1.GET("/menus", v1.GetMenus)
+		apiV1.GET("/menus/:id", v1.GetMenu)
+		apiV1.POST("/menus", v1.AddMenu)
+		apiV1.PUT("/menus/:id", v1.EditMenu)
+		apiV1.DELETE("/menus/:id", v1.DeleteMenu)
+
+		apiV1.GET("/roles", v1.GetRoles)
+		apiV1.GET("/roles/:id", v1.GetRole)
+		apiV1.POST("/roles", v1.AddRole)
+		apiV1.PUT("/roles/:id", v1.EditRole)
+		apiV1.DELETE("/roles/:id", v1.DeleteRole)
+
+		apiV1.GET("/users", api.GetUsers)
+		apiV1.GET("/users/:id", api.GetUser)
+		apiV1.POST("/users", api.AddUser)
+		apiV1.PUT("/users/:id", api.EditUser)
+		apiV1.DELETE("/users/:id", api.DeleteUser)
+	}
+
+	apiV2 := r.Group("/api") // restful  接口 tablename 是 表名字, 详情请看  https://gitee.com/hequan2020/gogo
+
+	{
+		apiV2.GET("/restful/:tablename", restful.GetAll)
+		apiV2.GET("/restful/:tablename/:id", restful.GetId)
+		apiV2.POST("/restful/:tablename", restful.Post)
+		apiV2.PUT("/restful/:tablename/:id", restful.Put)
+		apiV2.DELETE("/restful/:tablename/:id", restful.Delete)
 	}
 
 	return r

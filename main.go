@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/hequan2017/go-admin/middleware/inject"
 	"github.com/hequan2017/go-admin/models"
 	"github.com/hequan2017/go-admin/pkg/logging"
 	"github.com/hequan2017/go-admin/pkg/setting"
@@ -11,7 +12,7 @@ import (
 )
 
 // @title Golang Gin API
-// @version 1.0.2
+// @version 1.1.1
 // @description An example of gin
 // @termsOfService https://github.com/hequan2017/go-admin
 
@@ -21,6 +22,11 @@ func main() {
 	setting.Setup()
 	models.Setup()
 	logging.Setup()
+	inject.Init()
+	err := inject.LoadCasbinPolicyData()
+	if err != nil {
+		panic("加载casbin策略数据发生错误: " + err.Error())
+	}
 
 	routersInit := routers.InitRouter()
 	readTimeout := setting.ServerSetting.ReadTimeout

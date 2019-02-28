@@ -3,7 +3,7 @@
 一个go api 后端例子,包含JWT,RBAC(Casbin),增删改查, 一键生成 Restful API接口(不依赖orm)。
 
 ## 主要说明
-* v 1.1
+* v1.1.1
 
 ### 表
 * user     
@@ -105,6 +105,8 @@ go run  main.go
 
 ## 热编译,开发时使用
 
+go get github.com/silenceper/gowatch
+
 gowatch   
 
 ```
@@ -146,6 +148,8 @@ http://127.0.0.1:8000/api/restful/go_menu
 - App configurable
 - 一键生成 Restful API接口
 ```
+
+
 ## 开发者
 * 何全
 
@@ -154,7 +158,7 @@ http://127.0.0.1:8000/api/restful/go_menu
 本项目主要参考了:
 https://github.com/EDDYCJY/go-gin-example  包含更多的例子，上传文件图片等。本项目进行了增改。
 https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
-https://gitee.com/konyshe  一行代码搞定RESTFul的轻量web框架。
+https://gitee.com/konyshe/gogo             一行代码搞定RESTFul的轻量web框架。
 ```
 
 
@@ -162,4 +166,6 @@ https://gitee.com/konyshe  一行代码搞定RESTFul的轻量web框架。
 ```shell
 ##更新注释
 swag init
+
+
 ```

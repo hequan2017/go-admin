@@ -131,8 +131,8 @@ func AddRole(c *gin.Context) {
 	}
 
 	if id, err := RoleService.Add(); err != nil {
-		a := inject.GetInstance()
-		err = a.Common.RoleAPI.LoadPolicy(id)
+
+		err = inject.Obj.Common.RoleAPI.LoadPolicy(id)
 		if err != nil {
 			appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
 			return
@@ -193,8 +193,7 @@ func EditRole(c *gin.Context) {
 		return
 	}
 
-	a := inject.GetInstance()
-	err = a.Common.RoleAPI.LoadPolicy(id)
+	err = inject.Obj.Common.RoleAPI.LoadPolicy(id)
 
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
@@ -239,8 +238,8 @@ func DeleteRole(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
 		return
 	}
-	a := inject.GetInstance()
-	a.Enforcer.DeleteUser(role.Name)
+
+	inject.Obj.Enforcer.DeleteUser(role.Name)
 
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }

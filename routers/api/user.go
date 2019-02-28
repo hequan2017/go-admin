@@ -192,8 +192,7 @@ func AddUser(c *gin.Context) {
 		Role:     reqInfo.Role,
 	}
 	if id, err := userService.Add(); err == nil {
-		a := inject.GetInstance()
-		err = a.Common.UserAPI.LoadPolicy(id)
+		err = inject.Obj.Common.UserAPI.LoadPolicy(id)
 		if err != nil {
 			appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
 			return
@@ -261,8 +260,7 @@ func EditUser(c *gin.Context) {
 		return
 	}
 
-	a := inject.GetInstance()
-	err = a.Common.UserAPI.LoadPolicy(id)
+	err = inject.Obj.Common.UserAPI.LoadPolicy(id)
 
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_EDIT_FAIL, nil)
@@ -309,8 +307,8 @@ func DeleteUser(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
 		return
 	}
-	a := inject.GetInstance()
-	a.Enforcer.DeleteUser(user.Username)
+
+	inject.Obj.Enforcer.DeleteUser(user.Username)
 
 	appG.Response(http.StatusOK, e.SUCCESS, nil)
 }

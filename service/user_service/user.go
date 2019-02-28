@@ -148,6 +148,6 @@ func (a *User) LoadPolicy(id int) error {
 	for _, ro := range user.Role {
 		a.Enforcer.AddRoleForUser(user.Username, ro.Name)
 	}
-
+	fmt.Println("更新角色权限关系", a.Enforcer.GetGroupingPolicy())
 	return nil
 }
