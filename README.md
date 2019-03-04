@@ -127,8 +127,25 @@ Listening port is 8000
 
 * 不用orm依赖,直接输入表名字就可以 增删改查 
 
-```
-http://127.0.0.1:8000/api/restful/go_menu
+``` 
+
+get   http://127.0.0.1:8000/api/restful/go_user
+get   http://127.0.0.1:8000/api/restful/go_user/1
+post   http://127.0.0.1:8000/api/restful/go_user
+数据格式  json  支持批量
+[{
+	"username":"hequan",
+	"password":"hequan1",
+	"created_on": "0",
+	"modified_on":"0",
+	"deleted_on":"0"
+}]
+put  http://127.0.0.1:8000/api/restful/go_user/2
+数据格式  json
+{
+	"password":"654321"
+}
+delete http://127.0.0.1:8000/api/restful/go_user/2
 ```
 
 ###  API  注释

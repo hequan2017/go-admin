@@ -28,7 +28,6 @@ func Setup() {
 		setting.DatabaseSetting.Password,
 		setting.DatabaseSetting.Host,
 		setting.DatabaseSetting.Name))
-
 	if err != nil {
 		log.Fatalf("models.Setup err: %v", err)
 	}
