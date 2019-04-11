@@ -3,7 +3,7 @@ module github.com/hequan2017/go-admin
 go 1.12
 
 require (
-	github.com/Anderson-Lu/gofasion v0.0.0-20190227113711-eaab36385eea
+	github.com/Anderson-Lu/gofasion v0.0.0-20190311020154-5db4d09c9cb8
 	github.com/Unknwon/com v0.0.0-20190214221849-2d12a219ccaf
 	github.com/astaxie/beego v1.11.1
 	github.com/casbin/casbin v1.8.1
