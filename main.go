@@ -11,13 +11,20 @@ import (
 	"net/http"
 )
 
-// @title Golang Gin API
-// @version 1.1.1
-// @description An example of gin
+// @title go-admin
+// @version 1.1.2
+// @description  go-admin
 // @termsOfService https://github.com/hequan2017/go-admin
+
+// @contact.name hequan
+// @contact.url https://github.com/hequan2017
+// @contact.email hequan2011@sina.com
 
 // @license.name MIT
 // @license.url  https://github.com/hequan2017/go-admin/blob/master/LICENSE
+
+// @host
+// @BasePath /api/v1
 func main() {
 	setting.Setup()
 	models.Setup()

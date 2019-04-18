@@ -1,16 +1,21 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "An example of gin",
-        "title": "Golang Gin API",
+        "description": "go-admin",
+        "title": "go-admin",
         "termsOfService": "https://github.com/hequan2017/go-admin",
-        "contact": {},
+        "contact": {
+            "name": "hequan",
+            "url": "https://github.com/hequan2017",
+            "email": "hequan2011@sina.com"
+        },
         "license": {
             "name": "MIT",
             "url": "https://github.com/hequan2017/go-admin/blob/master/LICENSE"
         },
-        "version": "1.0.2"
+        "version": "1.1.2"
     },
+    "basePath": "/api/v1",
     "paths": {
         "/api/v1/menus": {
             "get": {

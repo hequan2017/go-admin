@@ -55,7 +55,7 @@ func InitRouter() *gin.Engine {
 		apiV1.DELETE("/users/:id", api.DeleteUser)
 	}
 
-	apiV2 := r.Group("/api") // restful  接口 tablename 是 表名字, 详情请看  https://gitee.com/hequan2020/gogo
+	apiV2 := r.Group("/api") // restful  接口 tablename 是 表名字, 详情请看  https://gitee.com/hequan2020/go-restful-api
 
 	{
 		apiV2.GET("/restful/:tablename", restful.GetAll)

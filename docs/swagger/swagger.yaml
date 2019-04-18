@@ -1,12 +1,16 @@
+basePath: /api/v1
 info:
-  contact: {}
-  description: An example of gin
+  contact:
+    email: hequan2011@sina.com
+    name: hequan
+    url: https://github.com/hequan2017
+  description: go-admin
   license:
     name: MIT
     url: https://github.com/hequan2017/go-admin/blob/master/LICENSE
   termsOfService: https://github.com/hequan2017/go-admin
-  title: Golang Gin API
-  version: 1.0.2
+  title: go-admin
+  version: 1.1.2
 paths:
   /api/v1/menus:
     get:

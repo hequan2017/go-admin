@@ -3,7 +3,7 @@
 一个go api 后端例子,包含JWT,RBAC(Casbin),增删改查, 一键生成 Restful API接口(不依赖orm)。
 
 ## 主要说明
-* v1.1.1
+* v1.1.2
 
 ### 表
 * user     
