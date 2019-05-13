@@ -6,7 +6,7 @@ import (
 
 type Menu struct {
 	Model
-	Name  string `json:"name"`
+	Name   string `json:"name"`
 	Path   string `json:"path"`
 	Method string `json:"method"`
 }
@@ -89,15 +89,15 @@ func CleanAllMenu() error {
 	return nil
 }
 
-func EditMenuGetRoles(id int)  []int {
+func EditMenuGetRoles(id int) []int {
 	var menu Menu
 	var role []Role
 
 	db.Model(&menu).Where("id = ? AND deleted_on = ? ", id, 0)
-	db.Joins(" left join go_role_menu b on go_role.id=b.role_id left join go_menu c on c.id=b.menu_id").Where("c.id = ?", 1).Find(&role)
+	db.Joins(" left join go_role_menu b on go_role.id=b.role_id left join go_menu c on c.id=b.menu_id").Where("c.id = ?", id).Find(&role)
 
 	roleList := []int{}
-	for _,v := range role{
+	for _, v := range role {
 		roleList = append(roleList, v.ID)
 	}
 	return roleList
