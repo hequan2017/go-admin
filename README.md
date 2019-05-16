@@ -1,19 +1,21 @@
-# Go Admin
+# Go Web Admin 
 
-一个go api 后端例子,包含JWT,RBAC(Casbin),增删改查, 一键生成 Restful API接口(不依赖orm)。
+> 一个Go Web Api 后端 简单例子,包含 用户、权限、菜单、JWT 、 RBAC(Casbin)等！
 
-## 主要说明
-* v1.1.2
+> 附加功能: 一键生成 Restful API接口(不依赖orm)！
 
-### 表
+## 版本
+* v1.2.0
+
+## 表
 * user     
     * username  password   
 * role      
     * name 
 * menu     
-    * name path   method
+    * name   path    method
 
-### 目录结构
+## 目录结构
 * conf：用于存储配置文件
 * docs： 文档(SQL和API注释)
 * logs： 日志
@@ -25,11 +27,11 @@
 * test: 单元测试
 
 
-### 权限验证说明
+## 权限验证说明
 >  利用的casbin库, 将  user  role  menu 进行自动关联
 
 ```
-项目启动时,会自动加载权限. 如有更改,会删除对应的权限,重新加载.
+项目启动时,会自动加载权限. 如有更改,会删除对应的权限,重新加载
 
 用户关联角色  
 角色关联菜单  
@@ -49,7 +51,7 @@ hequan     test
 登录接口 /auth  不进行验证
 ```
 
-### 请求
+## 请求
 
 > 请求和接收 都是 传递 json 格式 数据
 ```
@@ -60,8 +62,9 @@ hequan     test
 	"password": "123456"
 }
 
-访问  /api/v1/users   
+访问      /api/v1/users?page=2
 请求头设置  Authorization: Token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 
 ```
 
@@ -69,7 +72,7 @@ hequan     test
 
 ### Required
 
-- Mysql
+- 部署 Mysql
 
 ### Ready
 
@@ -91,7 +94,7 @@ Name = go
 TablePrefix = go_
 ```
 
-## Installation
+### Installation
 ```
 
 yum install go -y 
@@ -102,16 +105,20 @@ go get github.com/hequan2017/go-admin
 cd $GOPATH/src/github.com/hequan2017/go-admin
 go build main.go
 go run  main.go 
+```
 
-## 热编译,开发时使用
+
+### 热编译(开发时使用)
+```bash
 
 go get github.com/silenceper/gowatch
 
 gowatch   
-
 ```
 
-### Run
+## Run
+
+
 ```
 Project information and existing API
 
@@ -125,10 +132,12 @@ Listening port is 8000
 
 ```
 
+## 附加功能 
+
+
 * 不用orm依赖,直接输入表名字就可以 增删改查 
 
 ``` 
-
 get   http://127.0.0.1:8000/api/restful/go_user
 get   http://127.0.0.1:8000/api/restful/go_user/1
 post   http://127.0.0.1:8000/api/restful/go_user
@@ -148,7 +157,7 @@ put  http://127.0.0.1:8000/api/restful/go_user/2
 delete http://127.0.0.1:8000/api/restful/go_user/2
 ```
 
-###  API  注释
+## API  注释
 
 > http://127.0.0.1:8000/swagger/index.html
 
@@ -170,7 +179,10 @@ delete http://127.0.0.1:8000/api/restful/go_user/2
 ## 开发者
 * 何全
 
+
 ## 特别感谢
+
+
 ```
 本项目主要参考了:
 https://github.com/EDDYCJY/go-gin-example  包含更多的例子，上传文件图片等。本项目进行了增改。
@@ -183,6 +195,4 @@ https://gitee.com/konyshe/gogo             一行代码搞定RESTFul的轻量web
 ```shell
 ##更新注释
 swag init
-
-
 ```
