@@ -1,3 +1,5 @@
+# noinspection SqlNoDataSourceInspectionForFile
+
 /*
 Navicat MySQL Data Transfer
 

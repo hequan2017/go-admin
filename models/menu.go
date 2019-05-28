@@ -85,7 +85,6 @@ func CleanAllMenu() error {
 	if err := db.Unscoped().Where("deleted_on != ? ", 0).Delete(&Menu{}).Error; err != nil {
 		return err
 	}
-
 	return nil
 }
 
