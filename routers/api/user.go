@@ -24,11 +24,9 @@ type auth struct {
 // @Tags auth
 // @Accept json
 // @Produce  json
-// @Param  username  path   string true "username"
-// @Param  password  path   string true "password"
-// @Success 200 {string} json "{ "code": 200, "data": { "token": "xxx" }, "msg": "ok" }"
-// @Failure 400 {string} json "{"code":400,  "data":null,"msg":"请求参数错误"}"
-// @Failure 404 {string} json "{ "code": 404, "data":null,"msg":"请求参数错误"}"
+// @Param   body  body   models.AuthSwag   true "body"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Failure 400 {string} json
 // @Router /auth  [POST]
 func Auth(c *gin.Context) {
 
@@ -84,6 +82,7 @@ func Auth(c *gin.Context) {
 // @Produce  json
 // @Param  id  path   int true "id"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Failure 400 {string} json
 // @Router /api/v1/users/:id  [GET]
 func GetUser(c *gin.Context) {
 	appG := app.Gin{C: c}
@@ -123,8 +122,8 @@ func GetUser(c *gin.Context) {
 // @Tags  users
 // @Accept json
 // @Produce  json
-// @Param  username  url   string  false  "username"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Failure 400 {string} json
 // @Router /api/v1/users  [GET]
 func GetUsers(c *gin.Context) {
 	appG := app.Gin{C: c}
@@ -161,10 +160,9 @@ func GetUsers(c *gin.Context) {
 // @Tags  users
 // @Accept json
 // @Produce  json
-// @Param  username  body   string true "username"
-// @Param  password  body   string true "password"
-// @Param  role_id  path   int false "role_id"
+// @Param   body  body   models.User   true "body"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Failure 400 {string} json
 // @Router /api/v1/users  [POST]
 func AddUser(c *gin.Context) {
 
@@ -208,10 +206,9 @@ func AddUser(c *gin.Context) {
 // @Tags  users
 // @Accept json
 // @Produce  json
-// @Param  username  json   string true "username"
-// @Param  password  json   string true "password"
-// @Param  role_id  query  int false "role_id"
+// @Param   body  body   models.User   true "body"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Failure 400 {string} json
 // @Router /api/v1/users/:id  [PUT]
 func EditUser(c *gin.Context) {
 

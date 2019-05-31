@@ -4,6 +4,11 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+type AuthSwag struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 type User struct {
 	Model
 	Username string `json:"username"`

@@ -1,4 +1,65 @@
-basePath: /api/v1
+definitions:
+  models.AuthSwag:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.Menu:
+    properties:
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      id:
+        type: integer
+      method:
+        type: string
+      modified_on:
+        type: integer
+      name:
+        type: string
+      path:
+        type: string
+    type: object
+  models.Role:
+    properties:
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      id:
+        type: integer
+      menu:
+        items:
+          $ref: '#/definitions/models.Menu'
+        type: array
+      modified_on:
+        type: integer
+      name:
+        type: string
+    type: object
+  models.User:
+    properties:
+      created_on:
+        type: integer
+      deleted_on:
+        type: integer
+      id:
+        type: integer
+      modified_on:
+        type: integer
+      password:
+        type: string
+      role:
+        items:
+          $ref: '#/definitions/models.Role'
+        type: array
+      username:
+        type: string
+    type: object
+host: 127.0.0.1:8000
 info:
   contact:
     email: hequan2011@sina.com
@@ -10,7 +71,7 @@ info:
     url: https://github.com/hequan2017/go-admin/blob/master/LICENSE
   termsOfService: https://github.com/hequan2017/go-admin
   title: go-admin
-  version: 1.1.2
+  version: 1.2.0
 paths:
   /api/v1/menus:
     get:
@@ -30,16 +91,13 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: name
-        in: query
-        name: name
+      - description: body
+        in: body
+        name: body
         required: true
-        type: string
-      - description: path
-        in: query
-        name: path
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.Menu'
+          type: object
       produces:
       - application/json
       responses:
@@ -98,21 +156,13 @@ paths:
         name: id
         required: true
         type: string
-      - description: name
-        in: query
-        name: name
+      - description: body
+        in: body
+        name: body
         required: true
-        type: string
-      - description: path
-        in: query
-        name: path
-        required: true
-        type: string
-      - description: method
-        in: query
-        name: method
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.Menu'
+          type: object
       produces:
       - application/json
       responses:
@@ -141,16 +191,13 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: name
-        in: query
-        name: name
+      - description: body
+        in: body
+        name: body
         required: true
-        type: string
-      - description: menu_id
-        in: query
-        name: menu_id
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.Role'
+          type: object
       produces:
       - application/json
       responses:
@@ -209,16 +256,13 @@ paths:
         name: id
         required: true
         type: string
-      - description: name
-        in: query
-        name: name
+      - description: body
+        in: body
+        name: body
         required: true
-        type: string
-      - description: menu_id
-        in: query
-        name: menu_id
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.Role'
+          type: object
       produces:
       - application/json
       responses:
@@ -233,13 +277,15 @@ paths:
     get:
       consumes:
       - application/json
-      parameters:
-      - {}
       produces:
       - application/json
       responses:
         "200":
           description: '{ "code": 200, "data": {}, "msg": "ok" }'
+          schema:
+            type: string
+        "400":
+          description: Bad Request
           schema:
             type: string
       summary: 获取所有用户
@@ -249,27 +295,22 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: username
+      - description: body
         in: body
-        name: username
+        name: body
         required: true
         schema:
+          $ref: '#/definitions/models.User'
           type: object
-      - description: password
-        in: body
-        name: password
-        required: true
-        schema:
-          type: object
-      - description: role_id
-        in: path
-        name: role_id
-        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: '{ "code": 200, "data": {}, "msg": "ok" }'
+          schema:
+            type: string
+        "400":
+          description: Bad Request
           schema:
             type: string
       summary: 增加用户
@@ -311,6 +352,10 @@ paths:
           description: '{ "code": 200, "data": {}, "msg": "ok" }'
           schema:
             type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
       summary: 获取单个用户信息
       tags:
       - users
@@ -318,17 +363,22 @@ paths:
       consumes:
       - application/json
       parameters:
-      - {}
-      - {}
-      - description: role_id
-        in: query
-        name: role_id
-        type: integer
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+          type: object
       produces:
       - application/json
       responses:
         "200":
           description: '{ "code": 200, "data": {}, "msg": "ok" }'
+          schema:
+            type: string
+        "400":
+          description: Bad Request
           schema:
             type: string
       summary: 更新用户
@@ -339,29 +389,22 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: username
-        in: path
-        name: username
+      - description: body
+        in: body
+        name: body
         required: true
-        type: string
-      - description: password
-        in: path
-        name: password
-        required: true
-        type: string
+        schema:
+          $ref: '#/definitions/models.AuthSwag'
+          type: object
       produces:
       - application/json
       responses:
         "200":
-          description: '{ "code": 200, "data": { "token": "xxx" }, "msg": "ok" }'
+          description: '{ "code": 200, "data": {}, "msg": "ok" }'
           schema:
             type: string
         "400":
-          description: '{"code":400,  "data":null,"msg":"请求参数错误"}'
-          schema:
-            type: string
-        "404":
-          description: '{ "code": 404, "data":null,"msg":"请求参数错误"}'
+          description: Bad Request
           schema:
             type: string
       summary: 获取登录token 信息

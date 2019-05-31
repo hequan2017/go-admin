@@ -6,7 +6,6 @@
 ## 版本
 * v1.2.0
 
-
 ## 表
 * user     
     * username  password   
@@ -14,6 +13,7 @@
     * name 
 * menu     
     * name   path    method
+
 
 ## 目录结构
 * conf：用于存储配置文件
@@ -28,23 +28,25 @@
 
 
 ## 权限验证说明
->  利用的casbin库, 将  user  role  menu 进行自动关联
 
 ```
-项目启动时,会自动加载权限. 如有更改,会删除对应的权限,重新加载
+项目启动时,会自动user  role  menu 进行自动关联!  如有更改,会删除对应的权限,重新加载!
 
-用户关联角色  
-角色关联菜单  
+用户  关联  角色  
+角色  关联  菜单  
+```
 
+
+```
 权限关系为:
-角色(role.name,menu.path,menu.method)  
-用户(user.username,role.name)
+角色(role.name,  menu.path,  menu.method)  
+用户(user.username,   role.name)
 
 例如:
-test      /api/v1/users       GET
-hequan     test
+运维部      /api/v1/users       GET
+hequan     运维部
 
-当hequan  GET  /api/v1/users 地址的时候，会去检查权限，因为他属于test组，同时组有对应权限，所以本次请求会通过。
+当hequan  GET  /api/v1/users 地址的时候，会去检查权限，因为他属于运维部 ，同时 运维部 有对应权限，所以本次请求会通过。
 
 用户 admin 有所有的权限,不进行权限匹配
 
@@ -62,25 +64,23 @@ hequan     test
 	"password": "123456"
 }
 
-访问      /api/v1/users?page=2
+访问      /api/v1/menus?page=2    页面是page
 请求头设置  Authorization: Token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
 ```
 
-## How to run
+## 部署
 
-### Required
+### 支持
 
 - 部署 Mysql
 
-### Ready
+### 库
 
 Create a **go database** and import [SQL](https://github.com/hequan2017/go-admin/blob/master/docs/sql/go.sql)
 
 创建一个库 go,然后导入sql,创建表！
 
-### Conf
+### 配置文件
 
 You should modify `conf/app.ini`
 
@@ -94,7 +94,7 @@ Name = go
 TablePrefix = go_
 ```
 
-### Installation
+### 安装部署
 ```
 
 yum install go -y 
@@ -116,19 +116,34 @@ go get github.com/silenceper/gowatch
 gowatch   
 ```
 
-## Run
+## 运行
 
 
 ```
-Project information and existing API
-
+更新角色权限关系 [[hequan 运维部]]
+角色权限关系 [[hequan 运维部]]
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-Listening port is 8000
-
-默认 账户 密码 都为  123456
+[GIN-debug] POST   /auth                     --> github.com/hequan2017/go-admin/routers/api.Auth (4 handlers)
+[GIN-debug] GET    /swagger/*any             --> github.com/swaggo/gin-swagger.WrapHandler.func1 (4 handlers)
+[GIN-debug] GET    /api/v1/menus             --> github.com/hequan2017/go-admin/routers/api/v1.GetMenus (6 handlers)
+[GIN-debug] GET    /api/v1/menus/:id         --> github.com/hequan2017/go-admin/routers/api/v1.GetMenu (6 handlers)
+[GIN-debug] POST   /api/v1/menus             --> github.com/hequan2017/go-admin/routers/api/v1.AddMenu (6 handlers)
+[GIN-debug] PUT    /api/v1/menus/:id         --> github.com/hequan2017/go-admin/routers/api/v1.EditMenu (6 handlers)
+[GIN-debug] DELETE /api/v1/menus/:id         --> github.com/hequan2017/go-admin/routers/api/v1.DeleteMenu (6 handlers)
+[GIN-debug] GET    /api/v1/roles             --> github.com/hequan2017/go-admin/routers/api/v1.GetRoles (6 handlers)
+[GIN-debug] GET    /api/v1/roles/:id         --> github.com/hequan2017/go-admin/routers/api/v1.GetRole (6 handlers)
+[GIN-debug] POST   /api/v1/roles             --> github.com/hequan2017/go-admin/routers/api/v1.AddRole (6 handlers)
+[GIN-debug] PUT    /api/v1/roles/:id         --> github.com/hequan2017/go-admin/routers/api/v1.EditRole (6 handlers)
+[GIN-debug] DELETE /api/v1/roles/:id         --> github.com/hequan2017/go-admin/routers/api/v1.DeleteRole (6 handlers)
+[GIN-debug] GET    /api/v1/users             --> github.com/hequan2017/go-admin/routers/api.GetUsers (6 handlers)
+[GIN-debug] GET    /api/v1/users/:id         --> github.com/hequan2017/go-admin/routers/api.GetUser (6 handlers)
+[GIN-debug] POST   /api/v1/users             --> github.com/hequan2017/go-admin/routers/api.AddUser (6 handlers)
+[GIN-debug] PUT    /api/v1/users/:id         --> github.com/hequan2017/go-admin/routers/api.EditUser (6 handlers)
+[GIN-debug] DELETE /api/v1/users/:id         --> github.com/hequan2017/go-admin/routers/api.DeleteUser (6 handlers)
+2019/05/31 14:48:43 [info] start http server listening :8000
 
 ```
 

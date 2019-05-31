@@ -103,8 +103,7 @@ func GetRoles(c *gin.Context) {
 // @Tags role
 // @Accept json
 // @Produce  json
-// @Param  name  query  string true "name"
-// @Param  menu_id  query  string true "menu_id"
+// @Param   body  body   models.Role   true "body"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/roles  [POST]
 func AddRole(c *gin.Context) {
@@ -150,8 +149,7 @@ func AddRole(c *gin.Context) {
 // @Accept json
 // @Produce  json
 // @Param  id  path  string true "id"
-// @Param  name  query  string true "name"
-// @Param  menu_id  query  string true "menu_id"
+// @Param   body  body   models.Role   true "body"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/roles/:id  [PUT]
 func EditRole(c *gin.Context) {

@@ -12,7 +12,7 @@ import (
 )
 
 // @title go-admin
-// @version 1.1.2
+// @version 1.2.0
 // @description  go-admin
 // @termsOfService https://github.com/hequan2017/go-admin
 
@@ -23,8 +23,8 @@ import (
 // @license.name MIT
 // @license.url  https://github.com/hequan2017/go-admin/blob/master/LICENSE
 
-// @host
-// @BasePath /api/v1
+// @host   127.0.0.1:8000
+// @BasePath
 func main() {
 	setting.Setup()
 	models.Setup()

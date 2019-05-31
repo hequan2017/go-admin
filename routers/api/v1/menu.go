@@ -98,8 +98,7 @@ func GetMenus(c *gin.Context) {
 // @Tags menu
 // @Accept json
 // @Produce  json
-// @Param  name  query  string true "name"
-// @Param  path  query  string true "path"
+// @Param   body  body   models.Menu   true "body"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/menus  [POST]
 func AddMenu(c *gin.Context) {
@@ -142,9 +141,7 @@ func AddMenu(c *gin.Context) {
 // @Accept json
 // @Produce  json
 // @Param  id  path  string true "id"
-// @Param  name  query  string true "name"
-// @Param  path  query  string true "path"
-// @Param  method  query  string true "method"
+// @Param   body  body   models.Menu   true "body"
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /api/v1/menus/:id  [PUT]
 func EditMenu(c *gin.Context) {
