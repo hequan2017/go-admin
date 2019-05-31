@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	"github.com/hequan2017/go-admin/routers/restful"
 	"log"
 
 	"github.com/jinzhu/gorm"
@@ -42,16 +41,6 @@ func Setup() {
 	db.Callback().Delete().Replace("gorm:delete", deleteCallback)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
-
-	// restful  接口的 数据库初始化
-	if err := restful.SQLInit("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
-		setting.DatabaseSetting.User,
-		setting.DatabaseSetting.Password,
-		setting.DatabaseSetting.Host,
-		setting.DatabaseSetting.Name), 10, 1); err != nil {
-		log.Fatal(err.Error())
-		fmt.Println("dbs 数据库 初始化失败 ")
-	}
 
 }
 
