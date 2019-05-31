@@ -1,10 +1,12 @@
 # Go Web Admin 
 
+![版本](https://img.shields.io/badge/release-1.2.1-blue.svg)
+![语言](https://img.shields.io/badge/language-goland1.2-blue.svg)
+![base](https://img.shields.io/badge/base-gin-blue.svg)
+![base](https://img.shields.io/badge/base-casbin-blue.svg)
+
 > 一个Go Web Api 后端 简单例子,包含 用户、权限、菜单、JWT 、 RBAC(Casbin)等！
 
-
-## 版本
-* v1.2.1
 
 ## 表
 * user     
@@ -13,6 +15,14 @@
     * name 
 * menu     
     * name   path    method
+
+
+## API  注释
+
+> http://127.0.0.1:8000/swagger/index.html
+
+![demo](test/demo.jpg)
+
 
 
 ## 目录结构
@@ -149,10 +159,6 @@ gowatch
 
 
 
-## API  注释
-
-> http://127.0.0.1:8000/swagger/index.html
-
 
 ## Features
 ```
@@ -182,6 +188,6 @@ https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
 
 ## 其他
 ```shell
-##更新注释
+## 更新API文档
 swag init
 ```
