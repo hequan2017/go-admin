@@ -9,7 +9,6 @@ import (
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/routers/api"
 	"github.com/hequan2017/go-admin/routers/api/v1"
-	"github.com/hequan2017/go-admin/routers/restful"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"net/http"
@@ -53,16 +52,6 @@ func InitRouter() *gin.Engine {
 		apiV1.POST("/users", api.AddUser)
 		apiV1.PUT("/users/:id", api.EditUser)
 		apiV1.DELETE("/users/:id", api.DeleteUser)
-	}
-
-	apiV2 := r.Group("/api") // restful  接口 tablename 是 表名字, 详情请看  https://gitee.com/hequan2020/go-restful-api
-
-	{
-		apiV2.GET("/restful/:tablename", restful.GetAll)
-		apiV2.GET("/restful/:tablename/:id", restful.GetId)
-		apiV2.POST("/restful/:tablename", restful.Post)
-		apiV2.PUT("/restful/:tablename/:id", restful.Put)
-		apiV2.DELETE("/restful/:tablename/:id", restful.Delete)
 	}
 
 	return r

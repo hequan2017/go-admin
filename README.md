@@ -2,14 +2,9 @@
 
 > 一个Go Web Api 后端 简单例子,包含 用户、权限、菜单、JWT 、 RBAC(Casbin)等！
 
-> 附加功能: 一键生成 Restful API接口(不依赖orm)！
-
-
 
 ## 版本
 * v1.2.0
-
-
 
 
 ## 表
@@ -137,30 +132,7 @@ Listening port is 8000
 
 ```
 
-## 附加功能 
 
-
-* 不用orm依赖,直接输入表名字就可以 增删改查 
-
-``` 
-get   http://127.0.0.1:8000/api/restful/go_user
-get   http://127.0.0.1:8000/api/restful/go_user/1
-post   http://127.0.0.1:8000/api/restful/go_user
-数据格式  json  支持批量
-[{
-	"username":"hequan",
-	"password":"hequan1",
-	"created_on": "0",
-	"modified_on":"0",
-	"deleted_on":"0"
-}]
-put  http://127.0.0.1:8000/api/restful/go_user/2
-数据格式  json
-{
-	"password":"654321"
-}
-delete http://127.0.0.1:8000/api/restful/go_user/2
-```
 
 ## API  注释
 
@@ -187,14 +159,11 @@ delete http://127.0.0.1:8000/api/restful/go_user/2
 
 ## 特别感谢
 
-
 ```
 本项目主要参考了:
 https://github.com/EDDYCJY/go-gin-example  包含更多的例子，上传文件图片等。本项目进行了增改。
 https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
-https://gitee.com/konyshe/gogo             一行代码搞定RESTFul的轻量web框架。
 ```
-
 
 ## 其他
 ```shell
