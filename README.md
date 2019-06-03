@@ -17,6 +17,16 @@
     * name   path    method
 
 
+##  DEMO
+
+
+> http://129.28.156.219:8002/swagger/index.html
+
+> admin  密码 123456
+
+> http://129.28.156.219:8002
+
+
 ## API  注释
 
 > http://127.0.0.1:8000/swagger/index.html
@@ -190,4 +200,8 @@ https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
 ```shell
 ## 更新API文档
 swag init
+
+## 
+cd /opt/go-admin
+nohup  go run  main.go   >>  /tmp/go-http.log   2>&1  & 
 ```
