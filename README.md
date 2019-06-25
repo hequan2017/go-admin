@@ -170,7 +170,6 @@ gowatch
 - Gin
 - Graceful restart or stop (fvbock/endless)
 - App configurable
-- 一键生成 Restful API接口
 ```
 
 
