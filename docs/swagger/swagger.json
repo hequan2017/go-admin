@@ -13,9 +13,9 @@
             "name": "MIT",
             "url": "https://github.com/hequan2017/go-admin/blob/master/LICENSE"
         },
-        "version": "1.2.0"
+        "version": "1.2.1"
     },
-    "host": "127.0.0.1:8000",
+    "host": "129.28.156.219:8002",
     "paths": {
         "/api/v1/menus": {
             "get": {

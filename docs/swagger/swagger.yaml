@@ -59,7 +59,7 @@ definitions:
       username:
         type: string
     type: object
-host: 127.0.0.1:8000
+host: 129.28.156.219:8002
 info:
   contact:
     email: hequan2011@sina.com
@@ -71,7 +71,7 @@ info:
     url: https://github.com/hequan2017/go-admin/blob/master/LICENSE
   termsOfService: https://github.com/hequan2017/go-admin
   title: go-admin
-  version: 1.2.0
+  version: 1.2.1
 paths:
   /api/v1/menus:
     get:
