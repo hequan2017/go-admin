@@ -28,7 +28,7 @@ CREATE TABLE `go_menu` (
   `modified_on` int(11) unsigned DEFAULT NULL COMMENT '更新时间',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of go_menu
@@ -61,7 +61,7 @@ CREATE TABLE `go_role` (
   `modified_on` int(11) unsigned DEFAULT NULL COMMENT '更新时间',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of go_role
@@ -80,7 +80,7 @@ CREATE TABLE `go_role_menu` (
   `menu_id` int(11) unsigned DEFAULT NULL COMMENT '菜单ID',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
 
 -- ----------------------------
 -- Records of go_role_menu
@@ -113,7 +113,7 @@ CREATE TABLE `go_user` (
   `modified_on` int(11) unsigned DEFAULT NULL COMMENT '更新时间',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户管理';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户管理';
 
 -- ----------------------------
 -- Records of go_user
@@ -131,7 +131,7 @@ CREATE TABLE `go_user_role` (
   `role_id` int(11) unsigned DEFAULT NULL COMMENT '角色ID',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
 
 -- ----------------------------
 -- Records of go_user_role

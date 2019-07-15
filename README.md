@@ -21,7 +21,7 @@
 
 > http://127.0.0.1:8000/swagger/index.html
 
-![demo](test/demo.jpg)
+![demo](docs/demo.jpg)
 
 
 
