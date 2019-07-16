@@ -24,7 +24,7 @@ func Init() {
 	var path string
 	if osType == "windows" {
 		path = "conf\\rbac_model.conf"
-	} else if osType == "linux" {
+	} else if osType == "linux" || osType == "darwin" {
 		path = "conf/rbac_model.conf"
 	}
 	enforcer := casbin.NewEnforcer(path, false)
