@@ -59,7 +59,7 @@ definitions:
       username:
         type: string
     type: object
-host: 129.28.156.219:8002
+host: 127.0.0.1:8000
 info:
   contact:
     email: hequan2011@sina.com

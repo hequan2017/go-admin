@@ -19,7 +19,7 @@
 
 ## API  注释
 
-> http://127.0.0.1:8000/swagger/index.html
+> http://127.0.0.1:8002/swagger/index.html
 
 ![demo](docs/demo.jpg)
 

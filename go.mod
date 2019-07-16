@@ -12,6 +12,7 @@ require (
 	github.com/facebookgo/structtag v0.0.0-20150214074306-217e25fb9691 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-ini/ini v1.44.0
+	github.com/gogf/gf v1.7.3 // indirect
 	github.com/jinzhu/gorm v1.9.10
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.2
