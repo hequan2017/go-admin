@@ -120,9 +120,6 @@ func (a *Role) LoadAllPolicy() error {
 	if err != nil {
 		return err
 	}
-	if err != nil {
-		return err
-	}
 
 	for _, role := range roles {
 		err = a.LoadPolicy(role.ID)
