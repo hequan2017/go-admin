@@ -49,9 +49,6 @@ func ParseToken(token string) (*Claims, error) {
 	return nil, err
 }
 
-
-
-
 func GetIdFromClaims(key string, claims jwt.Claims) string {
 	v := reflect.ValueOf(claims)
 	if v.Kind() == reflect.Map {
@@ -65,4 +62,3 @@ func GetIdFromClaims(key string, claims jwt.Claims) string {
 	}
 	return ""
 }
-

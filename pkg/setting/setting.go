@@ -50,10 +50,9 @@ type Database struct {
 
 var DatabaseSetting = &Database{}
 
-
 var cfg *ini.File
 
-func Setup() {
+func init() {
 	var err error
 	cfg, err = ini.Load("conf/app.ini")
 	if err != nil {
@@ -63,7 +62,6 @@ func Setup() {
 	mapTo("app", AppSetting)
 	mapTo("server", ServerSetting)
 	mapTo("database", DatabaseSetting)
-
 
 	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024 * 1024
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second

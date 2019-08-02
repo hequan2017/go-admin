@@ -1,6 +1,6 @@
 # Go Web Admin 
 
-![版本](https://img.shields.io/badge/release-1.2.1-blue.svg)
+![版本](https://img.shields.io/badge/release-1.2.2-blue.svg)
 ![语言](https://img.shields.io/badge/language-goland1.2-blue.svg)
 ![base](https://img.shields.io/badge/base-gin-blue.svg)
 ![base](https://img.shields.io/badge/base-casbin-blue.svg)
@@ -19,7 +19,7 @@
 
 ## API  注释
 
-> http://127.0.0.1:8002/swagger/index.html
+> http://127.0.0.1:8000/swagger/index.html
 
 ![demo](docs/demo.jpg)
 
@@ -27,9 +27,14 @@
 
 ## 目录结构
 * conf：用于存储配置文件
-* docs： 文档(SQL和API注释)
+* docs： 文档
+    * sql执行命令
+    * API注释
 * logs： 日志
 * middleware：应用中间件
+    * inject 初始化对象
+    * jwt
+    * permission  权限验证
 * models：应用数据库模型
 * pkg：第三方包
 * routers： 路由逻辑处理

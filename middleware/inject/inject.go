@@ -15,8 +15,8 @@ type Object struct {
 
 var Obj *Object
 
-// Init 初始化依赖注入
-func Init() {
+// 初始化依赖注入
+func init() {
 	g := new(inject.Graph)
 
 	// 注入casbin

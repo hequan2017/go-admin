@@ -30,7 +30,7 @@ const (
 	FATAL
 )
 
-func Setup() {
+func init() {
 	var err error
 	filePath := getLogFilePath()
 	fileName := getLogFileName()

@@ -20,7 +20,7 @@ type Model struct {
 	DeletedOn  int `json:"deleted_on"`
 }
 
-func Setup() {
+func init() {
 	var err error
 	db, err = gorm.Open(setting.DatabaseSetting.Type, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		setting.DatabaseSetting.User,
