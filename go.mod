@@ -4,7 +4,6 @@ go 1.12
 
 require (
 	github.com/Anderson-Lu/gofasion v0.0.0-20190530065914-6a05b679ee48
-	github.com/unknwon/com
 	github.com/astaxie/beego v1.12.0
 	github.com/casbin/casbin v1.9.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -15,4 +14,5 @@ require (
 	github.com/jinzhu/gorm v1.9.10
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.2
+	github.com/unknwon/com v0.0.0-20190804042917-757f69c95f3e // indirect
 )
