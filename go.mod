@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/Anderson-Lu/gofasion v0.0.0-20190530065914-6a05b679ee48
-	github.com/Unknwon/com v0.0.0-20190321035513-0fed4efef755
+	github.com/unknwon/com
 	github.com/astaxie/beego v1.12.0
 	github.com/casbin/casbin v1.9.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
