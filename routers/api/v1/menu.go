@@ -2,7 +2,6 @@ package v1
 
 import (
 	"github.com/Anderson-Lu/gofasion/gofasion"
-	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/hequan2017/go-admin/pkg/app"
@@ -10,6 +9,7 @@ import (
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/pkg/util"
 	"github.com/hequan2017/go-admin/service/menu_service"
+	"github.com/unknwon/com"
 	"io/ioutil"
 	"net/http"
 )

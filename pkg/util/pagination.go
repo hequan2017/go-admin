@@ -1,8 +1,8 @@
 package util
 
 import (
-	"github.com/Unknwon/com"
 	"github.com/gin-gonic/gin"
+	"github.com/unknwon/com"
 
 	"github.com/hequan2017/go-admin/pkg/setting"
 )

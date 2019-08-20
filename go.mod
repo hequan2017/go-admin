@@ -14,5 +14,5 @@ require (
 	github.com/jinzhu/gorm v1.9.10
 	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.2
-	github.com/unknwon/com v0.0.0-20190804042917-757f69c95f3e // indirect
+	github.com/unknwon/com v0.0.0-20190804042917-757f69c95f3e
 )

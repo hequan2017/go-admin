@@ -1,7 +1,6 @@
 package api
 
 import (
-	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/hequan2017/go-admin/middleware/inject"
@@ -10,6 +9,7 @@ import (
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/pkg/util"
 	"github.com/hequan2017/go-admin/service/user_service"
+	"github.com/unknwon/com"
 	"net/http"
 )
 
