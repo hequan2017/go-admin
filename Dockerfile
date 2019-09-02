@@ -1,32 +1,21 @@
-FROM centos:latest
+FROM alpine:latest
 
-MAINTAINER hequan ""
+USER root
 
+RUN apk update && apk add go git musl-dev
 
-RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+# 添加 go 环境变量
+RUN echo "export PATH=\$PATH:/root/go/bin" >> /etc/profile \
+    && echo "export GO111MODULE=on" >> /etc/profile \
+    && echo "export GOPATH=/root/go" >> /etc/profile  \
+    && echo "export GOPROXY=https://mirrors.aliyun.com/goproxy/" >> /etc/profile \
+    && source /etc/profile
 
-RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-RUN  curl -o  /etc/yum.repos.d/epel-7.repo http://mirrors.aliyun.com/repo/epel-7.repo
-RUN yum clean all
-RUN yum makecache
-
-
-RUN mkdir -p /data/go
-RUN yum install golang -y
-RUN echo export GO111MODULE=on >> /etc/profile
-RUN echo export GOPATH=/data/go >> /etc/profile
-RUN echo export GOPROXY=https://goproxy.io >> /etc/profile
-
-RUN source /etc/profile
-
-WORKDIR /data
-
-RUN  git clone https://github.com/hequan2017/go-admin
-
-WORKDIR /data/go-admin
-
-RUN go build .
+# 安装 micro
+RUN cd \
+    && go get -u -v github.com/hequan2017/go-admin \
+    && go install github.com/hequan2017/go-admin
 
 EXPOSE 80
 
-ENTRYPOINT ["go","run","/data/go-admin/main.go"]
+ENTRYPOINT ["go","run","/go-admin/main.go"]
