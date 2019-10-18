@@ -20,7 +20,7 @@ func CasbinMiddleware() gin.HandlerFunc {
 		})
 		fmt.Println(jwtGet.GetIdFromClaims("username", t.Claims), c.Request.URL.Path, c.Request.Method)
 
-		if b, err := inject.Obj.Enforcer.Enforce(jwtGet.GetIdFromClaims("username", t.Claims), c.Request.URL.Path, c.Request.Method); err != nil {
+		if b, err := inject.Obj.Enforcer.EnforceSafe(jwtGet.GetIdFromClaims("username", t.Claims), c.Request.URL.Path, c.Request.Method); err != nil {
 
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code": http.StatusOK,
