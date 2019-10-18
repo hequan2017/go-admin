@@ -27,7 +27,7 @@ func init() {
 	} else if osType == "linux" || osType == "darwin" {
 		path = "conf/rbac_model.conf"
 	}
-	enforcer := casbin.NewEnforcer(path, false)
+	enforcer, _ := casbin.NewEnforcer(path, false)
 	_ = g.Provide(&inject.Object{Value: enforcer})
 
 	Common := new(bll.Common)
