@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/astaxie/beego/validation"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -134,10 +133,14 @@ func GetUserInfo(c *gin.Context) {
 	appG := app.Gin{C: c}
 	Authorization := c.GetHeader("Authorization")
 	token := strings.Split(Authorization, " ")
-	t, _ := jwt.Parse(token[1], func(*jwt.Token) (interface{}, error) {
+	t, err := jwt.Parse(token[1], func(*jwt.Token) (interface{}, error) {
 		return jwtGet.JwtSecret, nil
 	})
-	fmt.Print(jwtGet.GetIdFromClaims("username", t.Claims))
+
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH, nil)
+		return
+	}
 
 	userService := user_service.User{
 		Username: jwtGet.GetIdFromClaims("username", t.Claims),
@@ -170,7 +173,6 @@ func GetUserInfo(c *gin.Context) {
 			for _, v2 := range r.Menu {
 				menus = append(menus, v2.Name)
 			}
-			fmt.Print(menus)
 		}
 		menus = util.RemoveRepByMap(menus)
 		v.Password = strings.Join(menus, ",")

@@ -10,7 +10,7 @@ import (
 )
 
 // @title go-admin
-// @version 1.2.2
+// @version 1.4.0
 // @description  go-admin
 // @termsOfService https://github.com/hequan2017/go-admin
 

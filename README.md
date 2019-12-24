@@ -1,7 +1,7 @@
 # Go Web Admin 
 
 ![构建](https://travis-ci.org/hequan2017/go-admin.svg?branch=master)
-![版本](https://img.shields.io/badge/release-1.2.2-blue.svg)
+![版本](https://img.shields.io/badge/release-1.4.0-blue.svg)
 ![语言](https://img.shields.io/badge/language-goland1.2-blue.svg)
 ![base](https://img.shields.io/badge/base-gin-blue.svg)
 ![base](https://img.shields.io/badge/base-casbin-blue.svg)
@@ -66,7 +66,7 @@ hequan     运维部
 
 用户 admin 有所有的权限,不进行权限匹配
 
-登录接口 /auth  不进行验证
+登录接口 /auth    /api/v1/userInfo 不进行验证
 ```
 
 ## 请求
