@@ -1,5 +1,6 @@
 package api
 
+import "C"
 import (
 	"github.com/astaxie/beego/validation"
 	"github.com/dgrijalva/jwt-go"
@@ -126,7 +127,7 @@ func GetUser(c *gin.Context) {
 // @Tags  users
 // @Accept json
 // @Produce  json
-// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Success 200 {string} json "{ "code": 200, "data": {"lists":""}, "msg": "ok" }"
 // @Failure 400 {string} json
 // @Router /api/v1/userInfo  [GET]
 func GetUserInfo(c *gin.Context) {
