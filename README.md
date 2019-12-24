@@ -82,6 +82,37 @@ hequan     运维部
 
 访问      /api/v1/menus?page=2    页面是page
 请求头设置  Authorization: Token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+访问   /api/v1/userInfo  获取用户信息
+前端所需的权限 放在password字段里面，已经去重了。实际项目，可以换成 英文。
+
+{
+    "code": 200,
+    "data": {
+        "lists": [
+            {
+                "id": 2,
+                "created_on": 1550642309,
+                "modified_on": 1550642309,
+                "deleted_on": 0,
+                "username": "hequan",
+                "password": ",查询所有菜单,查询单个菜单,创建单个菜单,更新单个菜单,删除单个菜单,查询所有用户,查询单个用户,创建单个用户,更新单个用户,删除单个用户,查询所有角色,查询单个角色,创建单个角色,更新单个角色,删除单个角色",
+                "role": [
+                    {
+                        "id": 2,
+                        "created_on": 0,
+                        "modified_on": 0,
+                        "deleted_on": 0,
+                        "name": "运维部",
+                        "menu": null
+                    }
+                ]
+            }
+        ]
+    },
+    "msg": "ok"
+}
 ```
 
 ## 部署

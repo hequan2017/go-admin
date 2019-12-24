@@ -48,13 +48,13 @@ func GetRole(c *gin.Context) {
 		return
 	}
 
-	article, err := RoleService.Get()
+	role, err := RoleService.Get()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
 		return
 	}
 
-	appG.Response(http.StatusOK, e.SUCCESS, article)
+	appG.Response(http.StatusOK, e.SUCCESS, role)
 }
 
 // @Summary   获取所有角色

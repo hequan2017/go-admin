@@ -1,16 +1,21 @@
 package api
 
 import (
+	"fmt"
 	"github.com/astaxie/beego/validation"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/hequan2017/go-admin/middleware/inject"
 	"github.com/hequan2017/go-admin/pkg/app"
 	"github.com/hequan2017/go-admin/pkg/e"
 	"github.com/hequan2017/go-admin/pkg/setting"
 	"github.com/hequan2017/go-admin/pkg/util"
+	jwtGet "github.com/hequan2017/go-admin/pkg/util"
+	Role_service "github.com/hequan2017/go-admin/service/role_service"
 	"github.com/hequan2017/go-admin/service/user_service"
 	"github.com/unknwon/com"
 	"net/http"
+	"strings"
 )
 
 type auth struct {
@@ -116,6 +121,70 @@ func GetUser(c *gin.Context) {
 	}
 	user.Password = ""
 	appG.Response(http.StatusOK, e.SUCCESS, user)
+}
+
+// @Summary   获取登录用户信息
+// @Tags  users
+// @Accept json
+// @Produce  json
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Failure 400 {string} json
+// @Router /api/v1/userInfo  [GET]
+func GetUserInfo(c *gin.Context) {
+	appG := app.Gin{C: c}
+	Authorization := c.GetHeader("Authorization")
+	token := strings.Split(Authorization, " ")
+	t, _ := jwt.Parse(token[1], func(*jwt.Token) (interface{}, error) {
+		return jwtGet.JwtSecret, nil
+	})
+	fmt.Print(jwtGet.GetIdFromClaims("username", t.Claims))
+
+	userService := user_service.User{
+		Username: jwtGet.GetIdFromClaims("username", t.Claims),
+		PageNum:  util.GetPage(c),
+		PageSize: setting.AppSetting.PageSize,
+	}
+
+	user, err := userService.GetAll()
+
+	for _, v := range user {
+		menus := make([]string, 1)
+		for _, v1 := range v.Role {
+			RoleService := Role_service.Role{ID: v1.ID}
+			exists, err := RoleService.ExistByID()
+
+			if err != nil {
+				appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
+				return
+			}
+			if !exists {
+				appG.Response(http.StatusOK, e.ERROR_NOT_EXIST, nil)
+				return
+			}
+
+			r, err := RoleService.Get()
+			if err != nil {
+				appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
+				return
+			}
+			for _, v2 := range r.Menu {
+				menus = append(menus, v2.Name)
+			}
+			fmt.Print(menus)
+		}
+		menus = util.RemoveRepByMap(menus)
+		v.Password = strings.Join(menus, ",")
+	}
+
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_GET_S_FAIL, nil)
+		return
+	}
+
+	data := make(map[string]interface{})
+	data["lists"] = user
+
+	appG.Response(http.StatusOK, e.SUCCESS, data)
 }
 
 // @Summary   获取所有用户

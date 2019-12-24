@@ -2,7 +2,6 @@ package app
 
 import (
 	"github.com/astaxie/beego/validation"
-
 	"github.com/hequan2017/go-admin/pkg/logging"
 )
 

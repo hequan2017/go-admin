@@ -273,6 +273,24 @@ paths:
       summary: 更新角色
       tags:
       - role
+  /api/v1/userInfo:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{ "code": 200, "data": {}, "msg": "ok" }'
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: 获取登录用户信息
+      tags:
+      - users
   /api/v1/users:
     get:
       consumes:

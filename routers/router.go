@@ -30,7 +30,9 @@ func InitRouter() *gin.Engine {
 
 	apiV1 := r.Group("/api/v1")
 
-	apiV1.Use(jwt.JWT())                     // token 验证
+	apiV1.Use(jwt.JWT()) // token 验证
+
+	apiV1.GET("/userInfo", api.GetUserInfo)
 	apiV1.Use(permission.CasbinMiddleware()) // 权限  验证
 
 	{
