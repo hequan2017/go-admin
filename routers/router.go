@@ -37,19 +37,16 @@ func InitRouter() *gin.Engine {
 	{
 
 		apiV1.GET("/menus", v1.GetMenus)
-		apiV1.GET("/menus/:id", v1.GetMenu)
 		apiV1.POST("/menus", v1.AddMenu)
 		apiV1.PUT("/menus/:id", v1.EditMenu)
 		apiV1.DELETE("/menus/:id", v1.DeleteMenu)
 
 		apiV1.GET("/roles", v1.GetRoles)
-		apiV1.GET("/roles/:id", v1.GetRole)
 		apiV1.POST("/roles", v1.AddRole)
 		apiV1.PUT("/roles/:id", v1.EditRole)
 		apiV1.DELETE("/roles/:id", v1.DeleteRole)
 
 		apiV1.GET("/users", api.GetUsers)
-		apiV1.GET("/users/:id", api.GetUser)
 		apiV1.POST("/users", api.AddUser)
 		apiV1.PUT("/users/:id", api.EditUser)
 		apiV1.DELETE("/users/:id", api.DeleteUser)

@@ -10,6 +10,7 @@ type Menu struct {
 	ID     int
 	Name   string
 	Path   string
+	Type   string
 	Method string
 
 	CreatedBy  string
@@ -25,6 +26,7 @@ type Menu struct {
 func (a *Menu) Add() error {
 	menu := map[string]interface{}{
 		"name":   a.Name,
+		"type":   a.Type,
 		"path":   a.Path,
 		"method": a.Method,
 	}
@@ -38,6 +40,7 @@ func (a *Menu) Add() error {
 func (a *Menu) Edit() error {
 	err := models.EditMenu(a.ID, map[string]interface{}{
 		"name":   a.Name,
+		"type":   a.Type,
 		"path":   a.Path,
 		"method": a.Method,
 	})
@@ -67,12 +70,23 @@ func (a *Menu) Get() (*models.Menu, error) {
 }
 
 func (a *Menu) GetAll() ([]*models.Menu, error) {
-	Menu, err := models.GetMenus(a.PageNum, a.PageSize, a.getMaps())
-	if err != nil {
-		return nil, err
-	}
 
-	return Menu, nil
+	if a.ID != 0 {
+		maps := make(map[string]interface{})
+		maps["deleted_on"] = 0
+		maps["id"] = a.ID
+		user, err := models.GetMenus(a.PageNum, a.PageSize, maps)
+		if err != nil {
+			return nil, err
+		}
+		return user, nil
+	} else {
+		Menu, err := models.GetMenus(a.PageNum, a.PageSize, a.getMaps())
+		if err != nil {
+			return nil, err
+		}
+		return Menu, nil
+	}
 }
 
 func (a *Menu) Delete() error {

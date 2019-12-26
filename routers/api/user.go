@@ -70,7 +70,14 @@ func Auth(c *gin.Context) {
 		return
 	}
 
-	token, err := util.GenerateToken(reqInfo.Username, reqInfo.Password)
+	user, err := authService.Get()
+
+	if err != nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH_TOKEN, nil)
+		return
+	}
+
+	token, err := util.GenerateToken(user.ID, reqInfo.Username, reqInfo.Password)
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH_TOKEN, nil)
 		return
@@ -79,48 +86,6 @@ func Auth(c *gin.Context) {
 	appG.Response(http.StatusOK, e.SUCCESS, map[string]string{
 		"token": token,
 	})
-}
-
-// @Summary   获取单个用户信息
-// @Tags  users
-// @Accept json
-// @Produce  json
-// @Param  id  path   int true "id"
-// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
-// @Failure 400 {string} json
-// @Router /api/v1/users/:id  [GET]
-func GetUser(c *gin.Context) {
-	appG := app.Gin{C: c}
-
-	id := com.StrTo(c.Param("id")).MustInt()
-	valid := validation.Validation{}
-	valid.Min(id, 1, "id").Message("ID必须大于0")
-
-	if valid.HasErrors() {
-		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, valid.Errors)
-		return
-	}
-
-	userService := user_service.User{ID: id}
-	exists, err := userService.ExistByID()
-
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-
-	user, err := userService.Get()
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-	user.Password = ""
-	appG.Response(http.StatusOK, e.SUCCESS, user)
 }
 
 // @Summary   获取登录用户信息
@@ -142,47 +107,51 @@ func GetUserInfo(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, e.ERROR_AUTH, nil)
 		return
 	}
-
+	u := jwtGet.GetIdFromClaims("username", t.Claims)
 	userService := user_service.User{
-		Username: jwtGet.GetIdFromClaims("username", t.Claims),
+		Username: u,
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}
 
-	user, err := userService.GetAll()
-
-	for _, v := range user {
-		menus := make([]string, 1)
-		for _, v1 := range v.Role {
-			RoleService := Role_service.Role{ID: v1.ID}
-			exists, err := RoleService.ExistByID()
-
-			if err != nil {
-				appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
-				return
-			}
-			if !exists {
-				appG.Response(http.StatusOK, e.ERROR_NOT_EXIST, nil)
-				return
-			}
-
-			r, err := RoleService.Get()
-			if err != nil {
-				appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
-				return
-			}
-			for _, v2 := range r.Menu {
-				menus = append(menus, v2.Name)
-			}
-		}
-		menus = util.RemoveRepByMap(menus)
-		v.Password = strings.Join(menus, ",")
-	}
+	user, err := userService.Get()
 
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_GET_S_FAIL, nil)
 		return
 	}
+
+	menus := make([]string, 1)
+	if u == "admin" {
+		menus = append(menus, "admin")
+	}
+
+	for _, v := range user.Role {
+		RoleService := Role_service.Role{ID: v.ID}
+		exists, err := RoleService.ExistByID()
+
+		if err != nil {
+			appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
+			return
+		}
+		if !exists {
+			appG.Response(http.StatusOK, e.ERROR_NOT_EXIST, nil)
+			return
+		}
+
+		r, err := RoleService.Get()
+		if err != nil {
+			appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
+			return
+		}
+		for _, v2 := range r.Menu {
+			menus = append(menus, v2.Name)
+		}
+		menus = util.RemoveRepByMap(menus)
+
+	}
+
+	user.Password = strings.Join(menus, ",")
 
 	data := make(map[string]interface{})
 	data["lists"] = user
@@ -201,7 +170,7 @@ func GetUsers(c *gin.Context) {
 	appG := app.Gin{C: c}
 
 	userService := user_service.User{
-		Username: c.Query("username"),
+		ID:       com.StrTo(c.Query("id")).MustInt(),
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}

@@ -14,46 +14,6 @@ import (
 	"net/http"
 )
 
-// @Summary   获取单个菜单
-// @Tags menu
-// @Accept json
-// @Produce  json
-// @Param  id  path  string true "id"
-// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
-// @Router /api/v1/menus/:id  [GET]
-func GetMenu(c *gin.Context) {
-	appG := app.Gin{C: c}
-	id := com.StrTo(c.Param("id")).MustInt()
-	valid := validation.Validation{}
-	valid.Min(id, 1, "id").Message("ID必须大于0")
-
-	if valid.HasErrors() {
-		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
-		return
-	}
-
-	menuService := menu_service.Menu{ID: id}
-	exists, err := menuService.ExistByID()
-
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-
-	article, err := menuService.Get()
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-
-	appG.Response(http.StatusOK, e.SUCCESS, article)
-}
-
 // @Summary   获取所有菜单
 // @Tags menu
 // @Accept json
@@ -62,15 +22,9 @@ func GetMenu(c *gin.Context) {
 // @Router /api/v1/menus  [GET]
 func GetMenus(c *gin.Context) {
 	appG := app.Gin{C: c}
-	valid := validation.Validation{}
-
-	if valid.HasErrors() {
-		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
-		return
-	}
 
 	menuService := menu_service.Menu{
+		ID:       com.StrTo(c.Query("id")).MustInt(),
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}
@@ -108,11 +62,13 @@ func AddMenu(c *gin.Context) {
 	dataByte, _ := ioutil.ReadAll(c.Request.Body)
 	fsion := gofasion.NewFasion(string(dataByte))
 	name := fsion.Get("name").ValueStr()
+	type1 := fsion.Get("type").ValueStr()
 	path := fsion.Get("path").ValueStr()
 	method := fsion.Get("method").ValueStr()
 
 	valid := validation.Validation{}
 	valid.MaxSize(name, 100, "name").Message("最长为100字符")
+	valid.MaxSize(type1, 100, "type").Message("最长为100字符")
 	valid.MaxSize(path, 100, "path").Message("最长为100字符")
 	valid.MaxSize(method, 100, "method").Message("最长为100字符")
 
@@ -121,12 +77,13 @@ func AddMenu(c *gin.Context) {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return
 	}
-
 	menuService := menu_service.Menu{
 		Name:   name,
+		Type:   type1,
 		Path:   path,
 		Method: method,
 	}
+
 	if err := menuService.Add(); err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_ADD_FAIL, nil)
 		return

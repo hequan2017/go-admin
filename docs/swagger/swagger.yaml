@@ -22,6 +22,8 @@ definitions:
         type: string
       path:
         type: string
+      type:
+        type: string
     type: object
   models.Role:
     properties:
@@ -128,25 +130,6 @@ paths:
       summary: 删除菜单
       tags:
       - menu
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{ "code": 200, "data": {}, "msg": "ok" }'
-          schema:
-            type: string
-      summary: 获取单个菜单
-      tags:
-      - menu
     put:
       consumes:
       - application/json
@@ -228,25 +211,6 @@ paths:
       summary: 删除角色
       tags:
       - role
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{ "code": 200, "data": {}, "msg": "ok" }'
-          schema:
-            type: string
-      summary: 获取单个角色
-      tags:
-      - role
     put:
       consumes:
       - application/json
@@ -281,7 +245,7 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{ "code": 200, "data": {}, "msg": "ok" }'
+          description: '{ "code": 200, "data": {"lists":""}, "msg": "ok" }'
           schema:
             type: string
         "400":
@@ -352,29 +316,6 @@ paths:
           schema:
             type: string
       summary: 删除用户
-      tags:
-      - users
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{ "code": 200, "data": {}, "msg": "ok" }'
-          schema:
-            type: string
-        "400":
-          description: Bad Request
-          schema:
-            type: string
-      summary: 获取单个用户信息
       tags:
       - users
     put:

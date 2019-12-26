@@ -17,46 +17,6 @@ import (
 	"github.com/hequan2017/go-admin/pkg/e"
 )
 
-// @Summary   获取单个角色
-// @Tags role
-// @Accept json
-// @Produce  json
-// @Param  id  path  string true "id"
-// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
-// @Router /api/v1/roles/:id  [GET]
-func GetRole(c *gin.Context) {
-	appG := app.Gin{C: c}
-	id := com.StrTo(c.Param("id")).MustInt()
-	valid := validation.Validation{}
-	valid.Min(id, 1, "id").Message("ID必须大于0")
-
-	if valid.HasErrors() {
-		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
-		return
-	}
-
-	RoleService := Role_service.Role{ID: id}
-	exists, err := RoleService.ExistByID()
-
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-	if !exists {
-		appG.Response(http.StatusOK, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-
-	role, err := RoleService.Get()
-	if err != nil {
-		appG.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST, nil)
-		return
-	}
-
-	appG.Response(http.StatusOK, e.SUCCESS, role)
-}
-
 // @Summary   获取所有角色
 // @Tags role
 // @Accept json
@@ -65,17 +25,9 @@ func GetRole(c *gin.Context) {
 // @Router /api/v1/roles  [GET]
 func GetRoles(c *gin.Context) {
 	appG := app.Gin{C: c}
-	name := c.Query("name")
-	valid := validation.Validation{}
-
-	if valid.HasErrors() {
-		app.MarkErrors(valid.Errors)
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
-		return
-	}
 
 	RoleService := Role_service.Role{
-		Name:     name,
+		ID:       com.StrTo(c.Query("id")).MustInt(),
 		PageNum:  util.GetPage(c),
 		PageSize: setting.AppSetting.PageSize,
 	}

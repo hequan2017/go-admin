@@ -62,9 +62,19 @@ func GetUsers(pageNum int, pageSize int, maps interface{}) ([]*User, error) {
 	return user, nil
 }
 
-func GetUser(id int) (*User, error) {
+func GetUserId(id int) (*User, error) {
 	var user User
 	err := db.Preload("Role").Where("id = ? AND deleted_on = ? ", id, 0).First(&user).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+
+	return &user, nil
+}
+
+func GetUser(username string) (*User, error) {
+	var user User
+	err := db.Preload("Role").Where("username = ? AND deleted_on = ? ", username, 0).First(&user).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return nil, err
 	}

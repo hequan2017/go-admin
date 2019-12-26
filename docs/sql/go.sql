@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2019-05-31 16:19:44
+Date: 2019-12-26 15:30:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,33 +22,31 @@ DROP TABLE IF EXISTS `go_menu`;
 CREATE TABLE `go_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT '' COMMENT '名字',
+  `type` enum('菜单','按钮','目录') DEFAULT '菜单',
   `path` varchar(50) DEFAULT '' COMMENT '访问路径',
   `method` varchar(50) DEFAULT '' COMMENT '资源请求方式',
   `created_on` int(11) unsigned DEFAULT NULL COMMENT '创建时间',
   `modified_on` int(11) unsigned DEFAULT NULL COMMENT '更新时间',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of go_menu
 -- ----------------------------
-INSERT INTO `go_menu` VALUES ('1', '查询所有菜单', '/api/v1/menus', 'GET', null, null, '0');
-INSERT INTO `go_menu` VALUES ('2', '查询单个菜单', '/api/v1/menus/:id', 'GET', null, null, '0');
-INSERT INTO `go_menu` VALUES ('3', '创建单个菜单', '/api/v1/menus', 'POST', null, null, '0');
-INSERT INTO `go_menu` VALUES ('4', '更新单个菜单', '/api/v1/menus/:id', 'PUT', null, null, '0');
-INSERT INTO `go_menu` VALUES ('5', '删除单个菜单', '/api/v1/menus/:id', 'DELETE', null, null, '0');
-INSERT INTO `go_menu` VALUES ('6', '查询所有用户', '/api/v1/users', 'GET', null, null, '0');
-INSERT INTO `go_menu` VALUES ('7', '查询单个用户', '/api/v1/users/:id', 'GET', null, null, '0');
-INSERT INTO `go_menu` VALUES ('8', '创建单个用户', '/api/v1/users', 'POST', null, null, '0');
-INSERT INTO `go_menu` VALUES ('9', '更新单个用户', '/api/v1/users/:id', 'PUT', null, null, '0');
-INSERT INTO `go_menu` VALUES ('10', '删除单个用户', '/api/v1/users/:id', 'DELETE', null, null, '0');
-INSERT INTO `go_menu` VALUES ('11', '查询所有角色', '/api/v1/roles', 'GET', null, null, '0');
-INSERT INTO `go_menu` VALUES ('12', '查询单个角色', '/api/v1/roles/:id', 'GET', null, null, '0');
-INSERT INTO `go_menu` VALUES ('13', '创建单个角色', '/api/v1/roles', 'POST', null, null, '0');
-INSERT INTO `go_menu` VALUES ('14', '更新单个角色', '/api/v1/roles/:id', 'PUT', null, null, '0');
-INSERT INTO `go_menu` VALUES ('15', '删除单个角色', '/api/v1/roles/:id', 'DELETE', null, null, '0');
-INSERT INTO `go_menu` VALUES ('16', '登录', '/auth', 'POST', null, null, '0');
+INSERT INTO `go_menu` VALUES ('1', 'system', '目录', '/system', 'GET', null, null, '0');
+INSERT INTO `go_menu` VALUES ('2', 'menu', '菜单', '/api/v1/menus', 'GET', null, null, '0');
+INSERT INTO `go_menu` VALUES ('3', 'create_menu', '按钮', '/api/v1/menus', 'POST', null, null, '0');
+INSERT INTO `go_menu` VALUES ('4', 'update_menu', '按钮', '/api/v1/menus/:id', 'PUT', null, null, '0');
+INSERT INTO `go_menu` VALUES ('5', 'delete_menu', '按钮', '/api/v1/menus/:id', 'DELETE', null, null, '0');
+INSERT INTO `go_menu` VALUES ('6', 'user', '菜单', '/api/v1/users', 'GET', null, null, '0');
+INSERT INTO `go_menu` VALUES ('7', 'create_user', '按钮', '/api/v1/users', 'POST', null, null, '0');
+INSERT INTO `go_menu` VALUES ('8', 'update_user', '按钮', '/api/v1/users/:id', 'PUT', null, null, '0');
+INSERT INTO `go_menu` VALUES ('9', 'delete_user', '按钮', '/api/v1/users/:id', 'DELETE', null, null, '0');
+INSERT INTO `go_menu` VALUES ('10', 'role', '菜单', '/api/v1/roles', 'GET', null, null, '0');
+INSERT INTO `go_menu` VALUES ('11', 'create_role', '按钮', '/api/v1/roles', 'POST', null, null, '0');
+INSERT INTO `go_menu` VALUES ('12', 'update_role', '按钮', '/api/v1/roles/:id', 'PUT', null, null, '0');
+INSERT INTO `go_menu` VALUES ('13', 'delete_role', '按钮', '/api/v1/roles/:id', 'DELETE', null, null, '0');
 
 -- ----------------------------
 -- Table structure for go_role
@@ -61,7 +59,7 @@ CREATE TABLE `go_role` (
   `modified_on` int(11) unsigned DEFAULT NULL COMMENT '更新时间',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of go_role
@@ -80,7 +78,7 @@ CREATE TABLE `go_role_menu` (
   `menu_id` int(11) unsigned DEFAULT NULL COMMENT '菜单ID',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
 
 -- ----------------------------
 -- Records of go_role_menu
@@ -113,7 +111,7 @@ CREATE TABLE `go_user` (
   `modified_on` int(11) unsigned DEFAULT NULL COMMENT '更新时间',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户管理';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户管理';
 
 -- ----------------------------
 -- Records of go_user
@@ -131,7 +129,7 @@ CREATE TABLE `go_user_role` (
   `role_id` int(11) unsigned DEFAULT NULL COMMENT '角色ID',
   `deleted_on` int(11) unsigned DEFAULT '0' COMMENT '删除时间戳',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户_角色ID_管理';
 
 -- ----------------------------
 -- Records of go_user_role

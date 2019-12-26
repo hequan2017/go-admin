@@ -68,7 +68,7 @@ func (a *User) Edit() error {
 
 func (a *User) Get() (*models.User, error) {
 
-	user, err := models.GetUser(a.ID)
+	user, err := models.GetUser(a.Username)
 	if err != nil {
 		return nil, err
 	}
@@ -77,10 +77,10 @@ func (a *User) Get() (*models.User, error) {
 }
 
 func (a *User) GetAll() ([]*models.User, error) {
-	if a.Username != "" {
+	if a.ID != 0 {
 		maps := make(map[string]interface{})
 		maps["deleted_on"] = 0
-		maps["username"] = a.Username
+		maps["id"] = a.ID
 		user, err := models.GetUsers(a.PageNum, a.PageSize, maps)
 		if err != nil {
 			return nil, err
@@ -138,7 +138,7 @@ func (a *User) LoadAllPolicy() error {
 // LoadPolicy 加载用户权限策略
 func (a *User) LoadPolicy(id int) error {
 
-	user, err := models.GetUser(id)
+	user, err := models.GetUserId(id)
 	if err != nil {
 		return err
 	}

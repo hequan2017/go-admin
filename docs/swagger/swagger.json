@@ -72,35 +72,6 @@
             }
         },
         "/api/v1/menus/": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "menu"
-                ],
-                "summary": "获取单个菜单",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{ \"code\": 200, \"data\": {}, \"msg\": \"ok\" }",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
             "put": {
                 "consumes": [
                     "application/json"
@@ -225,35 +196,6 @@
             }
         },
         "/api/v1/roles/": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "role"
-                ],
-                "summary": "获取单个角色",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{ \"code\": 200, \"data\": {}, \"msg\": \"ok\" }",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
             "put": {
                 "consumes": [
                     "application/json"
@@ -337,7 +279,7 @@
                 "summary": "获取登录用户信息",
                 "responses": {
                     "200": {
-                        "description": "{ \"code\": 200, \"data\": {}, \"msg\": \"ok\" }",
+                        "description": "{ \"code\": 200, \"data\": {\"lists\":\"\"}, \"msg\": \"ok\" }",
                         "schema": {
                             "type": "string"
                         }
@@ -418,41 +360,6 @@
             }
         },
         "/api/v1/users/": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "users"
-                ],
-                "summary": "获取单个用户信息",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{ \"code\": 200, \"data\": {}, \"msg\": \"ok\" }",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
             "put": {
                 "consumes": [
                     "application/json"
@@ -596,6 +503,9 @@
                     "type": "string"
                 },
                 "path": {
+                    "type": "string"
+                },
+                "type": {
                     "type": "string"
                 }
             }

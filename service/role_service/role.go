@@ -72,10 +72,10 @@ func (a *Role) Get() (*models.Role, error) {
 }
 
 func (a *Role) GetAll() ([]*models.Role, error) {
-	if a.Name != "" {
+	if a.ID != 0 {
 		maps := make(map[string]interface{})
 		maps["deleted_on"] = 0
-		maps["name"] = a.Name
+		maps["id"] = a.ID
 		Role, err := models.GetRoles(a.PageNum, a.PageSize, maps)
 		if err != nil {
 			return nil, err
