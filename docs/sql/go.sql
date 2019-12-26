@@ -96,8 +96,6 @@ INSERT INTO `go_role_menu` VALUES ('10', '2', '10', '0');
 INSERT INTO `go_role_menu` VALUES ('11', '2', '11', '0');
 INSERT INTO `go_role_menu` VALUES ('12', '2', '12', '0');
 INSERT INTO `go_role_menu` VALUES ('13', '2', '13', '0');
-INSERT INTO `go_role_menu` VALUES ('14', '2', '14', '0');
-INSERT INTO `go_role_menu` VALUES ('15', '2', '15', '0');
 
 -- ----------------------------
 -- Table structure for go_user
