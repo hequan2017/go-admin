@@ -1,7 +1,7 @@
 # Go Web Admin 
 
 ![构建](https://travis-ci.org/hequan2017/go-admin.svg?branch=master)
-![版本](https://img.shields.io/badge/release-1.4.0-blue.svg)
+![版本](https://img.shields.io/badge/release-1.5.0-blue.svg)
 ![语言](https://img.shields.io/badge/language-goland1.2-blue.svg)
 ![base](https://img.shields.io/badge/base-gin-blue.svg)
 ![base](https://img.shields.io/badge/base-casbin-blue.svg)
@@ -203,6 +203,9 @@ gowatch
 - App configurable
 ```
 
+## 前端地址
+
+> https://github.com/hequan2017/go-admin-vue
 
 ## 开发者
 * 何全
