@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/hequan2017/go-admin/pkg/setting"
+	"go-admin/pkg/setting"
 )
 
 var JwtSecret = []byte(setting.AppSetting.JwtSecret)
@@ -28,7 +28,7 @@ func GenerateToken(id int, username, password string) (string, error) {
 		EncodeMD5(password),
 		jwt.StandardClaims{
 			ExpiresAt: expireTime.Unix(),
-			Issuer:    "https://github.com/hequan2017/go-admin/",
+			Issuer:    "https://go-admin/",
 		},
 	}
 

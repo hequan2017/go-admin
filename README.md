@@ -1,7 +1,7 @@
 # Go Web Admin 
 
 ![构建](https://travis-ci.org/hequan2017/go-admin.svg?branch=master)
-![版本](https://img.shields.io/badge/release-1.5.0-blue.svg)
+![版本](https://img.shields.io/badge/release-1.5.1-blue.svg)
 ![语言](https://img.shields.io/badge/language-goland1.2-blue.svg)
 ![base](https://img.shields.io/badge/base-gin-blue.svg)
 ![base](https://img.shields.io/badge/base-casbin-blue.svg)
@@ -117,7 +117,7 @@ hequan     运维部
 
 ### 库
 
-Create a **go database** and import [SQL](https://github.com/hequan2017/go-admin/blob/master/docs/sql/go.sql)
+Create a **go database** and import [SQL](https://go-admin/blob/master/docs/sql/go.sql)
 
 创建一个库 go,然后导入sql,创建表！
 
@@ -142,8 +142,8 @@ yum install go -y
 
 
 export GOPROXY=https://goproxy.io
-go get github.com/hequan2017/go-admin
-cd $GOPATH/src/github.com/hequan2017/go-admin
+go get go-admin
+cd $GOPATH/src/go-admin
 go build main.go
 go run  main.go 
 ```
@@ -167,23 +167,23 @@ gowatch
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] POST   /auth                     --> github.com/hequan2017/go-admin/routers/api.Auth (4 handlers)
+[GIN-debug] POST   /auth                     --> go-admin/routers/api.Auth (4 handlers)
 [GIN-debug] GET    /swagger/*any             --> github.com/swaggo/gin-swagger.WrapHandler.func1 (4 handlers)
-[GIN-debug] GET    /api/v1/menus             --> github.com/hequan2017/go-admin/routers/api/v1.GetMenus (6 handlers)
-[GIN-debug] GET    /api/v1/menus/:id         --> github.com/hequan2017/go-admin/routers/api/v1.GetMenu (6 handlers)
-[GIN-debug] POST   /api/v1/menus             --> github.com/hequan2017/go-admin/routers/api/v1.AddMenu (6 handlers)
-[GIN-debug] PUT    /api/v1/menus/:id         --> github.com/hequan2017/go-admin/routers/api/v1.EditMenu (6 handlers)
-[GIN-debug] DELETE /api/v1/menus/:id         --> github.com/hequan2017/go-admin/routers/api/v1.DeleteMenu (6 handlers)
-[GIN-debug] GET    /api/v1/roles             --> github.com/hequan2017/go-admin/routers/api/v1.GetRoles (6 handlers)
-[GIN-debug] GET    /api/v1/roles/:id         --> github.com/hequan2017/go-admin/routers/api/v1.GetRole (6 handlers)
-[GIN-debug] POST   /api/v1/roles             --> github.com/hequan2017/go-admin/routers/api/v1.AddRole (6 handlers)
-[GIN-debug] PUT    /api/v1/roles/:id         --> github.com/hequan2017/go-admin/routers/api/v1.EditRole (6 handlers)
-[GIN-debug] DELETE /api/v1/roles/:id         --> github.com/hequan2017/go-admin/routers/api/v1.DeleteRole (6 handlers)
-[GIN-debug] GET    /api/v1/users             --> github.com/hequan2017/go-admin/routers/api.GetUsers (6 handlers)
-[GIN-debug] GET    /api/v1/users/:id         --> github.com/hequan2017/go-admin/routers/api.GetUser (6 handlers)
-[GIN-debug] POST   /api/v1/users             --> github.com/hequan2017/go-admin/routers/api.AddUser (6 handlers)
-[GIN-debug] PUT    /api/v1/users/:id         --> github.com/hequan2017/go-admin/routers/api.EditUser (6 handlers)
-[GIN-debug] DELETE /api/v1/users/:id         --> github.com/hequan2017/go-admin/routers/api.DeleteUser (6 handlers)
+[GIN-debug] GET    /api/v1/menus             --> go-admin/routers/api/v1.GetMenus (6 handlers)
+[GIN-debug] GET    /api/v1/menus/:id         --> go-admin/routers/api/v1.GetMenu (6 handlers)
+[GIN-debug] POST   /api/v1/menus             --> go-admin/routers/api/v1.AddMenu (6 handlers)
+[GIN-debug] PUT    /api/v1/menus/:id         --> go-admin/routers/api/v1.EditMenu (6 handlers)
+[GIN-debug] DELETE /api/v1/menus/:id         --> go-admin/routers/api/v1.DeleteMenu (6 handlers)
+[GIN-debug] GET    /api/v1/roles             --> go-admin/routers/api/v1.GetRoles (6 handlers)
+[GIN-debug] GET    /api/v1/roles/:id         --> go-admin/routers/api/v1.GetRole (6 handlers)
+[GIN-debug] POST   /api/v1/roles             --> go-admin/routers/api/v1.AddRole (6 handlers)
+[GIN-debug] PUT    /api/v1/roles/:id         --> go-admin/routers/api/v1.EditRole (6 handlers)
+[GIN-debug] DELETE /api/v1/roles/:id         --> go-admin/routers/api/v1.DeleteRole (6 handlers)
+[GIN-debug] GET    /api/v1/users             --> go-admin/routers/api.GetUsers (6 handlers)
+[GIN-debug] GET    /api/v1/users/:id         --> go-admin/routers/api.GetUser (6 handlers)
+[GIN-debug] POST   /api/v1/users             --> go-admin/routers/api.AddUser (6 handlers)
+[GIN-debug] PUT    /api/v1/users/:id         --> go-admin/routers/api.EditUser (6 handlers)
+[GIN-debug] DELETE /api/v1/users/:id         --> go-admin/routers/api.DeleteUser (6 handlers)
 2019/05/31 14:48:43 [info] start http server listening :8000
 
 ```
@@ -205,7 +205,7 @@ gowatch
 
 ## 前端地址
 
-> https://github.com/hequan2017/go-admin-vue
+> https://go-admin-vue
 
 ## 开发者
 * 何全

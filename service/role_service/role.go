@@ -3,7 +3,7 @@ package Role_service
 import (
 	"errors"
 	"github.com/casbin/casbin"
-	"github.com/hequan2017/go-admin/models"
+	"go-admin/models"
 )
 
 type Role struct {

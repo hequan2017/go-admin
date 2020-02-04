@@ -3,7 +3,7 @@ package inject
 import (
 	"github.com/casbin/casbin"
 	"github.com/facebookgo/inject"
-	"github.com/hequan2017/go-admin/service/bll"
+	"go-admin/service/bll"
 	"runtime"
 )
 

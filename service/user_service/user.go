@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/casbin/casbin"
-	"github.com/hequan2017/go-admin/models"
-	"github.com/hequan2017/go-admin/pkg/util"
+	"go-admin/models"
+	"go-admin/pkg/util"
 )
 
 type User struct {

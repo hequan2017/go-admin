@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/hequan2017/go-admin/middleware/inject"
-	jwtGet "github.com/hequan2017/go-admin/pkg/util"
+	"go-admin/middleware/inject"
+	jwtGet "go-admin/pkg/util"
 	"net/http"
 	"strings"
 )

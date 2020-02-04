@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/hequan2017/go-admin/pkg/setting"
+	"go-admin/pkg/setting"
 )
 
 func getLogFilePath() string {

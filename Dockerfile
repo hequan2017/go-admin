@@ -11,8 +11,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 
 RUN apk update && apk add go git musl-dev xz binutils \
     && cd \
-    && go get -u -v github.com/hequan2017/go-admin \
-    && go install github.com/hequan2017/go-admin
+    && go get -u -v go-admin \
+    && go install go-admin
 
 
 RUN wget https://github.com/upx/upx/releases/download/v3.95/upx-3.95-amd64_linux.tar.xz \

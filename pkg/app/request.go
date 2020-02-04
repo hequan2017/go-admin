@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/astaxie/beego/validation"
-	"github.com/hequan2017/go-admin/pkg/logging"
+	"go-admin/pkg/logging"
 )
 
 func MarkErrors(errors []*validation.Error) {

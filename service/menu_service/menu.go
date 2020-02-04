@@ -2,8 +2,8 @@ package menu_service
 
 import (
 	"github.com/casbin/casbin"
-	"github.com/hequan2017/go-admin/models"
-	"github.com/hequan2017/go-admin/service/role_service"
+	"go-admin/models"
+	"go-admin/service/role_service"
 )
 
 type Menu struct {

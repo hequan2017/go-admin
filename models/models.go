@@ -7,7 +7,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 
-	"github.com/hequan2017/go-admin/pkg/setting"
+	"go-admin/pkg/setting"
 	"time"
 )
 

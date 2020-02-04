@@ -1,4 +1,4 @@
-module github.com/hequan2017/go-admin
+module go-admin
 
 go 1.12
 

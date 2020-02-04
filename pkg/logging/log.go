@@ -2,7 +2,7 @@ package logging
 
 import (
 	"fmt"
-	"github.com/hequan2017/go-admin/pkg/file"
+	"go-admin/pkg/file"
 	"log"
 	"os"
 	"path/filepath"

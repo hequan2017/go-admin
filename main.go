@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/hequan2017/go-admin/middleware/inject"
-	"github.com/hequan2017/go-admin/pkg/setting"
-	"github.com/hequan2017/go-admin/routers"
+	"go-admin/middleware/inject"
+	"go-admin/pkg/setting"
+	"go-admin/routers"
 	"log"
 	"net/http"
 )
 
 // @title go-admin
-// @version 1.5.0
+// @version 1.5.1
 // @description  go-admin
 // @termsOfService https://github.com/hequan2017/go-admin
 
@@ -19,7 +19,7 @@ import (
 // @contact.email hequan2011@sina.com
 
 // @license.name MIT
-// @license.url  https://github.com/hequan2017/go-admin/blob/master/LICENSE
+// @license.url https://github.com/hequan2017/go-admin/blob/master/LICENSE
 
 // @host   127.0.0.1:8000
 // @BasePath

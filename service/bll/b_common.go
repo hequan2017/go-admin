@@ -1,9 +1,9 @@
 package bll
 
 import (
-	"github.com/hequan2017/go-admin/service/menu_service"
-	"github.com/hequan2017/go-admin/service/role_service"
-	"github.com/hequan2017/go-admin/service/user_service"
+	"go-admin/service/menu_service"
+	"go-admin/service/role_service"
+	"go-admin/service/user_service"
 )
 
 type Common struct {

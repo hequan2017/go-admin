@@ -7,7 +7,7 @@ go:
   ​
 # 安装依赖，这里只是测试gorazor本身能否被编译、安装
 install:
-  - go get github.com/hequan2017/go-admin
+  - go get go-admin
   ​
 # 触发 go test的测试脚本
 script:

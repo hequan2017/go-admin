@@ -2,19 +2,19 @@ package v1
 
 import (
 	"github.com/Anderson-Lu/gofasion/gofasion"
-	"github.com/hequan2017/go-admin/middleware/inject"
-	"github.com/hequan2017/go-admin/pkg/setting"
-	"github.com/hequan2017/go-admin/pkg/util"
-	"github.com/hequan2017/go-admin/service/role_service"
 	"github.com/unknwon/com"
+	"go-admin/middleware/inject"
+	"go-admin/pkg/setting"
+	"go-admin/pkg/util"
+	"go-admin/service/role_service"
 	"io/ioutil"
 	"net/http"
 
 	"github.com/astaxie/beego/validation"
 	"github.com/gin-gonic/gin"
 
-	"github.com/hequan2017/go-admin/pkg/app"
-	"github.com/hequan2017/go-admin/pkg/e"
+	"go-admin/pkg/app"
+	"go-admin/pkg/e"
 )
 
 // @Summary   获取所有角色
