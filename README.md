@@ -158,6 +158,10 @@ go get github.com/silenceper/gowatch
 gowatch   
 ```
 
+## windows 开发 需要gcc
+> 执行会报错 "gcc" executable file not found in %PATH%
+> 可以参考这个 安装gcc https://blog.csdn.net/xia_2017/article/details/105545789
+
 ## 运行
 
 
