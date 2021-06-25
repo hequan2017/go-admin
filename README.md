@@ -1,13 +1,15 @@
 # Go Web Admin 
 
-![构建](https://travis-ci.org/hequan2017/go-admin.svg?branch=master)
-![版本](https://img.shields.io/badge/release-1.5.1-blue.svg)
-![语言](https://img.shields.io/badge/language-goland1.2-blue.svg)
+![版本](https://img.shields.io/badge/release-2.0-blue.svg)
+![语言](https://img.shields.io/badge/language-goland1.16.5-blue.svg)
 ![base](https://img.shields.io/badge/base-gin-blue.svg)
 ![base](https://img.shields.io/badge/base-casbin-blue.svg)
 
 > 一个Go Web Api 后端 简单例子,包含 用户、权限、菜单、JWT 、 RBAC(Casbin)等！
 
+> 本项目已停止维护，请仅供参考！ 
+
+> 交流QQ群： 620176501
 
 ## 表
 * user     
@@ -117,9 +119,8 @@ hequan     运维部
 
 ### 库
 
-Create a **go database** and import [SQL](https://go-admin/blob/master/docs/sql/go.sql)
 
-创建一个库 go,然后导入sql,创建表！
+创建一个库 go,然后导入sql,docs/sql/go.sql  创建表！
 
 ### 配置文件
 
@@ -203,22 +204,15 @@ gowatch
 - App configurable
 ```
 
-## 前端地址
-
-> https://go-admin-vue
-
-## 开发者
+## 开发
 * 何全
 
-
 ## 特别感谢
-
 ```
 本项目主要参考了:
 https://github.com/EDDYCJY/go-gin-example  包含更多的例子，上传文件图片等。本项目进行了增改。
 https://github.com/LyricTian/gin-admin     主要为 gin+ casbin例子。
 ```
-
 ## 其他
 ```shell
 ## 更新API文档
