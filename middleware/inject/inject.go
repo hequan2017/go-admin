@@ -20,13 +20,7 @@ func init() {
 	g := new(inject.Graph)
 
 	// 注入casbin
-	osType := runtime.GOOS
-	var path string
-	if osType == "windows" {
-		path = "conf\\rbac_model.conf"
-	} else if osType == "linux" || osType == "darwin" {
-		path = "conf/rbac_model.conf"
-	}
+	path := "conf/rbac_model.conf"
 	enforcer, _ := casbin.NewEnforcerSafe(path, false)
 	_ = g.Provide(&inject.Object{Value: enforcer})
 
