@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/Anderson-Lu/gofasion v0.0.0-20190530065914-6a05b679ee48
-	github.com/astaxie/beego v1.12.0
+	github.com/astaxie/beego v1.12.2
 	github.com/casbin/casbin v1.9.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/facebookgo/ensure v0.0.0-20200202191622-63f1cf65ac4c // indirect
