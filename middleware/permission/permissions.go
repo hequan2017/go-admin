@@ -2,7 +2,7 @@ package permission
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/gin-gonic/gin"
 	"go-admin/middleware/inject"
 	jwtGet "go-admin/pkg/util"
