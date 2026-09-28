@@ -4,7 +4,6 @@ import (
 	"github.com/casbin/casbin"
 	"github.com/facebookgo/inject"
 	"go-admin/service/bll"
-	"runtime"
 )
 
 // Object 注入对象
