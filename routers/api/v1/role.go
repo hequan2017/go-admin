@@ -65,10 +65,10 @@ func AddRole(c *gin.Context) {
 	dataByte, _ := ioutil.ReadAll(c.Request.Body)
 	fsion := gofasion.NewFasion(string(dataByte))
 	name := fsion.Get("username").ValueStr()
-	menuId := com.StrTo(fsion.Get("menu_id").ValueInt()).MustInt()
+	menuId := fsion.Get("menu_id").ValueInt()
 
 	valid := validation.Validation{}
-	valid.MaxSize(name, 100, "path").Message("名称最长为100字符")
+	valid.MaxSize(name, 100, "name").Message("名称最长为100字符")
 
 	if valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
@@ -81,7 +81,7 @@ func AddRole(c *gin.Context) {
 		Menu: menuId,
 	}
 
-	if id, err := RoleService.Add(); err != nil {
+	if id, err := RoleService.Add(); err == nil {
 
 		err = inject.Obj.Common.RoleAPI.LoadPolicy(id)
 		if err != nil {
@@ -112,7 +112,7 @@ func EditRole(c *gin.Context) {
 	dataByte, _ := ioutil.ReadAll(c.Request.Body)
 	fsion := gofasion.NewFasion(string(dataByte))
 	name := fsion.Get("username").ValueStr()
-	menuId := com.StrTo(fsion.Get("menu_id").ValueInt()).MustInt()
+	menuId := fsion.Get("menu_id").ValueInt()
 
 	valid := validation.Validation{}
 	valid.MaxSize(name, 100, "path").Message("名称最长为100字符")
@@ -183,6 +183,10 @@ func DeleteRole(c *gin.Context) {
 		return
 	}
 	role, err := RoleService.Get()
+	if err != nil || role == nil {
+		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
+		return
+	}
 	err = RoleService.Delete()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_FAIL, nil)
