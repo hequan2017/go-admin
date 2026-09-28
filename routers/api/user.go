@@ -1,9 +1,8 @@
 package api
 
-import "C"
 import (
 	"github.com/astaxie/beego/validation"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/com"
 	"go-admin/middleware/inject"
